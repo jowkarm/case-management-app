@@ -1,0 +1,30 @@
+{
+  "name": "vendor_name/case-management-app",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Jo Cichon",
+      "email": "cichon.jo@student.greenriver.edu"
+    },
+    {
+      "name": "Anthony J. Gutierrez",
+      "email": "gutierrez.anthony@student.greenriver.edu"
+    },
+    {
+      "name": "Mehdi Jokar",
+      "email": "jokar.mehdi@student.greenriver.edu"
+    },
+    {
+      "name": "Sayed Sadat",
+      "email": "sadat.sayed.3@student.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  },
+  "autoload": {
+    "classmap": ["models/", "controllers/", "classes/"]
+  }
+}
