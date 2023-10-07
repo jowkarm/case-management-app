@@ -31,3 +31,5 @@ $f3->route('GET /', function() {
 
 // Run Fat-Free
 $f3 -> run();
+
+//this is a test to see if branching is working
