@@ -1,2 +1,6 @@
 
+<<<<<<< HEAD
 Test file changed on remote test branch.
+=======
+Test file changed on remote main branch again.
+>>>>>>> 9f08dce95e3d35888049d07ba43844aeb2622886
