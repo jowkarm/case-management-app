@@ -24,8 +24,17 @@ $f3 = Base::instance();
 $con = new Controller($f3);
 
 // Define a default route for home
-$f3->route('GET /', function() {
+$f3->route('GET /home', function() {
     $GLOBALS['con']->home();
+});
+
+// Define a route to handle the form submission and summary display
+$f3->route('GET|POST /studentForm', function ($f3) {
+    $GLOBALS['con']->studentForm();
+});
+
+$f3->route('GET /summary', function () {
+    $GLOBALS['con']->summary();
 });
 
 

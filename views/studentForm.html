@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information Form</title>
+</head>
+<body>
+<h1>Student Information Form</h1>
+<form method="post" action="/studentForm" class="form-horizontal">
+    <div>
+        <label for="studentID">Student ID</label>
+        <input type="text" id="studentID" name="studentID" required>
+    </div>
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+        <label for="pronouns">Pronouns</label>
+        <input type="text" id="pronouns" name="pronouns" required>
+    </div>
+    <div>
+        <label for="tribe">Tribe</label>
+        <input type="text" id="tribe" name="tribe" required>
+    </div>
+    <div>
+        <label for="clothingSize">Clothing Size</label>
+        <input type="text" id="clothingSize" name="clothingSize" required>
+    </div>
+    <div>
+        <label for="courseHistory">Course History</label>
+        <textarea id="courseHistory" name="courseHistory" rows="4" required></textarea>
+    </div>
+    <div>
+        <label for="academics">Academics</label>
+        <textarea id="academics" name="academics" rows="4" required></textarea>
+    </div>
+    <div>
+        <label for="finances">Finances</label>
+        <textarea id="finances" name="finances" rows="4" required></textarea>
+    </div>
+    <div>
+        <label for="caseNotes">Case Notes</label>
+        <textarea id="caseNotes" name="caseNotes" rows="4" required></textarea>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+</body>
+</html>
