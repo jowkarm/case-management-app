@@ -1,0 +1,44 @@
+header {
+    width: 100%;
+}
+
+nav {
+    background: #555577;
+}
+
+nav a {
+    color: white!important;
+}
+nav li {
+    border: black 3px solid;
+    padding: 2% 0;
+}
+
+footer {
+    background-color: #333;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    left: 0;
+    border-top: 0.4rem solid #525252;
+}
+
+footer .rights {
+    font-size: .7rem;
+    padding: 4rem 2rem 1rem 2rem;
+    margin: 0;
+    color: #c7c7c7;
+    line-height: 1.5rem;
+    text-align: center;
+}
+
+footer .rights a {
+    padding: 0 10px;
+    text-decoration: underline;
+}
+
+footer a {
+    color: #c7c7c7;
+    cursor: pointer;
+    font-weight: 400;
+}
