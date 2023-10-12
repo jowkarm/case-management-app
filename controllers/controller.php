@@ -14,7 +14,7 @@
 class Controller
 {
     //F3 object
-    private _$f3;
+    private $_f3;
 
 
     /**
