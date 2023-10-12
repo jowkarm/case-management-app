@@ -37,7 +37,7 @@ class Controller
     {
 
         // Process the form submission
-        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Retrieve data from the form fields
             $studentID = $_POST['studentID'];
             $name = $_POST['name'];
@@ -50,20 +50,20 @@ class Controller
             $caseNotes = $_POST['caseNotes'];
 
             // Store data in the F3 framework session
-            $this->f3->set('studentID', $studentID);
-            $this->f3->set('name', $name);
-            $this->f3->set('pronouns', $pronouns);
-            $this->f3->set('tribe', $tribe);
-            $this->f3->set('clothingSize', $clothingSize);
-            $this->f3->set('courseHistory', $courseHistory);
-            $this->f3->set('academics', $academics);
-            $this->f3->set('finances', $finances);
-            $this->f3->set('caseNotes', $caseNotes);
+            $this->_f3->set('SESSION.studentID', $studentID);
+            $this->_f3->set('SESSION.name', $name);
+            $this->_f3->set('SESSION.pronouns', $pronouns);
+            $this->_f3->set('SESSION.tribe', $tribe);
+            $this->_f3->set('SESSION.clothingSize', $clothingSize);
+            $this->_f3->set('SESSION.courseHistory', $courseHistory);
+            $this->_f3->set('SESSION.academics', $academics);
+            $this->_f3->set('SESSION.finances', $finances);
+            $this->_f3->set('SESSION.caseNotes', $caseNotes);
 
 
 
             // Redirect to the summary page
-            $this->f3->reroute('/summary');
+            $this->_f3->reroute('/summary');
         }
 
         // Display the form
