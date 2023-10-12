@@ -1,19 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Tribal Pathways Case Management</title>
-</head>
 
-<body>
-    <h1>Hello World!</h1>
-    <h2>Hellow World!3</h2>
-<h3>Hello world 4</h3>
+<!--
+HTML markup for the Case Management Home page
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: home.html
+Date: 10/10/2023
+-->
 
-    <div class="text-center">
-        <a href="form"><button class="btn btn-primary btn-lg rounded-pill">Add New Student</button></a>
+<include href="views/includes/header.html"></include>
+<div class="container">
+    <h3 class="pb-2 ps-2 mb-4 border-bottom border-dark">STUDENT</h3>
+    <div class="row">
+        <div class="student-info col">
+            <table class="table table-bordered">
+                <caption class="text-center"><strong>Student List</strong></caption>
+                <thead class="table-group-divider">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+                <tr>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2"><a href="#">Add New Student</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><a href="#">View All</a></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="student-info col">
+            <table class="table table-bordered">
+                <caption class="text-center"><strong>Levels Of Concern</strong></caption>
+                <thead class="table-group-divider">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Concern Level</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td class="text-bg-danger p-3">RED</td>
+                </tr>
+                <tr>
+                    <td>Jane Doe</td>
+                    <td class="text-bg-warning p-3">YELLOW</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2"><a href="#">View All</a></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
-</body>
-</html>
+    <h3 class="pb-2 ps-2 mb-4 border-bottom border-dark">APPOINTMENTS</h3>
+    <div class="row">
+        <div class="student-info col">
+            <table class="table table-bordered">
+                <caption class="text-center"><strong>Upcoming Appointments</strong></caption>
+                <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>10/10/2023 @ 2:00pm</td>
+                </tr>
+                <tr>
+                    <td>Jane Doe</td>
+                    <td>Cancelled</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2"><a href="#">Add New Appointment</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><a href="#">View All</a></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<include href="views/includes/footer.html"></include>
