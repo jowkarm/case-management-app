@@ -12,7 +12,7 @@ class Application
     private $_courseHistory;
     private $_academics;
     private $_finances;
-    private $caseNotes;
+    private $_caseNotes;
 
 
     /**
