@@ -28,6 +28,20 @@ $f3->route('GET /', function() {
     $GLOBALS['con']->home();
 });
 
+// Define a home route for home
+$f3->route('GET /home', function() {
+    $GLOBALS['con']->home();
+});
+
+// Define a route to handle the form submission and summary display
+$f3->route('GET|POST /form', function () {
+    $GLOBALS['con']->studentForm();
+});
+
+$f3->route('GET|POST /summary', function () {
+    $GLOBALS['con']->summary();
+});
+
 
 // Run Fat-Free
 $f3 -> run();
