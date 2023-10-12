@@ -11,11 +11,10 @@
  * 355/case-management-app/controllers/controller.php
  * Controllers for Tribal Pathways project
  */
-require_once('classes/form.php');
 class Controller
 {
     //F3 object
-    private $f3;
+    private _$f3;
 
 
     /**
@@ -24,7 +23,7 @@ class Controller
      */
     function __construct($f3)
     {
-        $this->f3 = $f3;
+        $this->_f3 = $f3;
     }
 
     function home()
@@ -36,6 +35,7 @@ class Controller
 
     function studentForm()
     {
+
         // Process the form submission
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             // Retrieve data from the form fields
@@ -60,19 +60,23 @@ class Controller
             $this->f3->set('finances', $finances);
             $this->f3->set('caseNotes', $caseNotes);
 
+
+
             // Redirect to the summary page
             $this->f3->reroute('/summary');
         }
 
         // Display the form
         $view = new Template();
-        echo $view->render('studentForm.html');
+        echo $view->render('views/studentForm.html');
     }
 
     function summary()
     {
         // Display a summary view
         $view = new Template();
-        echo $view->render('summary.html');
+        echo $view->render('views/summary.html');
+
+        session_destroy();
     }
 }
