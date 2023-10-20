@@ -79,4 +79,38 @@ class Controller
 
         session_destroy();
     }
+
+    function getStudentList()
+    {
+        //If the form has been posted
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+            // Get the data
+            $search = (isset($_POST['search'])) ? $_POST['search'] : '';
+
+            $this->_f3->set('SESSION.search', $search);
+            $students = $GLOBALS['dataLayer']->search($this->_f3->get('SESSION.search'));
+
+            $this->_f3->set('SESSION.students', $students);
+
+            // Set the title of the page
+            $this->_f3->set('title', "Search Results");
+
+            // Display a student-list view
+            $view = new Template();
+            echo $view->render('views/student-list.html');
+
+            session_destroy();
+        }
+
+        $students = $GLOBALS['dataLayer']->getAllStudents();
+
+        $this->_f3->set('SESSION.students', $students);
+
+        // Set the title of the page
+        $this->_f3->set('title', "Students List");
+
+        // Display a student-list view
+        $view = new Template();
+        echo $view->render('views/student-list.html');
+    }
 }
