@@ -19,6 +19,9 @@ error_reporting(E_ALL);
 // Require the autoload file
 require_once('vendor/autoload.php');
 
+// Create an instance of the DataLayer
+$dataLayer = new DataLayer();
+
 // Create an instance for f3 object
 $f3 = Base::instance();
 $con = new Controller($f3);
@@ -40,6 +43,11 @@ $f3->route('GET|POST /form', function () {
 
 $f3->route('GET|POST /summary', function () {
     $GLOBALS['con']->summary();
+});
+
+// Define a student-list route for student list
+$f3->route('GET|POST /student-list', function() {
+    $GLOBALS['con']->getStudentList();
 });
 
 
