@@ -82,6 +82,7 @@ class Controller
 
     function getStudentList()
     {
+
         //If the form has been posted
         if($_SERVER['REQUEST_METHOD'] == "POST"){
             // Get the data
@@ -95,22 +96,20 @@ class Controller
             // Set the title of the page
             $this->_f3->set('title', "Search Results");
 
-            // Display a student-list view
-            $view = new Template();
-            echo $view->render('views/student-list.html');
+        } else {
+            $students = $GLOBALS['dataLayer']->getAllStudents();
 
-            session_destroy();
+            $this->_f3->set('SESSION.students', $students);
+
+            // Set the title of the page
+            $this->_f3->set('title', "Students List");
         }
-
-        $students = $GLOBALS['dataLayer']->getAllStudents();
-
-        $this->_f3->set('SESSION.students', $students);
-
-        // Set the title of the page
-        $this->_f3->set('title', "Students List");
 
         // Display a student-list view
         $view = new Template();
         echo $view->render('views/student-list.html');
+
+        // assign empty string to search
+        $this->_f3->set('SESSION.search', '');
     }
 }

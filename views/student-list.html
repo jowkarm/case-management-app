@@ -21,9 +21,9 @@ Date: 10/19/2023
         <div class="col">
             <form action="#" method="post"  class="form-horizontal">
                 <div class="input-group mb-3">
-                    <check if="{{ isset(@SESSION.search) }}">
+                    <check if="{{ isset(@SESSION.search) && !empty(@SESSION.search) }}">
                         <true>
-                            <input type="text" class="form-control" name="search" placeholder="{{ @SESSION.search }}" aria-label="Search here!" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" name="search" value="{{ @SESSION.search }}" aria-label="Search here!" aria-describedby="basic-addon2">
                         </true>
                         <false>
                             <input type="text" class="form-control" name="search" placeholder="Search here!" aria-label="Search here!" aria-describedby="basic-addon2">
