@@ -76,3 +76,90 @@ The styling for alert.
 .closer:hover {
     color: black;
 }
+
+/**
+    customize the colors of bootstrap classes
+ */
+.btn-outline-secondary {
+    --bs-btn-color: #555577;
+    --bs-btn-border-color: #555577;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #555577;
+    --bs-btn-hover-border-color: #555577;
+    --bs-btn-focus-shadow-rgb: 108,117,125;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #555577;
+    --bs-btn-active-border-color: #555577;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #555577;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #555577;
+    --bs-gradient: none;
+}
+
+.table-dark {
+    --bs-table-color: #fff;
+    --bs-table-bg: #555577;
+    --bs-table-border-color: #4d5154;
+    --bs-table-striped-bg: #6B6B8C;
+    --bs-table-striped-color: #fff;
+    --bs-table-active-bg: #373b3e;
+    --bs-table-active-color: #fff;
+    --bs-table-hover-bg: #49496C;
+    --bs-table-hover-color: #fff;
+    color: var(--bs-table-color);
+    border-color: var(--bs-table-border-color);
+}
+
+.btn-outline-success {
+    --bs-btn-color: #fff;
+    --bs-btn-border-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #577755;
+    --bs-btn-hover-border-color: #577755;
+    --bs-btn-focus-shadow-rgb: 25,135,84;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #577755;
+    --bs-btn-active-border-color: #577755;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #577755;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #577755;
+    --bs-gradient: none;
+}
+
+.btn-outline-danger {
+    --bs-btn-color: #fff;
+    --bs-btn-border-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #8a4242;
+    --bs-btn-hover-border-color: #8a4242;
+    --bs-btn-focus-shadow-rgb: 220,53,69;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #8a4242;
+    --bs-btn-active-border-color: #8a4242;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #8a4242;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #8a4242;
+    --bs-gradient: none;
+}
+
+
+/* Custom CSS to change the shadow color of input fields */
+input {
+    box-shadow: none;
+    background-color: #C4C4E577 !important;
+}
+
+input:focus {
+    box-shadow: 0 0 5px #555577 !important;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #C4C4E577 inset !important;
+}
