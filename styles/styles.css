@@ -53,3 +53,26 @@ footer a {
     cursor: pointer;
     font-weight: 400;
 }
+
+
+/**
+The styling for alert.
+ */
+#myAlert {
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.closer {
+    margin-left: 15px;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closer:hover {
+    color: black;
+}

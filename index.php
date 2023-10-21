@@ -50,6 +50,27 @@ $f3->route('GET|POST /student-list', function() {
     $GLOBALS['con']->getStudentList();
 });
 
+// Define a signup route
+$f3->route('GET|POST /signup', function() {
+    $GLOBALS['con']->signup();
+});
+
+// Define a confirm-email route
+$f3->route('GET /confirm-email', function() {
+    $GLOBALS['con']->confirmEmail();
+});
+
+// Define a login route
+$f3->route('GET|POST /login', function() {
+    $GLOBALS['con']->login();
+});
+
+// Define a logout route
+$f3->route('GET /logout', function() {
+    $GLOBALS['con']->logout();
+});
+
+
 
 // Run Fat-Free
 $f3 -> run();

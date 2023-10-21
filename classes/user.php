@@ -50,6 +50,16 @@ class User
         return $this->_user_id;
     }
 
+    /**
+     * @param integer $user_id
+     */
+    public function setUserId($user_id)
+    {
+        $this->_user_id = $user_id;
+    }
+
+
+
 
     /**
      * Gets first name

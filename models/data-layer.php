@@ -8,7 +8,7 @@
  *
  * Created 10/19/2023
  * 355/case-management-app/models/data-layer.php
- * Data Layer for Tribal Pathways project
+ * The DataLayer class for Tribal Pathways project
  */
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/../pdo-config.php');
@@ -78,8 +78,6 @@ class DataLayer
      */
     function search($search_phrase)
     {
-
-
         // 1. define the query
         $sql = "SELECT * FROM Student
                         WHERE first_name LIKE :keyword
@@ -112,5 +110,134 @@ class DataLayer
 
         return $students;
     }
+
+    /**
+     * The insertUser method insert a new User into database
+     * @param User A User object
+     * @return user_id of the new User object
+     */
+    function insertUser($User)
+    {
+        //PDO - Using Prepared Statements
+        //1. Define the query (test first!)
+        $sql = "INSERT INTO User (first_name, last_name, role, email, password, uuid)
+            VALUES (:first_name, :last_name, :role, :email, :password, uuid())";
+
+        //2. Prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $first_name = $User->getFirstName();
+        $last_name = $User->getLastName();
+        $role = $User->getRole();
+        $email = $User->getEmail();
+        // Hash the password
+        $password = password_hash($User->getPassword(), PASSWORD_DEFAULT);
+
+        $statement->bindParam(':first_name', $first_name);
+        $statement->bindParam(':last_name', $last_name);
+        $statement->bindParam(':role', $role);
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(':password', $password);
+
+
+        //4. Execute
+        $statement->execute();
+
+        //5. Process the result, if there is one
+        $id = $this->_dbh->lastInsertId();
+        return $id;
+    }
+
+    /**
+     * This function returns a user
+     * based on user_id
+     * @param $user_id
+     * @return User
+     */
+    function getUser($user_id)
+    {
+        // 1. define the query
+        $sql = "SELECT *
+                FROM User
+                WHERE user_id = :user_id";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. bind the parameters
+        $statement->bindParam(':user_id', $user_id);
+
+        //4. Execute
+        $statement->execute();
+
+        // 5. Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $user = new User($row['first_name'], $row['last_name'],
+                $row['email'], $row['password'], $row['role']);
+        $user->setUuid($row['uuid']);
+        return $user;
+    }
+
+    /**
+     * This function checks if a user exists in the database
+     * based on user email
+     * @param $user_email
+     * @return false or a user
+     */
+    function getUserByEmail($user_email)
+    {
+        // 1. define the query
+        $sql = "SELECT *
+                FROM User
+                WHERE email = :email
+                LIMIT 1";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. bind the parameters
+        $statement->bindParam(':email', $user_email);
+
+        //4. Execute
+        $statement->execute();
+
+        // 5. Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if($row !== false){
+            $user = new User($row['first_name'], $row['last_name'],
+                $row['email'], $row['password'], $row['role']);
+            $user->setIsActive($row['is_active']);
+            $user->setUserId($row['user_id']);
+
+            return $user;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * This function activates a user by uuid that
+     * has sent to the user's email
+     * @param $uuid
+     * @return boolean  true if updated successfully or otherwise false
+     */
+    function confirmEmail($uuid)
+    {
+
+        // 1. define the query
+        $sql = "UPDATE User SET is_active = 1 WHERE uuid = :uuid";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. bind the parameters
+        $statement->bindParam(':uuid', $uuid);
+
+        // 4. Execute the update and return the execution status
+        return $statement->execute();
+    }
+
 
 }
