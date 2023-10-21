@@ -1,0 +1,17 @@
+<!--
+HTML markup for the alert include page
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: alert.html
+Date: 10/20/2023
+-->
+
+<check if="{{ isset(@SESSION.alert) }}">
+  <true>
+    <div class="d-flex justify-content-center my-4">
+      <div id="myAlert" class="{{ @SESSION.alert->getColor() }} w-75">
+        <span class="closer" onclick="closeAlert()">&times;</span>
+        {{ @SESSION.alert->getText() }}
+      </div>
+    </div>
+  </true>
+</check>
