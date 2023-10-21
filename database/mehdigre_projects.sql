@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 20, 2023 at 01:22 AM
+-- Generation Time: Oct 20, 2023 at 11:49 PM
 -- Server version: 10.2.44-MariaDB
 -- PHP Version: 8.1.16
 
@@ -29,6 +29,7 @@ USE `mehdigre_projects`;
 -- Table structure for table `Student`
 --
 
+DROP TABLE IF EXISTS `Student`;
 CREATE TABLE IF NOT EXISTS `Student` (
   `student_id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) NOT NULL,
@@ -70,6 +71,7 @@ INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `
 -- Table structure for table `User`
 --
 
+DROP TABLE IF EXISTS `User`;
 CREATE TABLE IF NOT EXISTS `User` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) NOT NULL,
@@ -81,7 +83,14 @@ CREATE TABLE IF NOT EXISTS `User` (
   `password_timestamp` datetime DEFAULT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `User`
+--
+
+INSERT INTO `User` (`user_id`, `first_name`, `last_name`, `email`, `role`, `password`, `uuid`, `password_timestamp`, `is_active`) VALUES
+(5, 'Mehdi', 'Jokar', 'jokar.mehdi2@gmail.com', 'restricted', '$2y$10$2PQ8gbZMs2hBiri9Z.3pUutuSkRuKjb8tuzHAem5Y2MzclDmMGJJK', '44271323-6fb9-11ee-968a-f23c91a78bbf', NULL, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
