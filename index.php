@@ -37,8 +37,8 @@ $f3->route('GET /home', function() {
 });
 
 // Define a route to handle the form submission and summary display
-$f3->route('GET|POST /form', function () {
-    $GLOBALS['con']->studentForm();
+$f3->route('GET|POST /add-student', function () {
+    $GLOBALS['con']->addStudent();
 });
 
 $f3->route('GET|POST /summary', function () {
@@ -68,6 +68,11 @@ $f3->route('GET|POST /login', function() {
 // Define a logout route
 $f3->route('GET /logout', function() {
     $GLOBALS['con']->logout();
+});
+
+// Define a reports route
+$f3->route('GET /reports', function() {
+    $GLOBALS['con']->reports();
 });
 
 

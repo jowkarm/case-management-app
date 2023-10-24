@@ -23,13 +23,23 @@
                         <a class="nav-link" href="home">Home</a>
                     </li>
                     <li class="nav-item col">
-                        <a class="nav-link" href="#">Student</a>
+                        <a class="nav-link" href="student-list">Student Profiles</a>
                     </li>
                     <li class="nav-item col">
-                        <a class="nav-link" href="#">Appointments / Calendar</a>
+                        <a class="nav-link" href="reports">Reports</a>
                     </li>
-                    <li class="nav-item col">
-                        <a class="nav-link disabled">TDB</a>
-                    </li>
+                    <check if="{{ isset(@SESSION.user) }}">
+                        <true>
+                            <li class="nav-item col">
+                                <a class="nav-link" href="logout">Hi {{ (@SESSION.user)->getFirstName() }}!</a>
+                            </li>
+                        </true>
+                        <false>
+                            <li class="nav-item col">
+                                <a class="nav-link" href="login">Login</a>
+                            </li>
+                        </false>
+                    </check>
+
                 </ul>
             </nav>

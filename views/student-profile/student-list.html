@@ -1,0 +1,85 @@
+
+<!--
+HTML markup for the student list page
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: student-list.html
+Date: 10/19/2023
+-->
+
+<include href="views/includes/header.html"></include>
+<div class="container w-75">
+    <br>
+    <br>
+    <div class="row my-2 b-2">
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-append">
+                    <a class="btn btn-outline-secondary" href="form" role="button">Add Student</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <form action="#" method="post"  class="form-horizontal">
+                <div class="input-group mb-3">
+                    <check if="{{ isset(@SESSION.search) && !empty(@SESSION.search) }}">
+                        <true>
+                            <input type="text" class="form-control" name="search" value="{{ @SESSION.search }}" aria-label="Search here!" aria-describedby="basic-addon2">
+                        </true>
+                        <false>
+                            <input type="text" class="form-control" name="search" placeholder="Search here!" aria-label="Search here!" aria-describedby="basic-addon2">
+                        </false>
+                    </check>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary mx-1" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row my-2">
+        <hr>
+    </div>
+    <div class="row">
+        <br>
+        <br>
+        <table class="table table-dark table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Middle Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">ctcLink ID</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <repeat group="{{ @SESSION.students }}" value="{{ @student }}">
+            <tr>
+                <td>{{ @student->getFirstName() }}</td>
+                <td>{{ @student->getMiddleName() }}</td>
+                <td>{{ @student->getLastName() }}</td>
+                <td>{{ @student->getCtclinkId() }}</td>
+                <td>
+                    <a class="btn btn-outline-success" href="update-student?id={{ @student->getStudentId() }}" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg>
+                    </a>
+                    <a class="btn btn-outline-danger" href="delete-student?id={{ @student->getStudentId() }}" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+        </repeat>
+        </tbody>
+    </table>
+    </div>
+    <br>
+    <br>
+</div>
+
+<include href="views/includes/footer.html"></include>
+

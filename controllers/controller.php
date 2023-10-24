@@ -42,7 +42,7 @@ class Controller
     /**
      * Controller for the form route
      */
-    function studentForm()
+    function addStudent()
     {
 
         // Process the form submission
@@ -76,7 +76,7 @@ class Controller
 
         // Display the form
         $view = new Template();
-        echo $view->render('views/studentForm.html');
+        echo $view->render('views/student-profile/add-student.html');
     }
 
     /**
@@ -86,7 +86,7 @@ class Controller
     {
         // Display a summary view
         $view = new Template();
-        echo $view->render('views/summary.html');
+        echo $view->render('views/student-profile/summary.html');
 
         session_destroy();
     }
@@ -121,7 +121,7 @@ class Controller
 
         // Display a student-list view
         $view = new Template();
-        echo $view->render('views/student-list.html');
+        echo $view->render('views/student-profile/student-list.html');
 
         // Unset (clear) the session variable
         $this->_f3->set('SESSION.search', null);
@@ -200,7 +200,7 @@ class Controller
 
         // Define a view page
         $view = new Template();
-        echo $view->render('views/signup.html');
+        echo $view->render('views/login/signup.html');
 
         // Unset (clear) the session variable
         $this->_f3->set('SESSION.alert', null);
@@ -276,7 +276,7 @@ class Controller
 
         // Define a view page
         $view = new Template();
-        echo $view->render('views/login.html');
+        echo $view->render('views/login/login.html');
     }
 
     /**
@@ -298,5 +298,16 @@ class Controller
         $this->_f3->set('SESSION.alert', $alert);
 
         $this->_f3->reroute('/');
+    }
+
+    /**
+     * Controller for the reports route
+     */
+    function reports()
+    {
+        // Define a view page
+        $view = new Template();
+        echo $view->render('views/reports/reports.html');
+
     }
 }
