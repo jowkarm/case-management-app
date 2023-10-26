@@ -18,28 +18,47 @@
             <h1>CASE MANAGEMENT DASHBOARD</h1>
         </header>
             <nav class="navbar-expand-lg text-center">
-                <ul class="navbar-nav mx-auto w-100">
-                    <li class="nav-item col">
-                        <a class="nav-link" href="home">Home</a>
-                    </li>
-                    <li class="nav-item col">
-                        <a class="nav-link" href="student-list">Student Profiles</a>
-                    </li>
-                    <li class="nav-item col">
-                        <a class="nav-link" href="reports">Reports</a>
-                    </li>
-                    <check if="{{ isset(@SESSION.user) }}">
-                        <true>
-                            <li class="nav-item col">
-                                <a class="nav-link" href="logout">Hi {{ (@SESSION.user)->getFirstName() }}!</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mx-auto w-100">
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link" href="home">Home</a>
                             </li>
-                        </true>
-                        <false>
-                            <li class="nav-item col">
-                                <a class="nav-link" href="login">Login</a>
+                            <li class="nav-item dropdown mx-auto">
+                                <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Student Profiles
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="add-student">Add New Student</a></li>
+                                    <li><a class="dropdown-item" href="student-list">View All Students</a></li>
+                                </ul>
                             </li>
-                        </false>
-                    </check>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link" href="reports">
+                                    Reports
+                                </a>
+                            </li>
 
-                </ul>
+                            <check if="{{ isset(@SESSION.user) }}">
+                                <true>
+                                    <li class="nav-item dropdown col-auto ms-auto me-5">
+                                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Hi {{ (@SESSION.user)->getFirstName() }}!
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Admin Dashboard</a></li>
+                                            <li><a class="dropdown-item" href="logout">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </true>
+                                <false>
+                                    <li class="nav-item col-auto mx-auto">
+                                        <a class="nav-link" href="login">Login</a>
+                                    </li>
+                                </false>
+                            </check>
+                        </ul>
+                    </div>
             </nav>
