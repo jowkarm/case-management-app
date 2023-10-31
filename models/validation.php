@@ -81,6 +81,53 @@ class Validation
         return true;
     }
 
+    static function validfName($first_name)
+    {
+        $fname = trim($first_name);
+        return (strlen($first_name) >= 2 && !ctype_digit($first_name));
+    }
+    static function validlName($last_name)
+    {
+        $lname = trim($last_name);
+        return (strlen($last_name) >= 2 && !ctype_digit($last_name));
+    }
+
+    static function validPhone($phone)
+    {
+// Remove any non-numeric characters from the phone number
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+
+        // Check if the resulting string contains only numeric values
+        if (!ctype_digit($phone)) {
+            return false;
+        }
+        return true;
+    }
+
+    static function validateClothingSize($clothing_size)
+    {
+        if ($clothing_size === 'select...') {
+            return false;
+        }
+        return true;
+    }
+
+    static function validatetribe($tribe)
+    {
+        if ($tribe === 'select...') {
+            return false;
+        }
+        return true;
+    }
+
+    static function validatepronouns($pronouns)
+    {
+        if ($pronouns === 'select...') {
+            return false;
+        }
+        return true;
+    }
+
 
 
 }
