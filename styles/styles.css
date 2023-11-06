@@ -21,9 +21,10 @@ nav {
 
 .dropdown-menu {
     background: #ab8fa5!important;
-    :hover {
-        background: transparent!important;
-    }
+}
+
+.dropdown-menu :hover {
+    background: transparent!important;
 }
 
 .student-info {
