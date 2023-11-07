@@ -31,6 +31,9 @@ class Controller
      */
     function home()
     {
+        // Set the title of the page
+        $this->_f3->set('title', 'Home');
+
         // Define a view page
         $view = new Template();
         echo $view->render('views/home.html');
@@ -106,6 +109,9 @@ class Controller
             $this->_f3->reroute('/summary');
         }
 
+        // Set the title of the page
+        $this->_f3->set('title', 'Add a Student');
+
         // Display the form
         $view = new Template();
         echo $view->render('views/student-profile/add-student.html');
@@ -116,6 +122,9 @@ class Controller
      */
     function summary()
     {
+        // Set the title of the page
+        $this->_f3->set('title', 'Summary');
+
         // Display a summary view
         $view = new Template();
         echo $view->render('views/student-profile/summary.html');
@@ -150,6 +159,9 @@ class Controller
             // Set the title of the page
             $this->_f3->set('title', "Students List");
         }
+
+        // Set the title of the page
+        $this->_f3->set('title', 'Students List');
 
         // Display a student-list view
         $view = new Template();
@@ -228,7 +240,8 @@ class Controller
             }
         }
 
-
+        // Set the title of the page
+        $this->_f3->set('title', 'Signup');
 
         // Define a view page
         $view = new Template();
@@ -306,6 +319,10 @@ class Controller
             }
         }
 
+        // Set the title of the page
+        $this->_f3->set('title', 'Login');
+
+
         // Define a view page
         $view = new Template();
         echo $view->render('views/login/login.html');
@@ -337,9 +354,135 @@ class Controller
      */
     function reports()
     {
+        // Set the title of the page
+        $this->_f3->set('title', 'Reports');
+
         // Define a view page
         $view = new Template();
         echo $view->render('views/reports/reports.html');
+
+    }
+
+    /**
+     * Controller for the forgot-password route
+     */
+
+    function forgotPassword()
+    {
+        //If the form has been posted
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+            // Get the data
+            $email = (isset($_POST['email'])) ? $_POST['email'] : '';
+
+            // *** If email is not valid, set an error variable
+            if (!Validation::validEmail($email)) {
+                $this->_f3->set('errors["email"]', 'Invalid email entered');
+            }
+
+
+            // Redirect to home route if there
+            // are no errors (errors array is empty)
+            if (empty($this->_f3->get('errors'))) {
+
+                $uuid = $GLOBALS['dataLayer']->passwordResetLink($email);
+                $send_email = SendEmail::sendPasswordResetLink($email, 'info@case-management-app.com', $uuid, $this->_f3);
+                if($send_email){
+                    $alert = new Alert('Check your email for password reset link.', 'yellow');
+                    $this->_f3->set('SESSION.alert', $alert);
+                }
+
+                $this->_f3->reroute('/');
+            }
+
+        }
+
+        // Set the title of the page
+        $this->_f3->set('title', 'Forgot Password');
+
+
+        // Define a view page
+        $view = new Template();
+        echo $view->render('views/login/forgot-password.html');
+    }
+
+    /**
+     * Controller for the reset-password route
+     */
+    function resetPassword()
+    {
+        //If the form has been posted
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+            // Get data
+            $password = (isset($_POST['password'])) ? $_POST['password'] : '';
+            $confirm_password = (isset($_POST['confirmPassword'])) ? $_POST['confirmPassword'] : '';
+
+            // *** If password is not valid, set an error variable
+            if (!Validation::validatePassword($password)) {
+                $this->_f3->set('errors["password"]', 'Password length should be between 8 and 20 characters and 
+                contains at least one uppercase letter, one lowercase letter, one digit, and one special character');
+            }
+
+            // *** If confirm_password is not valid, set an error variable
+            if (!Validation::validateConfirmPassword($password, $confirm_password)) {
+                $this->_f3->set('errors["confirm_password"]', 'The passwords must match');
+            }
+
+            // Redirect to home route if there
+            // are no errors (errors array is empty)
+            if (empty($this->_f3->get('errors'))) {
+
+                $GLOBALS['dataLayer']->updatePassword($_POST['uuid'], $password);
+
+                $alert = new Alert('Your password is updated successfully.', 'green');
+                $this->_f3->set('SESSION.alert', $alert);
+
+                $this->_f3->reroute('/');
+            }
+
+        }
+
+        if(!isset($_GET['uuid'])){
+            //Redirect to the default route
+            $this->_f3->reroute('/');
+        }
+
+        $uuid = $_GET['uuid'];
+        $result = $GLOBALS['dataLayer']->checkUuidExpirationTime($uuid);
+
+        if(!$result){
+            $alert = new Alert('Your password reset link is expired.', 'red');
+            $this->_f3->set('SESSION.alert', $alert);
+        } else {
+            $this->_f3->set('uuid', $uuid);
+        }
+
+        // Set the title of the page
+        $this->_f3->set('title', 'Reset Password');
+
+
+        // Define a view page
+        $view = new Template();
+        echo $view->render('views/login/reset-password.html');
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
+    }
+
+    /**
+     * ToDo: Complete this controller
+     * Controller for the student route
+     */
+    function student()
+    {
+        // Set the title of the page
+        $this->_f3->set('title', 'Student');
+
+        // Define a view page
+        $view = new Template();
+        echo $view->render('views/student-profile/student.html');
+
 
     }
 }

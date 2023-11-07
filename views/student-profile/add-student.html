@@ -8,20 +8,26 @@ Date: 10/10/2023
 
 <include href="views/includes/header.html"></include>
 
-    <!--add new student form-->
-    <div class="p-4 container w-75">
-        <h1>Add New Student</h1>
-        <hr>
+<!--add new student form-->
+<div class="p-4 container w-75">
+    <h3>Add New Student</h3>
+    <hr>
 
-        <form action="#" method="post">
+    <form action="#" method="post">
 
-            <!--row 1-->
-            <div class="row pt-4">
-                <!--col 1-->
-                <div class="col-sm">
+        <!--row 1-->
+        <div class="row pt-4">
+            <!--col 1-->
+            <div class="col-sm">
+                <div class="container">
                     <div class="row mb-3">
                         <input type="text" class="form-control" id="first_name"
                                name="first_name" placeholder="First Name" value="">
+
+                        <!-- Display an error if there is one -->
+                        <check if="{{ isset(@errors['first_name']) }}">
+                            <span class="text-danger">{{ @errors['first_name'] }}</span>
+                        </check>
                     </div>
                     <div class="row mb-3">
                         <input type="text" class="form-control" id="middle_name"
@@ -30,118 +36,144 @@ Date: 10/10/2023
                     <div class="row mb-3">
                         <input type="text" class="form-control" id="last_name"
                                name="last_name" placeholder="Last Name" value="">
-                    </div>
 
-                    <div class="row mb-3">
-                        <div class="input-group mb-3">
-                            <label class="input-group-text" for="pronouns">Pronouns</label>
-                            <select class="form-select" id="pronouns">
-                                <option selected>select...</option>
-                                <option value="1">they/them</option>
-                                <option value="2">she/her</option>
-                                <option value="3">he/him</option>
-                                <option value="3">other</option>
-                            </select>
-                        </div>
+                        <!-- Display an error if there is one -->
+                        <check if="{{ isset(@errors['last_name']) }}">
+                            <span class="text-danger">{{ @errors['last_name'] }}</span>
+                        </check>
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="pronouns">Pronouns</label>
+                        <select class="form-select" id="pronouns">
+                            <option selected>select...</option>
+                            <option value="1">they/them</option>
+                            <option value="2">she/her</option>
+                            <option value="3">he/him</option>
+                            <option value="3">other</option>
+                        </select>
 
-                <!--col 2-->
-                <!-- image upload -->
-                <div class="col-sm mb-3">
+                        <check if="{{ isset(@errors['pronouns']) }}">
+                            <span class="err">{{ @errors['pronouns'] }}</span>
+                        </check>
+                    </div>
+                </div>
+            </div>
+
+            <!--col 2-->
+            <!-- image upload -->
+            <div class="col-sm mb-3">
                     <textarea class="form-control" id="image_upload" rows="8"
                               placeholder="Upload image here..."></textarea>
-                </div>
             </div>
+        </div>
 
-            <!--row 2-->
-            <div class="row mb-3">
+        <!--row 2-->
+        <div class="row mb-3">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="tribe">Tribe</label>
+                <select class="form-select" id="tribe">
+                    <option selected>select...</option>
+                    <option value="muckleshoot">Muckleshoot Indian Tribe</option>
+                    <option value="cherokee">Cherokee Nation</option>
+                    <option value="choctaw">Choctaw Nation</option>
+                    <option value="turtle_mt">Choctaw Nation</option>
+                    <option value="confederated">Confederated Tribe of Colville</option>
+                    <option value="navajo">Navajo Nation</option>
+                    <option value="quileute">Quileute Tribe</option>
+                    <option value="suquamish">Suquamish Tribe</option>
+                    <option value="tlighit">Tlingit</option>
+                    <option value="blackfeet">Blackfeet</option>
+                    <option value="samish">Samish</option>
+                    <option value="snoqualmie">Snoqualmie</option>
+                    <option value="osage">Osage</option>
+                    <option value="potawatomie">Potawatomie</option>
+                    <option value="chicksaw">Chicksaw</option>
+                    <option value="standing_rock">Standing Rock Sioux</option>
+                    <option value="sioux">Sioux</option>
+                </select>
+
+                <check if="{{ isset(@errors['tribe']) }}">
+                    <span class="err">{{ @errors['tribe'] }}</span>
+                </check>
+            </div>
+        </div>
+
+
+        <!--row 3-->
+        <div class="row mb-3">
+            <!-- email -->
+            <div class="col-sm">
+                <input type="email" class="form-control" id="email"
+                       name="email" placeholder="Email" value="">
+
+                <check if="{{ isset(@errors['email']) }}">
+                    <span class="text-danger">{{ @errors['email'] }}</span>
+                </check>
+            </div>
+            <!-- phone -->
+            <div class="col-sm">
+                <input type="tel" class="form-control" id="phone"
+                       name="phone" placeholder="206-555-1234" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" value="">
+
+                <check if="{{ isset(@errors['phone']) }}">
+                    <span class="err">{{ @errors['phone'] }}</span>
+                </check>
+            </div>
+            <div class="col-sm">
                 <div class="input-group mb-3">
-                    <label class="input-group-text" for="tribe">Tribe</label>
-                    <select class="form-select" id="tribe">
+                    <label class="input-group-text" for="clothing_size">Clothing Size</label>
+                    <select class="form-select" id="clothing_size">
                         <option selected>select...</option>
-                        <option value="muckleshoot">Muckleshoot Indian Tribe</option>
-                        <option value="cherokee">Cherokee Nation</option>
-                        <option value="choctaw">Choctaw Nation</option>
-                        <option value="turtle_mt">Choctaw Nation</option>
-                        <option value="confederated">Confederated Tribe of Colville</option>
-                        <option value="navajo">Navajo Nation</option>
-                        <option value="quileute">Quileute Tribe</option>
-                        <option value="suquamish">Suquamish Tribe</option>
-                        <option value="tlighit">Tlingit</option>
-                        <option value="blackfeet">Blackfeet</option>
-                        <option value="samish">Samish</option>
-                        <option value="snoqualmie">Snoqualmie</option>
-                        <option value="osage">Osage</option>
-                        <option value="potawatomie">Potawatomie</option>
-                        <option value="chicksaw">Chicksaw</option>
-                        <option value="standing_rock">Standing Rock Sioux</option>
-                        <option value="sioux">Sioux</option>
+                        <option value="xs">xs</option>
+                        <option value="s">s</option>
+                        <option value="m">m</option>
+                        <option value="lg">lg</option>
+                        <option value="xl">xl</option>
                     </select>
+
+                    <check if="{{ isset(@errors['clothing_size']) }}">
+                        <span class="err">{{ @errors['clothing_size'] }}</span>
+                    </check>
                 </div>
             </div>
+        </div>
 
-
-            <!--row 3-->
-            <div class="row mb-3">
-                <!-- email -->
-                <div class="col-sm">
-                    <input type="email" class="form-control" id="email"
-                           name="email" placeholder="Email" value="">
-                </div>
-                <!-- phone -->
-                <div class="col-sm">
-                    <input type="tel" class="form-control" id="phone"
-                           name="phone" placeholder="206-555-1234" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" value="">
-                </div>
-                <div class="col-sm">
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="clothing_size">Clothing Size</label>
-                        <select class="form-select" id="clothing_size">
-                            <option selected>select...</option>
-                            <option value="xs">xs</option>
-                            <option value="s">s</option>
-                            <option value="m">m</option>
-                            <option value="lg">lg</option>
-                            <option value="xl">xl</option>
-                        </select>
-                    </div>
-                </div>
+        <!--row 4 thru 7-->
+        <div class="row mb-3">
+            <div class="mb-3">
+                <label for="courseHistory" class="form-label">Course History</label>
+                <textarea id="courseHistory" class="form-control" name="courseHistory" rows="4"></textarea>
             </div>
-
-            <!--row 4 thru 7-->
-            <div class="row mb-3">
-                <div class="mb-3">
-                    <label for="courseHistory" class="form-label">Course History</label>
-                    <textarea id="courseHistory" class="form-control" name="courseHistory" rows="4"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="academics" class="form-label">Current Academic Progress</label>
-                    <textarea id="academics" class="form-control" name="academics" rows="4"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="finances" class="form-label">Financial Need</label>
-                    <textarea id="finances" class="form-control" name="finances" rows="4"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="caseNotes" class="form-label">Case Notes</label>
-                    <textarea id="caseNotes" class="form-control" name="caseNotes" rows="4"></textarea>
-                </div>
+            <div class="mb-3">
+                <label for="academics" class="form-label">Current Academic Progress</label>
+                <textarea id="academics" class="form-control" name="academics" rows="4"></textarea>
             </div>
-
-            <!--submit button-->
-            <div class="row pt-4 pb-6">
-                <div class="col-4"><!--empty--></div>
-                <div class="col-4"><!--empty--></div>
-
-                <div class="col-4 mt-auto" id="box-5">
-                    <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
-                            id="next-button" type="submit">ADD STUDENT
-                    </button>
-                </div>
+            <div class="mb-3">
+                <label for="finances" class="form-label">Financial Need</label>
+                <textarea id="finances" class="form-control" name="finances" rows="4"></textarea>
             </div>
-        </form>
-    </div>
+            <div class="mb-3">
+                <label for="caseNotes" class="form-label">Case Notes</label>
+                <textarea id="caseNotes" class="form-control" name="caseNotes" rows="4"></textarea>
+            </div>
+        </div>
+
+        <!--submit button-->
+        <div class="row pt-4 pb-6">
+            <div class="col-4"><!--empty--></div>
+            <div class="col-4"><!--empty--></div>
+
+
+            <div class="col-4 mt-auto" id="box-5">
+                <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
+                        id="next-button" type="submit">ADD STUDENT
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 
 <include href="views/includes/footer.html"></include>
 

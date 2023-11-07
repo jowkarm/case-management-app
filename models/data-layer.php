@@ -239,6 +239,7 @@ class DataLayer
         return $statement->execute();
     }
 
+
     function getPronouns()
     {
         $pronouns = array('they/them', 'she/her', 'he/him', 'other');
@@ -252,6 +253,119 @@ class DataLayer
             'suquamish', 'tlighit', 'blackfeet', 'samish',
             'snoqualmie', 'osage', 'potawatomie', 'chicksaw',
             'standing_rock', 'sioux');
+
+    /**
+     * Generates an uuid for the provided email address.
+     *
+     * @param $email The email address of the user requesting the password reset.
+     * @return string The generated UUID for the password reset link.
+     */
+    function passwordResetLink($email)
+    {
+        $currentDateTime = date("Y-m-d H:i:s");
+        $futureDateTime = date("Y-m-d H:i:s", strtotime($currentDateTime . "+15 minutes"));
+
+        // 1. define the query
+        $sql = "UPDATE User SET uuid = uuid(), password_timestamp = :time WHERE email = :email";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. bind the parameters
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(':time', $futureDateTime);
+
+        //4. Execute
+        $statement->execute();
+
+
+        // 1. define the query
+        $sql2 = "SELECT uuid FROM User WHERE email = :email";
+
+        // 2. prepare the statement
+        $statement2 = $this->_dbh->prepare($sql2);
+
+        //3. bind the parameters
+        $statement2->bindParam(':email', $email);
+
+        //4. Execute
+        $statement2->execute();
+
+        // 5. Process the result
+        $row = $statement2->fetch(PDO::FETCH_ASSOC);
+
+
+        return $row['uuid'];
+    }
+
+    /**
+     * Updates the password for the user with the specified UUID.
+     *
+     * @param $uuid The UUID of the user.
+     * @param $password The new password to set.
+     * @return bool True if the password was successfully updated, false otherwise.
+     */
+    function updatePassword($uuid, $password)
+    {
+
+        // 1. define the query
+        $sql = "UPDATE User SET password = :password WHERE uuid = :uuid";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        // Hash the password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        //3. bind the parameters
+        $statement->bindParam(':password', $password);
+        $statement->bindParam(':uuid', $uuid);
+
+        //4. Execute
+        $statement->execute();
+
+        return true;
+    }
+
+    /**
+     * Checks if the UUID for password reset has expired.
+     *
+     * @param $uuid The UUID associated with the password reset.
+     * @return bool True if the UUID is still valid, false otherwise.
+     */
+    function checkUuidExpirationTime($uuid)
+    {
+        // 1. define the query
+        $sql = "SELECT password_timestamp FROM User WHERE uuid = :uuid";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. bind the parameters
+        $statement->bindParam(':uuid', $uuid);
+
+        //4. Execute
+        $statement->execute();
+
+        // 5. Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+        //if the query returns nothing, return false
+        if (empty($row)){
+            return false;
+        }
+
+        $password_timestamp = $row['password_timestamp'];
+        $currentDateTime = date("Y-m-d H:i:s");
+
+        if ($password_timestamp >= $currentDateTime){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
         return $tribes;
     }
