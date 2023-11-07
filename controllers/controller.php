@@ -47,10 +47,10 @@ class Controller
      */
     function addStudent()
     {
-        // Only if a user is logged in can they add a student
-        if (!Validation::loggedIn($this->_f3)) {
-            $this->_f3->reroute('/login');
-        }
+//        // Only if a user is logged in can they add a student
+//        if (!Validation::loggedIn($this->_f3)) {
+//            $this->_f3->reroute('/login');
+//        }
 
         // Process the form submission
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
