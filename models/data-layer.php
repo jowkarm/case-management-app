@@ -239,6 +239,21 @@ class DataLayer
         return $statement->execute();
     }
 
+
+    function getPronouns()
+    {
+        $pronouns = array('they/them', 'she/her', 'he/him', 'other');
+        return $pronouns;
+    }
+
+    function getTribes()
+    {
+        $tribes = array('muckleshoot', 'cherokee', 'choctaw',
+            'turtle_mt', 'confederated', 'navajo', 'quileute',
+            'suquamish', 'tlighit', 'blackfeet', 'samish',
+            'snoqualmie', 'osage', 'potawatomie', 'chicksaw',
+            'standing_rock', 'sioux');
+
     /**
      * Generates an uuid for the provided email address.
      *
@@ -351,4 +366,13 @@ class DataLayer
     }
 
 
+
+        return $tribes;
+    }
+
+    function getSizes()
+    {
+        $sizes = array('xs', 's', 'm', 'l', 'xl', 'xxl');
+        return $sizes;
+    }
 }

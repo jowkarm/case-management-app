@@ -47,23 +47,55 @@ class Controller
      */
     function addStudent()
     {
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
 
         // Process the form submission
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
             // Retrieve data from the form fields
-            $studentID = $_POST['studentID'];
-            $name = $_POST['name'];
-            $pronouns = $_POST['pronouns'];
-            $tribe = $_POST['tribe'];
-            $clothingSize = $_POST['clothingSize'];
-            $courseHistory = $_POST['courseHistory'];
-            $academics = $_POST['academics'];
-            $finances = $_POST['finances'];
-            $caseNotes = $_POST['caseNotes'];
+            $studentID = (isset($_POST['studentID'])) ? $_POST['studentID'] : '';
+            $fName = (isset($_POST['first_name'])) ? $_POST['first_name'] : '';
+            $mName = (isset($_POST['middle_name'])) ? $_POST['middle_name'] : '';
+            $lName = (isset($_POST['last_name'])) ? $_POST['last_name'] : '';
+            $pronouns = (isset($_POST['pronouns'])) ? $_POST['pronouns'] : '';
+            $tribe = (isset($_POST['tribe'])) ? $_POST['tribe'] : '';
+            $clothingSize = (isset($_POST['clothingSize'])) ? $_POST['clothingSize'] : '';
+            $courseHistory = (isset($_POST['courseHistory'])) ? $_POST['$courseHistory'] : '';
+            $academics = (isset($_POST['academics'])) ? $_POST['academics'] : '';
+            $finances = (isset($_POST['finances'])) ? $_POST['finances'] : '';
+            $caseNotes = (isset($_POST['caseNotes'])) ? $_POST['caseNotes'] : '';
+
+            // Validate the data
+            // Validate the first name
+            if(empty($fName) || !Validation::validName($fName)) {
+                $this->_f3->set('errors["fName]', 'Invalid name entered');
+            }
+
+            // Validate the middle name
+            if(empty($mName)) {
+                // Allow middle name to be blank
+            } elseif(!Validation::validName($mName)) {
+                $this->_f3->set('errors["mName]', 'Invalid name entered');
+            }
+
+            // Validate the last name
+            if(empty($lName) || !Validation::validName($lName)) {
+                $this->_f3->set('errors["lName]', 'Invalid name entered');
+            }
+
+            // Validate the pronoun selected
+            if(!Validation::validPronoun($pronouns)) {
+                $this->_f3->set('errors["pronoun"]', 'Invalid pronoun selected');
+            }
 
             // Store data in the F3 framework session
             $this->_f3->set('SESSION.studentID', $studentID);
-            $this->_f3->set('SESSION.name', $name);
+            $this->_f3->set('SESSION.first_name', $fName);
+            $this->_f3->set('SESSION.middle_name', $mName);
+            $this->_f3->set('SESSION.last_name', $lName);
             $this->_f3->set('SESSION.pronouns', $pronouns);
             $this->_f3->set('SESSION.tribe', $tribe);
             $this->_f3->set('SESSION.clothingSize', $clothingSize);
