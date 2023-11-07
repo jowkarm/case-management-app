@@ -190,3 +190,16 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px #C4C4E577 inset !important;
 }
+
+/* customize the styles of student tabs */
+.nav-tabs{
+    --bs-nav-tabs-link-active-bg: #49496C;
+    border-bottom: #49496C;
+    margin: 5px 0 0 0;
+}
+
+.nav-tabs .nav-link{
+    background: #6B6B8C;
+}
+
+

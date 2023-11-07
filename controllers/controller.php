@@ -437,4 +437,20 @@ class Controller
         // Unset (clear) the session variable
         $this->_f3->set('SESSION.alert', null);
     }
+
+    /**
+     * ToDo: Complete this controller
+     * Controller for the student route
+     */
+    function student()
+    {
+        // Set the title of the page
+        $this->_f3->set('title', 'Student');
+
+        // Define a view page
+        $view = new Template();
+        echo $view->render('views/student-profile/student.html');
+
+
+    }
 }

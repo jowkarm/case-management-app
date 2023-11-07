@@ -1,0 +1,104 @@
+<!--
+HTML markup for the student page.
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: student.html
+Date: 11/06/2023
+-->
+<include href="views/includes/header.html"></include>
+
+
+
+<div class="container">
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">Information</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="academic-tab" data-bs-toggle="tab" data-bs-target="#academic" type="button" role="tab" aria-controls="academic" aria-selected="false">Academic</button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="financial-tab" data-bs-toggle="tab" data-bs-target="#financial" type="button" role="tab" aria-controls="financial" aria-selected="false">Financial</button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="notes-tab" data-bs-toggle="tab" data-bs-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">Notes
+        <span class="position-relative">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill position-relative" viewBox="0 0 16 16">
+          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+         </svg>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger p-1">2</span>
+        </span>
+      </button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="reminders-tab" data-bs-toggle="tab" data-bs-target="#reminders" type="button" role="tab" aria-controls="reminders" aria-selected="false">Reminders
+        <span class="position-relative">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill position-relative" viewBox="0 0 16 16">
+          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+         </svg>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger p-1">5</span>
+        </span>
+      </button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="case-tab" data-bs-toggle="tab" data-bs-target="#case" type="button" role="tab" aria-controls="case" aria-selected="false">Cases
+        <span class="position-relative">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill position-relative" viewBox="0 0 16 16">
+          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+         </svg>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger p-1">7</span>
+        </span>
+      </button>
+    </li>
+
+
+
+
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+    </li>
+  </ul>
+  <div class="tab-content m-2" id="myTabContent">
+
+    <!-- Personal Information -->
+    <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+      <h5>Personal Information</h5>
+    </div>
+
+    <!-- Academic Information -->
+    <div class="tab-pane fade" id="academic" role="tabpanel" aria-labelledby="academic-tab">
+      <h5>Academic Information</h5>
+    </div>
+
+    <!-- Financial Information -->
+    <div class="tab-pane fade" id="financial" role="tabpanel" aria-labelledby="financial-tab">
+      <h5>Financial Information</h5>
+    </div>
+
+    <!-- Notes and Comments -->
+    <div class="tab-pane fade" id="notes" role="tabpanel" aria-labelledby="notes-tab">
+      <h5>Notes and Comments</h5>
+    </div>
+
+    <!-- Reminders -->
+    <div class="tab-pane fade" id="reminders" role="tabpanel" aria-labelledby="reminders-tab">
+      <h5>Reminders</h5>
+    </div>
+
+    <!-- Case History -->
+    <div class="tab-pane fade" id="case" role="tabpanel" aria-labelledby="case-tab">
+      <h5>Case History</h5>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+      <h5>Contact Information</h5>
+    </div>
+  </div>
+</div>
+<include href="views/includes/footer.html"></include>

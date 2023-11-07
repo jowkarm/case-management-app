@@ -85,6 +85,11 @@ $f3->route('GET|POST /reset-password', function() {
     $GLOBALS['con']->resetPassword();
 });
 
+// Define a student route
+$f3->route('GET|POST /student', function() {
+    $GLOBALS['con']->student();
+});
+
 
 
 // Run Fat-Free
