@@ -31,6 +31,9 @@ class Controller
      */
     function home()
     {
+        // Set the title of the page
+        $this->_f3->set('title', 'Home');
+
         // Define a view page
         $view = new Template();
         echo $view->render('views/home.html');
@@ -74,6 +77,9 @@ class Controller
             $this->_f3->reroute('/summary');
         }
 
+        // Set the title of the page
+        $this->_f3->set('title', 'Add a Student');
+
         // Display the form
         $view = new Template();
         echo $view->render('views/student-profile/add-student.html');
@@ -84,6 +90,9 @@ class Controller
      */
     function summary()
     {
+        // Set the title of the page
+        $this->_f3->set('title', 'Summary');
+
         // Display a summary view
         $view = new Template();
         echo $view->render('views/student-profile/summary.html');
@@ -118,6 +127,9 @@ class Controller
             // Set the title of the page
             $this->_f3->set('title', "Students List");
         }
+
+        // Set the title of the page
+        $this->_f3->set('title', 'Students List');
 
         // Display a student-list view
         $view = new Template();
@@ -196,7 +208,8 @@ class Controller
             }
         }
 
-
+        // Set the title of the page
+        $this->_f3->set('title', 'Signup');
 
         // Define a view page
         $view = new Template();
@@ -274,6 +287,10 @@ class Controller
             }
         }
 
+        // Set the title of the page
+        $this->_f3->set('title', 'Login');
+
+
         // Define a view page
         $view = new Template();
         echo $view->render('views/login/login.html');
@@ -305,6 +322,9 @@ class Controller
      */
     function reports()
     {
+        // Set the title of the page
+        $this->_f3->set('title', 'Reports');
+
         // Define a view page
         $view = new Template();
         echo $view->render('views/reports/reports.html');
@@ -346,7 +366,7 @@ class Controller
         }
 
         // Set the title of the page
-        //$this->_f3->set('title', 'Forgot Password');
+        $this->_f3->set('title', 'Forgot Password');
 
 
         // Define a view page
@@ -355,7 +375,6 @@ class Controller
     }
 
     /**
-     * ToDo: adjust this method
      * Controller for the reset-password route
      */
     function resetPassword()
@@ -408,7 +427,7 @@ class Controller
         }
 
         // Set the title of the page
-        //$this->_f3->set('title', 'Reset Password');
+        $this->_f3->set('title', 'Reset Password');
 
 
         // Define a view page
