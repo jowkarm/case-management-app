@@ -1,5 +1,26 @@
+html{
+    height: 100%;
+    box-sizing: border-box;
+}
+
 body {
     background-color: #e3ddd0;
+    margin: 0;
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 10rem;
+    box-sizing: inherit;
+}
+
+footer {
+    background-color: #333;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    right: 0;
+    left: 0;
+    border-top: 0.4rem solid #525252;
 }
 
 header {
@@ -38,14 +59,7 @@ table {
 }
 
 
-footer {
-    background-color: #333;
-    position: absolute;
-    z-index: 1;
-    right: 0;
-    left: 0;
-    border-top: 0.4rem solid #525252;
-}
+
 
 footer .rights {
     font-size: .7rem;
