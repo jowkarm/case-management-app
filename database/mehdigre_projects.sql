@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mehdigre_projects`
+-- Database: `gutierre_projects`
 --
-CREATE DATABASE IF NOT EXISTS `mehdigre_projects` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `mehdigre_projects`;
+CREATE DATABASE IF NOT EXISTS `gutierre_projects` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `gutierre_projects`;
 
 -- --------------------------------------------------------
 
@@ -90,7 +90,8 @@ CREATE TABLE IF NOT EXISTS `User` (
 --
 
 INSERT INTO `User` (`user_id`, `first_name`, `last_name`, `email`, `role`, `password`, `uuid`, `password_timestamp`, `is_active`) VALUES
-(5, 'Mehdi', 'Jokar', 'jokar.mehdi2@gmail.com', 'restricted', '$2y$10$2PQ8gbZMs2hBiri9Z.3pUutuSkRuKjb8tuzHAem5Y2MzclDmMGJJK', '44271323-6fb9-11ee-968a-f23c91a78bbf', NULL, 1);
+(5, 'Mehdi', 'Jokar', 'jokar.mehdi2@gmail.com', 'restricted', '$2y$10$2PQ8gbZMs2hBiri9Z.3pUutuSkRuKjb8tuzHAem5Y2MzclDmMGJJK', '44271323-6fb9-11ee-968a-f23c91a78bbf', NULL, 1),
+(6, 'Anthony', 'Gutierrez', 'gutierrez.anthony@student.greenriver.edu', 'restricted', '$2y$10$CO1CIzXHa.GeK6dqVJwKX.HdzqfoaYeWV8.e3gQ/B3cn/7Z6rIqTu', '0dc6d1d2-73d2-11ee-968a-f23c91a78bb', NULL, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

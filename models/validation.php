@@ -22,12 +22,13 @@ class Validation
     static function validName($name)
     {
         $name = trim($name);
+        $name = strip_tags($name);
 
-        if (empty($name)) {
+        /*if (empty($name)) {
             return false;
-        }
+        }*/ // does not work with middle name validation since middle name should be optional
 
-        return preg_match('/^[A-Za-z\s]+$/', $name);
+        return preg_match('/^[A-Za-z\s\-]+$/', $name);
     }
 
     /**
@@ -81,6 +82,16 @@ class Validation
         return true;
     }
 
+    /**
+     * Checks to ensure a user is logged into the webpage
+     */
+    static function loggedIn($f3)
+    {
+        return !empty($f3->get('SESSION.user'));
+    }
 
-
+    static function validPronoun($pronoun)
+    {
+        return (!empty($pronoun) && in_array($pronoun, DataLayer::getPrononoun()));
+    }
 }
