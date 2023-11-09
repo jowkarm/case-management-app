@@ -21,6 +21,10 @@ Date: 10/10/2023
             <div class="col-sm">
                 <div class="container">
                     <div class="row mb-3">
+                        <input type="text" class="form-control" id="ctclink_id"
+                               name="ctclink_id" placeholder="Student Id" value="">
+                    </div>
+                    <div class="row mb-3">
                         <input type="text" class="form-control" id="first_name"
                                name="first_name" placeholder="First Name" value="">
 
@@ -64,7 +68,7 @@ Date: 10/10/2023
             <!--col 2-->
             <!-- image upload -->
             <div class="col-sm mb-3">
-                    <textarea class="form-control" id="image_upload" rows="8"
+                    <textarea class="form-control" id="image_upload" rows="10"
                               placeholder="Upload image here..."></textarea>
             </div>
         </div>
@@ -176,12 +180,12 @@ Date: 10/10/2023
                 <textarea id="finances" class="form-control" name="finances" rows="4"></textarea>
             </div>
             <div class="mb-3">
-                <label for="cases" class="form-label">Case Notes</label>
-                <textarea id="cases" class="form-control" name="cases" rows="4"></textarea>
+                <label for="notes" class="form-label">Notes</label>
+                <textarea id="notes" class="form-control" name="notes" rows="4"></textarea>
             </div>
         </div>
 
-        <!--submit button-->
+        <!--go to confirmation page button-->
         <div class="row pt-4 pb-6">
             <div class="col-4"><!--empty--></div>
             <div class="col-4"><!--empty--></div>
@@ -189,7 +193,7 @@ Date: 10/10/2023
 
             <div class="col-4 mt-auto" id="box-5">
                 <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
-                        id="next-button" type="submit">ADD STUDENT
+                        id="next-button" type="submit">Continue
                 </button>
             </div>
         </div>

@@ -56,12 +56,15 @@ class Controller
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             // Retrieve data from the form fields
-            $studentID = (isset($_POST['studentID'])) ? $_POST['studentID'] : '';
+            $ctclink_id = (isset($_POST['ctclink_id'])) ? $_POST['ctclink_id'] : '';
             $fName = (isset($_POST['first_name'])) ? $_POST['first_name'] : '';
             $mName = (isset($_POST['middle_name'])) ? $_POST['middle_name'] : '';
             $lName = (isset($_POST['last_name'])) ? $_POST['last_name'] : '';
             $pronouns = (isset($_POST['pronouns'])) ? $_POST['pronouns'] : '';
             $tribe = (isset($_POST['tribe'])) ? $_POST['tribe'] : '';
+            //$cte_program = (isset($POST['cte_program'])) ? $_POST['cte_program'] : '';
+            $email = (isset($POST['email'])) ? $_POST['email'] : '';
+            $phone = (isset($POST['phone'])) ? $_POST['phone'] : '';
             $clothingSize = (isset($_POST['clothingSize'])) ? $_POST['clothingSize'] : '';
             $courseHistory = (isset($_POST['courseHistory'])) ? $_POST['$courseHistory'] : '';
             $academics = (isset($_POST['academics'])) ? $_POST['academics'] : '';
@@ -92,12 +95,15 @@ class Controller
             }
 
             // Store data in the F3 framework session
-            $this->_f3->set('SESSION.studentID', $studentID);
+            $this->_f3->set('SESSION.ctclink_id', $ctclink_id);
             $this->_f3->set('SESSION.first_name', $fName);
             $this->_f3->set('SESSION.middle_name', $mName);
             $this->_f3->set('SESSION.last_name', $lName);
             $this->_f3->set('SESSION.pronouns', $pronouns);
             $this->_f3->set('SESSION.tribe', $tribe);
+            //$this->_f3->set('$SESSION.cte_program', $cte_program);
+            $this->_f3->set('SESSION.email', $email);
+            $this->_f3->set('SESSION.phone', $phone);
             $this->_f3->set('SESSION.clothingSize', $clothingSize);
             $this->_f3->set('SESSION.courseHistory', $courseHistory);
             $this->_f3->set('SESSION.academics', $academics);
@@ -106,7 +112,7 @@ class Controller
 
 
             // Redirect to the summary page
-            $this->_f3->reroute('/summary');
+            $this->_f3->reroute('/confirm');
         }
 
         // Set the title of the page
@@ -128,6 +134,21 @@ class Controller
         // Display a summary view
         $view = new Template();
         echo $view->render('views/student-profile/summary.html');
+
+        session_destroy();
+    }
+
+    /**
+     * Controller for the add-student-confirm route
+     */
+    function confirm()
+    {
+        // Set the title of the page
+        $this->_f3->set('title', 'Confirm');
+
+        // Display add-student-confirmation view
+        $view = new Template();
+        echo $view->render('views/student-profile/add-student-confirm.html');
 
         session_destroy();
     }
