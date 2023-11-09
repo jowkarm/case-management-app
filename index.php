@@ -90,6 +90,11 @@ $f3->route('GET|POST /student', function() {
     $GLOBALS['con']->student();
 });
 
+// Define a student route
+$f3->route('GET /confirm', function() {
+    $GLOBALS['con']->confirm();
+});
+
 
 
 // Run Fat-Free

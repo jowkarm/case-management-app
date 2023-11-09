@@ -91,57 +91,95 @@ class Validation
         return !empty($f3->get('SESSION.user'));
     }
 
-    static function validfName($first_name)
+    /**
+     * This function checks to see that
+     * a string is a valid phone number
+     * with 10 digits.
+     */
+    static function validPhone($phoneNumber)
     {
-        $fname = trim($first_name);
-        return (strlen($first_name) >= 2 && !ctype_digit($first_name));
-    }
-    static function validlName($last_name)
-    {
-        $lname = trim($last_name);
-        return (strlen($last_name) >= 2 && !ctype_digit($last_name));
-    }
-
-    static function validPhone($phone)
-    {
-// Remove any non-numeric characters from the phone number
-        $phone = preg_replace('/[^0-9]/', '', $phone);
+        // Remove any non-digit characters from the phone number
+        $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
 
         // Check if the resulting string contains only numeric values
-        if (!ctype_digit($phone)) {
+        if (!ctype_digit($phoneNumber)) {
             return false;
         }
-        return true;
+
+        // Check if the phone number has exactly 10 digits
+        return strlen($phoneNumber) === 10;
     }
 
+
+
+    /**
+     * This function validates the selected
+     * tribe name.
+     * @param $tribe
+     * @return bool
+     */
+    static function validateTribe($tribe)
+    {
+        $tribes = $GLOBALS['dataLayer']->getTribes();
+
+        /*if ($tribe === '') {
+            return false;
+        }*/
+
+        return (in_array($tribe, $tribes));
+    }
+
+    /**
+     * This function validates the selected
+     * pronouns
+     * @param $pronouns
+     * @return bool
+     */
+    static function validatePronouns($pronouns)
+    {
+        $pronouns_array = $GLOBALS['dataLayer']->getPronouns();
+
+        /*if ($pronouns === 'select...') {
+            return false;
+        }*/
+
+        return (in_array($pronouns, $pronouns_array));
+    }
+
+    /**
+     * ToDo: The dataLayer array is not created yet.
+     * This function validates the selected cte_program
+     * @param $pronouns
+     * @return bool
+     */
+    static function validateCteProgram($cte_program)
+    {
+
+        $programs = $GLOBALS['dataLayer']->getCtePrograms();
+
+        /*if ($pronouns === 'select...') {
+            return false;
+        }*/
+
+        return (in_array($cte_program, $programs));
+    }
+
+    /**
+     * This function validates the selected
+     * clothing size.
+     * @param $clothing_size
+     * @return bool
+     */
     static function validateClothingSize($clothing_size)
     {
-        if ($clothing_size === 'select...') {
+        $clothing_size_array = $GLOBALS['dataLayer']->getSizes();
+
+        /*if ($pronouns === 'select...') {
             return false;
-        }
-        return true;
-    }
+        }*/
 
-    static function validatetribe($tribe)
-    {
-        if ($tribe === 'select...') {
-            return false;
-        }
-        return true;
-    }
-
-    static function validatepronouns($pronouns)
-    {
-        if ($pronouns === 'select...') {
-            return false;
-        }
-        return true;
+        return (in_array($clothing_size, $clothing_size_array));
     }
 
 
-
-    static function validPronoun($pronoun)
-    {
-        return (!empty($pronoun) && in_array($pronoun, DataLayer::getPrononoun()));
-    }
 }
