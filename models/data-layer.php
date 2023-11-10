@@ -240,20 +240,6 @@ class DataLayer
     }
 
 
-    function getPronouns()
-    {
-        $pronouns = array('they/them', 'she/her', 'he/him', 'other');
-        return $pronouns;
-    }
-
-    function getTribes()
-    {
-        $tribes = array('muckleshoot', 'cherokee', 'choctaw',
-            'turtle_mt', 'confederated', 'navajo', 'quileute',
-            'suquamish', 'tlighit', 'blackfeet', 'samish',
-            'snoqualmie', 'osage', 'potawatomie', 'chicksaw',
-            'standing_rock', 'sioux');
-
     /**
      * Generates an uuid for the provided email address.
      *
@@ -367,12 +353,43 @@ class DataLayer
 
 
 
-        return $tribes;
-    }
+        function getPronouns()
+        {
+            return array('they/them', 'she/her', 'he/him', 'other');
+        }
 
-    function getSizes()
-    {
-        $sizes = array('xs', 's', 'm', 'l', 'xl', 'xxl');
-        return $sizes;
-    }
+        function getCtePrograms()
+        {
+            return array('Forest Resource Management, BAS',
+                'Forestry, AAS', 'Geographic Information Systems, AAS', 'Park Management, AAS',
+                'Water Quality, AAS', 'Wildland Fire, AAS');
+        }
+
+        function getTribes()
+        {
+            return array(
+                "Muckleshoot Indian Tribe",
+                "Cherokee Nation",
+                "Choctaw Nation",
+                "Choctaw Nation",
+                "Confederated Tribe of Colville",
+                "Navajo Nation",
+                "Quileute Tribe",
+                "Suquamish Tribe",
+                "Tlingit",
+                "Blackfeet",
+                "Samish",
+                "Snoqualmie",
+                "Osage",
+                "Potawatomie",
+                "Chicksaw",
+                "Standing Rock Sioux",
+                "Sioux");
+        }
+
+        function getSizes()
+        {
+            return array('xs', 's', 'm', 'l', 'xl', 'xxl');
+        }
+
 }
