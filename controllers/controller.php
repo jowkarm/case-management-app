@@ -62,7 +62,7 @@ class Controller
             $lName = (isset($_POST['last_name'])) ? $_POST['last_name'] : '';
             $pronouns = (isset($_POST['pronouns'])) ? $_POST['pronouns'] : '';
             $tribe = (isset($_POST['tribe'])) ? $_POST['tribe'] : '';
-            //$cte_program = (isset($POST['cte_program'])) ? $_POST['cte_program'] : '';
+            $cte_program = (isset($POST['cte_program'])) ? $_POST['cte_program'] : '';
             $email = (isset($POST['email'])) ? $_POST['email'] : '';
             $phone = (isset($POST['phone'])) ? $_POST['phone'] : '';
             $clothingSize = (isset($_POST['clothingSize'])) ? $_POST['clothingSize'] : '';
@@ -90,7 +90,7 @@ class Controller
             }
 
             // Validate the pronoun selected
-            if(!Validation::validPronoun($pronouns)) {
+            if(!Validation::validatePronoun($pronouns)) {
                 $this->_f3->set('errors["pronoun"]', 'Invalid pronoun selected');
             }
 
@@ -100,20 +100,26 @@ class Controller
             $this->_f3->set('SESSION.middle_name', $mName);
             $this->_f3->set('SESSION.last_name', $lName);
             $this->_f3->set('SESSION.pronouns', $pronouns);
-            $this->_f3->set('SESSION.tribe', $tribe);
-            //$this->_f3->set('$SESSION.cte_program', $cte_program);
+            $this->_f3->set('SESSION.tribe_name', $tribe);
+            $this->_f3->set('SESSION.cte_program', $cte_program);
             $this->_f3->set('SESSION.email', $email);
             $this->_f3->set('SESSION.phone', $phone);
-            $this->_f3->set('SESSION.clothingSize', $clothingSize);
-            $this->_f3->set('SESSION.courseHistory', $courseHistory);
+            $this->_f3->set('SESSION.clothing_size', $clothingSize);
+            $this->_f3->set('SESSION.course_history', $courseHistory);
             $this->_f3->set('SESSION.academics', $academics);
             $this->_f3->set('SESSION.finances', $finances);
-            $this->_f3->set('SESSION.caseNotes', $caseNotes);
+            $this->_f3->set('SESSION.notes', $caseNotes);
 
 
             // Redirect to the summary page
             $this->_f3->reroute('/confirm');
         }
+
+        // Set arrays
+        $this->_f3->set('programs', $GLOBALS['dataLayer']->getCtePrograms());
+        $this->_f3->set('sizes', $GLOBALS['dataLayer']->getSizes());
+        $this->_f3->set('pronouns', $GLOBALS['dataLayer']->getPronouns());
+        $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
 
         // Set the title of the page
         $this->_f3->set('title', 'Add a Student');

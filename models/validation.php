@@ -135,7 +135,7 @@ class Validation
      * @param $pronouns
      * @return bool
      */
-    static function validatePronouns($pronouns)
+    static function validatePronoun($pronouns)
     {
         $pronouns_array = $GLOBALS['dataLayer']->getPronouns();
 
@@ -147,9 +147,8 @@ class Validation
     }
 
     /**
-     * ToDo: The dataLayer array is not created yet.
      * This function validates the selected cte_program
-     * @param $pronouns
+     * @param $cte_program
      * @return bool
      */
     static function validateCteProgram($cte_program)
