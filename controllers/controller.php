@@ -74,25 +74,53 @@ class Controller
 
             // Retrieve data from the form fields
 
-            if(isset($_POST['ctclink_id'])) {$ctclink_id = $_POST['ctclink_id'];}
-            if(isset($_POST['first_name'])) {$first_name = $_POST['first_name'];}
-            if(isset($_POST['middle_name'])) {$middle_name = $_POST['middle_name'];}
-            if(isset($_POST['last_name'])) {$last_name = $_POST['last_name'];}
-            if(isset($_POST['pronouns'])) {$pronouns = $_POST['pronouns'];}
-            if(isset($_POST['tribe_name'])) {$tribe_name = $_POST['tribe_name'];}
-            if(isset($_POST['cte_program'])) {$cte_program = $_POST['cte_program'];}
-            if(isset($_POST['email'])) {$email = $_POST['email'];}
-            if(isset($_POST['phone'])) {$phone = $_POST['phone'];}
-            if(isset($_POST['clothing_size'])) {$clothing_size = $_POST['clothing_size'];}
-            if(isset($_POST['course_history'])) {$course_history = $_POST['course_history'];}
-            if(isset($_POST['academic_progress'])) {$academic_progress = $_POST['academic_progress'];}
-            if(isset($_POST['finances'])) {$finances = $_POST['finances'];}
-            if(isset($_POST['notes'])) {$notes = $_POST['notes'];}
+            if (isset($_POST['ctclink_id'])) {
+                $ctclink_id = $_POST['ctclink_id'];
+            }
+            if (isset($_POST['first_name'])) {
+                $first_name = $_POST['first_name'];
+            }
+            if (isset($_POST['middle_name'])) {
+                $middle_name = $_POST['middle_name'];
+            }
+            if (isset($_POST['last_name'])) {
+                $last_name = $_POST['last_name'];
+            }
+            if (isset($_POST['pronouns'])) {
+                $pronouns = $_POST['pronouns'];
+            }
+            if (isset($_POST['tribe_name'])) {
+                $tribe_name = $_POST['tribe_name'];
+            }
+            if (isset($_POST['cte_program'])) {
+                $cte_program = $_POST['cte_program'];
+            }
+            if (isset($_POST['email'])) {
+                $email = $_POST['email'];
+            }
+            if (isset($_POST['phone'])) {
+                $phone = $_POST['phone'];
+            }
+            if (isset($_POST['clothing_size'])) {
+                $clothing_size = $_POST['clothing_size'];
+            }
+            if (isset($_POST['course_history'])) {
+                $course_history = $_POST['course_history'];
+            }
+            if (isset($_POST['academic_progress'])) {
+                $academic_progress = $_POST['academic_progress'];
+            }
+            if (isset($_POST['finances'])) {
+                $finances = $_POST['finances'];
+            }
+            if (isset($_POST['notes'])) {
+                $notes = $_POST['notes'];
+            }
 
 
             // Validate the data
             // Validate the first name
-            if(empty($fName) || !Validation::validName($first_name)) {
+            if (empty($fName) || !Validation::validName($first_name)) {
                 $this->_f3->set('errors["fName]', 'Invalid name entered');
             }
 
@@ -104,28 +132,28 @@ class Controller
             }*/
 
             // Validate the last name
-            if(empty($lName) || !Validation::validName($last_name)) {
+            if (empty($lName) || !Validation::validName($last_name)) {
                 $this->_f3->set('errors["lName]', 'Invalid name entered');
             }
 
             // Validate the pronoun selected
 
-            if(!Validation::validatePronouns($pronouns)) {
+            if (!Validation::validatePronouns($pronouns)) {
                 $this->_f3->set('errors["pronouns"]', 'Invalid pronouns selected');
             }
 
             // Validate the tribe selected
-            if(!Validation::validateTribe($tribe_name)) {
+            if (!Validation::validateTribe($tribe_name)) {
                 $this->_f3->set('errors["tribe"]', 'Invalid tribe selected');
             }
 
             // Validate the cte program selected
-            if(!Validation::validateCTEProgram($cte_program)) {
-            $this->_f3->set('errors["cte_program"]', 'Invalid CTE program selected');
+            if (!Validation::validateCTEProgram($cte_program)) {
+                $this->_f3->set('errors["cte_program"]', 'Invalid CTE program selected');
             }
 
             // Validate the clothing size selected
-            if(!Validation::validateClothingSize($clothing_size)) {
+            if (!Validation::validateClothingSize($clothing_size)) {
                 $this->_f3->set('errors["clothing_size"]', 'Invalid clothing size selected');
             }
 
@@ -398,7 +426,7 @@ class Controller
         session_start();
 
         // if the user does not log in, do not show alert
-        if($this->_f3->get('SESSION.user') == null){
+        if ($this->_f3->get('SESSION.user') == null) {
             $this->_f3->reroute('/');
         }
 
@@ -433,7 +461,7 @@ class Controller
             $this->_f3->reroute('/login');
         }
 
-        if($_SERVER['REQUEST_METHOD'] == "POST") {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Get the data
             $sortBy = (isset($_POST['sort'])) ? $_POST['sort'] : '';
 
@@ -443,8 +471,7 @@ class Controller
                 $notes = $GLOBALS['dataLayer']->getAllCaseNotes($this->_f3->get('SESSION.sort'));
                 // Get the data from the model and add to a new card
                 $this->_f3->set('SESSION.notes', $notes);
-            }
-            else {
+            } else {
                 $this->_f3->set('errors["sortBy"]', 'Invalid Selection');
             }
         }
@@ -464,8 +491,7 @@ class Controller
         // Next Case ID in the Notes table
         $this->_f3->set('case_number', $GLOBALS['dataLayer']->getNextCaseId());
 
-        if($_SERVER['REQUEST_METHOD'] == "POST") {
-
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
         }
@@ -478,125 +504,126 @@ class Controller
     function note_confirm()
     {
 
-    /**
-     * Controller for the forgot-password route
-     */
+        /**
+         * Controller for the forgot-password route
+         */
 
-    function forgotPassword()
-    {
-        //If the form has been posted
-        if($_SERVER['REQUEST_METHOD'] == "POST"){
+        function forgotPassword()
+        {
+            //If the form has been posted
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-            // Get the data
-            $email = (isset($_POST['email'])) ? $_POST['email'] : '';
+                // Get the data
+                $email = (isset($_POST['email'])) ? $_POST['email'] : '';
 
-            // *** If email is not valid, set an error variable
-            if (!Validation::validEmail($email)) {
-                $this->_f3->set('errors["email"]', 'Invalid email entered');
-            }
-
-
-            // Redirect to home route if there
-            // are no errors (errors array is empty)
-            if (empty($this->_f3->get('errors'))) {
-
-                $uuid = $GLOBALS['dataLayer']->passwordResetLink($email);
-                $send_email = SendEmail::sendPasswordResetLink($email, 'info@case-management-app.com', $uuid, $this->_f3);
-                if($send_email){
-                    $alert = new Alert('Check your email for password reset link.', 'yellow');
-                    $this->_f3->set('SESSION.alert', $alert);
+                // *** If email is not valid, set an error variable
+                if (!Validation::validEmail($email)) {
+                    $this->_f3->set('errors["email"]', 'Invalid email entered');
                 }
 
-                $this->_f3->reroute('/');
+
+                // Redirect to home route if there
+                // are no errors (errors array is empty)
+                if (empty($this->_f3->get('errors'))) {
+
+                    $uuid = $GLOBALS['dataLayer']->passwordResetLink($email);
+                    $send_email = SendEmail::sendPasswordResetLink($email, 'info@case-management-app.com', $uuid, $this->_f3);
+                    if ($send_email) {
+                        $alert = new Alert('Check your email for password reset link.', 'yellow');
+                        $this->_f3->set('SESSION.alert', $alert);
+                    }
+
+                    $this->_f3->reroute('/');
+                }
+
             }
 
+            // Set the title of the page
+            $this->_f3->set('title', 'Forgot Password');
+
+
+            // Define a view page
+            $view = new Template();
+            echo $view->render('views/login/forgot-password.html');
         }
 
-        // Set the title of the page
-        $this->_f3->set('title', 'Forgot Password');
+        /**
+         * Controller for the reset-password route
+         */
+        function resetPassword()
+        {
+            //If the form has been posted
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
+                // Get data
+                $password = (isset($_POST['password'])) ? $_POST['password'] : '';
+                $confirm_password = (isset($_POST['confirmPassword'])) ? $_POST['confirmPassword'] : '';
 
-        // Define a view page
-        $view = new Template();
-        echo $view->render('views/login/forgot-password.html');
-    }
-
-    /**
-     * Controller for the reset-password route
-     */
-    function resetPassword()
-    {
-        //If the form has been posted
-        if($_SERVER['REQUEST_METHOD'] == "POST"){
-
-            // Get data
-            $password = (isset($_POST['password'])) ? $_POST['password'] : '';
-            $confirm_password = (isset($_POST['confirmPassword'])) ? $_POST['confirmPassword'] : '';
-
-            // *** If password is not valid, set an error variable
-            if (!Validation::validatePassword($password)) {
-                $this->_f3->set('errors["password"]', 'Password length should be between 8 and 20 characters and 
+                // *** If password is not valid, set an error variable
+                if (!Validation::validatePassword($password)) {
+                    $this->_f3->set('errors["password"]', 'Password length should be between 8 and 20 characters and 
                 contains at least one uppercase letter, one lowercase letter, one digit, and one special character');
+                }
+
+                // *** If confirm_password is not valid, set an error variable
+                if (!Validation::validateConfirmPassword($password, $confirm_password)) {
+                    $this->_f3->set('errors["confirm_password"]', 'The passwords must match');
+                }
+
+                // Redirect to home route if there
+                // are no errors (errors array is empty)
+                if (empty($this->_f3->get('errors'))) {
+
+                    $GLOBALS['dataLayer']->updatePassword($_POST['uuid'], $password);
+
+                    $alert = new Alert('Your password is updated successfully.', 'green');
+                    $this->_f3->set('SESSION.alert', $alert);
+
+                    $this->_f3->reroute('/');
+                }
+
             }
 
-            // *** If confirm_password is not valid, set an error variable
-            if (!Validation::validateConfirmPassword($password, $confirm_password)) {
-                $this->_f3->set('errors["confirm_password"]', 'The passwords must match');
-            }
-
-            // Redirect to home route if there
-            // are no errors (errors array is empty)
-            if (empty($this->_f3->get('errors'))) {
-
-                $GLOBALS['dataLayer']->updatePassword($_POST['uuid'], $password);
-
-                $alert = new Alert('Your password is updated successfully.', 'green');
-                $this->_f3->set('SESSION.alert', $alert);
-
+            if (!isset($_GET['uuid'])) {
+                //Redirect to the default route
                 $this->_f3->reroute('/');
             }
 
+            $uuid = $_GET['uuid'];
+            $result = $GLOBALS['dataLayer']->checkUuidExpirationTime($uuid);
+
+            if (!$result) {
+                $alert = new Alert('Your password reset link is expired.', 'red');
+                $this->_f3->set('SESSION.alert', $alert);
+            } else {
+                $this->_f3->set('uuid', $uuid);
+            }
+
+            // Set the title of the page
+            $this->_f3->set('title', 'Reset Password');
+
+
+            // Define a view page
+            $view = new Template();
+            echo $view->render('views/login/reset-password.html');
+
+            // Unset (clear) the session variable
+            $this->_f3->set('SESSION.alert', null);
         }
 
-        if(!isset($_GET['uuid'])){
-            //Redirect to the default route
-            $this->_f3->reroute('/');
+        /**
+         * ToDo: Complete this controller
+         * Controller for the student route
+         */
+        function student()
+        {
+            // Set the title of the page
+            $this->_f3->set('title', 'Student');
+
+            // Define a view page
+            $view = new Template();
+            echo $view->render('views/student-profile/student.html');
+
         }
-
-        $uuid = $_GET['uuid'];
-        $result = $GLOBALS['dataLayer']->checkUuidExpirationTime($uuid);
-
-        if(!$result){
-            $alert = new Alert('Your password reset link is expired.', 'red');
-            $this->_f3->set('SESSION.alert', $alert);
-        } else {
-            $this->_f3->set('uuid', $uuid);
-        }
-
-        // Set the title of the page
-        $this->_f3->set('title', 'Reset Password');
-
-
-        // Define a view page
-        $view = new Template();
-        echo $view->render('views/login/reset-password.html');
-
-        // Unset (clear) the session variable
-        $this->_f3->set('SESSION.alert', null);
-    }
-
-    /**
-     * ToDo: Complete this controller
-     * Controller for the student route
-     */
-    function student()
-    {
-        // Set the title of the page
-        $this->_f3->set('title', 'Student');
-
-        // Define a view page
-        $view = new Template();
-        echo $view->render('views/student-profile/student.html');
-
     }
 }

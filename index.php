@@ -89,6 +89,7 @@ $f3->route('GET|POST /case-log', function() {
 // Define a new note route
 $f3->route('GET|POST /add-note', function() {
     $GLOBALS['con']->add_note();
+});
 
 // Define a forgot-password route
 $f3->route('GET|POST /forgot-password', function() {
