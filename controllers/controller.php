@@ -52,66 +52,97 @@ class Controller
 //            $this->_f3->reroute('/login');
 //        }
 
-        // Process the form submission
+        //Initialize the variables
+        $ctclink_id = "";
+        $first_name = "";
+        $middle_name = "";
+        $last_name = "";
+        $pronouns = "";
+        $tribe = "";
+        $cte_program = "";
+        $email = "";
+        $phone = "";
+        $clothing_size = "";
+        $course_history = "";
+        $academic_progress = "";
+        $finances = "";
+        $notes = "";
+
+
+        //If the form has posted
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             // Retrieve data from the form fields
-            $ctclink_id = (isset($_POST['ctclink_id'])) ? $_POST['ctclink_id'] : '';
-            $fName = (isset($_POST['first_name'])) ? $_POST['first_name'] : '';
-            $mName = (isset($_POST['middle_name'])) ? $_POST['middle_name'] : '';
-            $lName = (isset($_POST['last_name'])) ? $_POST['last_name'] : '';
-            $pronouns = (isset($_POST['pronouns'])) ? $_POST['pronouns'] : '';
-            $tribe = (isset($_POST['tribe'])) ? $_POST['tribe'] : '';
-            //$cte_program = (isset($POST['cte_program'])) ? $_POST['cte_program'] : '';
-            $email = (isset($POST['email'])) ? $_POST['email'] : '';
-            $phone = (isset($POST['phone'])) ? $_POST['phone'] : '';
-            $clothingSize = (isset($_POST['clothingSize'])) ? $_POST['clothingSize'] : '';
-            $courseHistory = (isset($_POST['courseHistory'])) ? $_POST['$courseHistory'] : '';
-            $academics = (isset($_POST['academics'])) ? $_POST['academics'] : '';
-            $finances = (isset($_POST['finances'])) ? $_POST['finances'] : '';
-            $caseNotes = (isset($_POST['caseNotes'])) ? $_POST['caseNotes'] : '';
+            if(isset($_POST['ctclink_id'])) {$ctclink_id = $_POST['ctclink_id'];}
+            if(isset($_POST['first_name'])) {$first_name = $_POST['first_name'];}
+            if(isset($_POST['middle_name'])) {$middle_name = $_POST['middle_name'];}
+            if(isset($_POST['last_name'])) {$last_name = $_POST['last_name'];}
+            if(isset($_POST['pronouns'])) {$pronouns = $_POST['pronouns'];}
+            if(isset($_POST['tribe'])) {$tribe = $_POST['tribe'];}
+            if(isset($_POST['cte_program'])) {$cte_program = $_POST['cte_program'];}
+            if(isset($_POST['email'])) {$email = $_POST['email'];}
+            if(isset($_POST['phone'])) {$phone = $_POST['phone'];}
+            if(isset($_POST['clothing_size'])) {$clothing_size = $_POST['clothing_size'];}
+            if(isset($_POST['course_history'])) {$course_history = $_POST['course_history'];}
+            if(isset($_POST['academic_progress'])) {$academic_progress = $_POST['academic_progress'];}
+            if(isset($_POST['finances'])) {$finances = $_POST['finances'];}
+            if(isset($_POST['notes'])) {$notes = $_POST['notes'];}
 
             // Validate the data
             // Validate the first name
-            if(empty($fName) || !Validation::validName($fName)) {
+            if(empty($fName) || !Validation::validName($first_name)) {
                 $this->_f3->set('errors["fName]', 'Invalid name entered');
             }
 
-            // Validate the middle name
+            /* TODO Allow middle name to be blank
+            Validate the middle name
             if(empty($mName)) {
-                // Allow middle name to be blank
-            } elseif(!Validation::validName($mName)) {
+            } elseif(!Validation::validName($middle_name)) {
                 $this->_f3->set('errors["mName]', 'Invalid name entered');
-            }
+            }*/
 
             // Validate the last name
-            if(empty($lName) || !Validation::validName($lName)) {
+            if(empty($lName) || !Validation::validName($last_name)) {
                 $this->_f3->set('errors["lName]', 'Invalid name entered');
             }
 
             // Validate the pronoun selected
-            if(!Validation::validPronoun($pronouns)) {
-                $this->_f3->set('errors["pronoun"]', 'Invalid pronoun selected');
+            if(!Validation::validatePronouns($pronouns)) {
+                $this->_f3->set('errors["pronouns"]', 'Invalid pronouns selected');
+            }
+
+            // Validate the tribe selected
+            if(!Validation::validateTribe($tribe)) {
+            $this->_f3->set('errors["tribe"]', 'Invalid tribe selected');
+            }
+
+            // Validate the cte program selected
+            if(!Validation::validateCTEProgram($cte_program)) {
+            $this->_f3->set('errors["cte_program"]', 'Invalid CTE program selected');
+            }
+
+            // Validate the clothing size selected
+            if(!Validation::validateClothingSize($clothing_size)) {
+                $this->_f3->set('errors["clothing_size"]', 'Invalid clothing size selected');
             }
 
             // Store data in the F3 framework session
             $this->_f3->set('SESSION.ctclink_id', $ctclink_id);
-            $this->_f3->set('SESSION.first_name', $fName);
-            $this->_f3->set('SESSION.middle_name', $mName);
-            $this->_f3->set('SESSION.last_name', $lName);
+            $this->_f3->set('SESSION.first_name', $first_name);
+            $this->_f3->set('SESSION.middle_name', $middle_name);
+            $this->_f3->set('SESSION.last_name', $last_name);
             $this->_f3->set('SESSION.pronouns', $pronouns);
             $this->_f3->set('SESSION.tribe', $tribe);
-            //$this->_f3->set('$SESSION.cte_program', $cte_program);
+            $this->_f3->set('SESSION.cte_program', $cte_program);
             $this->_f3->set('SESSION.email', $email);
             $this->_f3->set('SESSION.phone', $phone);
-            $this->_f3->set('SESSION.clothingSize', $clothingSize);
-            $this->_f3->set('SESSION.courseHistory', $courseHistory);
-            $this->_f3->set('SESSION.academics', $academics);
+            $this->_f3->set('SESSION.clothing_size', $clothing_size);
+            $this->_f3->set('SESSION.course_history', $course_history);
+            $this->_f3->set('SESSION.academic_progress', $academic_progress);
             $this->_f3->set('SESSION.finances', $finances);
-            $this->_f3->set('SESSION.caseNotes', $caseNotes);
+            $this->_f3->set('SESSION.notes', $notes);
 
-
-            // Redirect to the summary page
+            // Redirect to the confirmation page
             $this->_f3->reroute('/confirm');
         }
 

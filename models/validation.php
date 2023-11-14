@@ -114,34 +114,23 @@ class Validation
         return true;
     }
 
+    static function validatePronouns($pronouns)
+    {
+        return (!empty($pronouns) && in_array($pronouns, DataLayer::getPronouns()));
+    }
+
+    static function validateTribe($tribe)
+    {
+        return (!empty($tribe) && in_array($tribe, DataLayer::getTribes()));
+    }
+
+    static function validateCTEProgram($cte_program)
+    {
+        return (!empty($cte_program) && in_array($cte_program, DataLayer::getCTEPrograms()));
+    }
+
     static function validateClothingSize($clothing_size)
     {
-        if ($clothing_size === 'select...') {
-            return false;
-        }
-        return true;
-    }
-
-    static function validatetribe($tribe)
-    {
-        if ($tribe === 'select...') {
-            return false;
-        }
-        return true;
-    }
-
-    static function validatepronouns($pronouns)
-    {
-        if ($pronouns === 'select...') {
-            return false;
-        }
-        return true;
-    }
-
-
-
-    static function validPronoun($pronoun)
-    {
-        return (!empty($pronoun) && in_array($pronoun, DataLayer::getPrononoun()));
+        return (!empty($clothing_size) && in_array($clothing_size, DataLayer::getClothingSizes()));
     }
 }

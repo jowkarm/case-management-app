@@ -73,7 +73,7 @@ class DataLayer
     /**
      * Searches for students based on a search phrase.
      *
-     * @param $search_phrase The phrase to search for.
+     * @param $search_phrase the phrase to search for.
      * @return array An array of Student objects matching the search.
      */
     function search($search_phrase)
@@ -240,19 +240,36 @@ class DataLayer
     }
 
 
-    function getPronouns()
+    static function getPronouns()
     {
         $pronouns = array('they/them', 'she/her', 'he/him', 'other');
         return $pronouns;
     }
 
-    function getTribes()
+    static function getClothingSizes()
+        {
+            $sizes = array('xs', 's', 'm', 'l', 'xl', 'xxl');
+            return $sizes;
+        }
+
+    static function getTribes()
     {
         $tribes = array('muckleshoot', 'cherokee', 'choctaw',
             'turtle_mt', 'confederated', 'navajo', 'quileute',
             'suquamish', 'tlighit', 'blackfeet', 'samish',
             'snoqualmie', 'osage', 'potawatomie', 'chicksaw',
             'standing_rock', 'sioux');
+
+        return $tribes;
+    }
+
+    static function getCTEprograms()
+    {
+        $cte_programs = array('forest_rsrc_mngmt_bas', 'forestry', 'geo_information', 'park_mngmt',
+            'water_quality', 'wild_fire', 'aas_t');
+
+        return $cte_programs;
+    }
 
     /**
      * Generates an uuid for the provided email address.
@@ -367,12 +384,5 @@ class DataLayer
 
 
 
-        return $tribes;
-    }
 
-    function getSizes()
-    {
-        $sizes = array('xs', 's', 'm', 'l', 'xl', 'xxl');
-        return $sizes;
-    }
 }
