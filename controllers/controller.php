@@ -215,6 +215,14 @@ class Controller
         // Set the title of the page
         $this->_f3->set('title', 'Confirm');
 
+        //If the form has been posted
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $alert = new Alert('A new student has been added!', 'green');
+                $this->_f3->set('SESSION.alert', $alert);
+                $this->_f3->reroute('/');
+        }
+
         // Display add-student-confirmation view
         $view = new Template();
         echo $view->render('views/student-profile/add-student-confirm.html');
