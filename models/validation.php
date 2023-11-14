@@ -91,28 +91,25 @@ class Validation
         return !empty($f3->get('SESSION.user'));
     }
 
-    static function validfName($first_name)
+    /**
+     * This function checks to see that
+     * a string is a valid phone number
+     * with 10 digits.
+     */
+    static function validPhone($phoneNumber)
     {
-        $fname = trim($first_name);
-        return (strlen($first_name) >= 2 && !ctype_digit($first_name));
-    }
-    static function validlName($last_name)
-    {
-        $lname = trim($last_name);
-        return (strlen($last_name) >= 2 && !ctype_digit($last_name));
-    }
-
-    static function validPhone($phone)
-    {
-// Remove any non-numeric characters from the phone number
-        $phone = preg_replace('/[^0-9]/', '', $phone);
+        // Remove any non-digit characters from the phone number
+        $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
 
         // Check if the resulting string contains only numeric values
-        if (!ctype_digit($phone)) {
+        if (!ctype_digit($phoneNumber)) {
             return false;
         }
-        return true;
+
+        // Check if the phone number has exactly 10 digits
+        return strlen($phoneNumber) === 10;
     }
+
 
     static function validatePronouns($pronouns)
     {
@@ -133,4 +130,6 @@ class Validation
     {
         return (!empty($clothing_size) && in_array($clothing_size, DataLayer::getClothingSizes()));
     }
+
+
 }

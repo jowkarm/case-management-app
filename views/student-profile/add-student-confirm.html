@@ -27,7 +27,7 @@ Date: 10/10/2023
                             {{ @SESSION.last_name }} ({{ @SESSION.pronouns }})</p>
                     </div>
                     <div class="row mb-3">
-                        <p>Tribe: {{ @SESSION.tribe }}</p>
+                        <p>Tribe: {{ @SESSION.tribe_name }}</p>
                     </div>
                     <div class="row mb-3">
                         <p>CTE Program: {{ @SESSION.cte_program }}</p>
@@ -55,32 +55,38 @@ Date: 10/10/2023
         <!--row 2 thru 5-->
         <div class="row mb-3">
             <div class="mb-3">
-                <p>Course History: {{ @SESSION.course_history }}</p></p>
+                <p>Course History: {{ @SESSION.course_history }}</p>
             </div>
 
             <div class="mb-3">
-                <p>Current Academic Progress: {{ @SESSION.academic_progress }}</p></p>
+                <p>Current Academic Progress: {{ @SESSION.academics }}</p>
             </div>
 
             <div class="mb-3">
-                <p>Financial Need: {{ @SESSION.finances }}</p></p>
+                <p>Financial Need: {{ @SESSION.finances }}</p>
             </div>
 
             <div class="mb-3">
-                <p>Notes: {{ @SESSION.notes }}</p></p>
+                <p>Notes: {{ @SESSION.notes }}</p>
             </div>
         </div>
 
         <!--confirm button-->
         <div class="row pt-4 pb-6">
-            <div class="col-4"><!--empty--></div>
+            <div class="col-4 mt-auto">
+                <a href="add-student" class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button">Go Back</a>
+
+            </div>
             <div class="col-4"><!--empty--></div>
 
+
             <div class="col-4 mt-auto" id="box-5">
+
                 <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
                         id="next-button" type="submit">CONFIRM
                 </button>
             </div>
+
         </div>
 </div>
 

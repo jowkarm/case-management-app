@@ -21,24 +21,54 @@ Date: 10/10/2023
             <div class="col-sm">
                 <div class="container">
                     <div class="row mb-3">
-                        <input type="text" class="form-control" id="ctclink_id"
-                               name="ctclink_id" placeholder="Student Id" value="">
+                        <check if="{{ isset(@SESSION.ctclink_id) }}">
+                            <true>
+                                <input type="text"
+                                       class="form-control"
+                                       name="ctclink_id" placeholder="Student ctcLink Id" value="{{ @SESSION.ctclink_id }}">
+                            </true>
+                            <false>
+                                <input type="text"
+                                       class="form-control"
+                                       name="ctclink_id" placeholder="Student ctcLink Id">
+                            </false>
+                        </check>
+
+
+
+
                     </div>
                     <div class="row mb-3">
+
                         <input type="text" class="form-control" id="first_name"
                                name="first_name" placeholder="First Name" value="">
+
                     </div>
                     <div class="row mb-3">
-                        <input type="text" class="form-control" id="middle_name"
-                               name="middle_name" placeholder="Middle Name" value="">
+                        <check if="{{ isset(@SESSION.middle_name) }}">
+                            <true>
+                                <input type="text"  class="form-control"
+                                       name="middle_name" placeholder="Middle Name" value="{{ @SESSION.middle_name }}">
+                            </true>
+                            <false>
+                                <input type="text"  class="form-control"
+                                       name="middle_name" placeholder="Middle Name">
+                            </false>
+                        </check>
+
+
+
                     </div>
                     <div class="row mb-3">
+
                         <input type="text" class="form-control" id="last_name"
                                name="last_name" placeholder="Last Name" value="">
+
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="input-group mb-3">
+
                         <label class="input-group-text" for="pronouns" >Pronouns</label>
                         <select class="form-select" id="pronouns" name="pronouns">
                             <option value="">select...</option>
@@ -46,6 +76,7 @@ Date: 10/10/2023
                             <option value="she/her">she/her</option>
                             <option value="he/him">he/him</option>
                             <option value="other">other</option>
+
                         </select>
 
                     </div>
@@ -65,6 +96,7 @@ Date: 10/10/2023
             <div class="input-group mb-3">
                 <label class="input-group-text" for="tribe_name">Tribe</label>
                 <select class="form-select" id="tribe_name" name="tribe_name">
+
                     <option value="">select...</option>
                     <option value="muckleshoot">Muckleshoot Indian Tribe</option>
                     <option value="cherokee">Cherokee Nation</option>
@@ -83,6 +115,7 @@ Date: 10/10/2023
                     <option value="chicksaw">Chicksaw</option>
                     <option value="standing_rock">Standing Rock Sioux</option>
                     <option value="sioux">Sioux</option>
+
                 </select>
             </div>
         </div>
@@ -91,6 +124,7 @@ Date: 10/10/2023
         <div class="row mb-3">
             <div class="input-group mb-3">
                 <label class="input-group-text" for="cte_program">CTE Program</label>
+
                 <select class="form-select" id="cte_program" name="cte_program" value="">
                     <option selected>select...</option>
                     <option value="forest_rsrc_mngmt_bas">Forest Resource Management, BAS</option>
@@ -100,6 +134,7 @@ Date: 10/10/2023
                     <option value="water_quality">Water Quality, AAS</option>
                     <option value="wild_fire">Wildland Fire, AAS</option>
                     <option value="aas_t">AAS-T</option>
+
                 </select>
             </div>
         </div>
@@ -109,6 +144,7 @@ Date: 10/10/2023
         <div class="row mb-3">
             <!-- email -->
             <div class="col-sm">
+
                 <input type="email" class="form-control" id="email"
                        name="email" placeholder="Email" value="">
             </div>
@@ -120,6 +156,7 @@ Date: 10/10/2023
             <div class="col-sm">
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="clothing_size">Clothing Size</label>
+
                     <select class="form-select" id="clothing_size" name="clothing_size" value="">
                         <option selected>select...</option>
                         <option value="xs">xs</option>
@@ -127,6 +164,7 @@ Date: 10/10/2023
                         <option value="m">m</option>
                         <option value="lg">lg</option>
                         <option value="xl">xl</option>
+
                     </select>
                 </div>
             </div>

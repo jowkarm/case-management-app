@@ -240,6 +240,7 @@ class DataLayer
     }
 
 
+
     static function getPronouns()
     {
         $pronouns = array('they/them', 'she/her', 'he/him', 'other');
@@ -270,6 +271,7 @@ class DataLayer
 
         return $cte_programs;
     }
+
 
     /**
      * Generates an uuid for the provided email address.
@@ -381,8 +383,6 @@ class DataLayer
             return false;
         }
     }
-
-
 
 
 }

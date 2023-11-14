@@ -73,6 +73,7 @@ class Controller
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             // Retrieve data from the form fields
+
             if(isset($_POST['ctclink_id'])) {$ctclink_id = $_POST['ctclink_id'];}
             if(isset($_POST['first_name'])) {$first_name = $_POST['first_name'];}
             if(isset($_POST['middle_name'])) {$middle_name = $_POST['middle_name'];}
@@ -87,6 +88,7 @@ class Controller
             if(isset($_POST['academic_progress'])) {$academic_progress = $_POST['academic_progress'];}
             if(isset($_POST['finances'])) {$finances = $_POST['finances'];}
             if(isset($_POST['notes'])) {$notes = $_POST['notes'];}
+
 
             // Validate the data
             // Validate the first name
@@ -107,6 +109,7 @@ class Controller
             }
 
             // Validate the pronoun selected
+
             if(!Validation::validatePronouns($pronouns)) {
                 $this->_f3->set('errors["pronouns"]', 'Invalid pronouns selected');
             }
@@ -132,6 +135,7 @@ class Controller
             $this->_f3->set('SESSION.middle_name', $middle_name);
             $this->_f3->set('SESSION.last_name', $last_name);
             $this->_f3->set('SESSION.pronouns', $pronouns);
+
             $this->_f3->set('SESSION.tribe', $tribe);
             $this->_f3->set('SESSION.cte_program', $cte_program);
             $this->_f3->set('SESSION.email', $email);
@@ -145,6 +149,12 @@ class Controller
             // Redirect to the confirmation page
             $this->_f3->reroute('/confirm');
         }
+
+        // Set arrays
+        $this->_f3->set('programs', $GLOBALS['dataLayer']->getCtePrograms());
+        $this->_f3->set('sizes', $GLOBALS['dataLayer']->getSizes());
+        $this->_f3->set('pronouns', $GLOBALS['dataLayer']->getPronouns());
+        $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
 
         // Set the title of the page
         $this->_f3->set('title', 'Add a Student');
