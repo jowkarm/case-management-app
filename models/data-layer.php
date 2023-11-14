@@ -73,7 +73,7 @@ class DataLayer
     /**
      * Searches for students based on a search phrase.
      *
-     * @param $search_phrase The phrase to search for.
+     * @param $search_phrase the phrase to search for.
      * @return array An array of Student objects matching the search.
      */
     function search($search_phrase)
@@ -240,6 +240,39 @@ class DataLayer
     }
 
 
+
+    static function getPronouns()
+    {
+        $pronouns = array('they/them', 'she/her', 'he/him', 'other');
+        return $pronouns;
+    }
+
+    static function getClothingSizes()
+        {
+            $sizes = array('xs', 's', 'm', 'l', 'xl', 'xxl');
+            return $sizes;
+        }
+
+    static function getTribes()
+    {
+        $tribes = array('muckleshoot', 'cherokee', 'choctaw',
+            'turtle_mt', 'confederated', 'navajo', 'quileute',
+            'suquamish', 'tlighit', 'blackfeet', 'samish',
+            'snoqualmie', 'osage', 'potawatomie', 'chicksaw',
+            'standing_rock', 'sioux');
+
+        return $tribes;
+    }
+
+    static function getCTEprograms()
+    {
+        $cte_programs = array('forest_rsrc_mngmt_bas', 'forestry', 'geo_information', 'park_mngmt',
+            'water_quality', 'wild_fire', 'aas_t');
+
+        return $cte_programs;
+    }
+
+
     /**
      * Generates an uuid for the provided email address.
      *
@@ -351,45 +384,5 @@ class DataLayer
         }
     }
 
-
-
-        function getPronouns()
-        {
-            return array('they/them', 'she/her', 'he/him', 'other');
-        }
-
-        function getCtePrograms()
-        {
-            return array('Forest Resource Management, BAS',
-                'Forestry, AAS', 'Geographic Information Systems, AAS', 'Park Management, AAS',
-                'Water Quality, AAS', 'Wildland Fire, AAS');
-        }
-
-        function getTribes()
-        {
-            return array(
-                "Muckleshoot Indian Tribe",
-                "Cherokee Nation",
-                "Choctaw Nation",
-                "Choctaw Nation",
-                "Confederated Tribe of Colville",
-                "Navajo Nation",
-                "Quileute Tribe",
-                "Suquamish Tribe",
-                "Tlingit",
-                "Blackfeet",
-                "Samish",
-                "Snoqualmie",
-                "Osage",
-                "Potawatomie",
-                "Chicksaw",
-                "Standing Rock Sioux",
-                "Sioux");
-        }
-
-        function getSizes()
-        {
-            return array('xs', 's', 'm', 'l', 'xl', 'xxl');
-        }
 
 }

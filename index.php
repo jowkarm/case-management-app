@@ -41,6 +41,11 @@ $f3->route('GET|POST /add-student', function () {
     $GLOBALS['con']->addStudent();
 });
 
+//Route to add-student-confirmation form
+$f3->route('GET|POST /confirm', function () {
+    $GLOBALS['con']->confirm();
+});
+
 $f3->route('GET|POST /summary', function () {
     $GLOBALS['con']->summary();
 });
@@ -96,8 +101,6 @@ $f3->route('GET /confirm', function() {
 });
 
 
-
 // Run Fat-Free
 $f3 -> run();
 
-//this is a test to see if branching is working

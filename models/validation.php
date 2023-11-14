@@ -111,73 +111,24 @@ class Validation
     }
 
 
+    static function validatePronouns($pronouns)
+    {
+        return (!empty($pronouns) && in_array($pronouns, DataLayer::getPronouns()));
+    }
 
-    /**
-     * This function validates the selected
-     * tribe name.
-     * @param $tribe
-     * @return bool
-     */
     static function validateTribe($tribe)
     {
-        $tribes = $GLOBALS['dataLayer']->getTribes();
-
-        /*if ($tribe === '') {
-            return false;
-        }*/
-
-        return (in_array($tribe, $tribes));
+        return (!empty($tribe) && in_array($tribe, DataLayer::getTribes()));
     }
 
-    /**
-     * This function validates the selected
-     * pronouns
-     * @param $pronouns
-     * @return bool
-     */
-    static function validatePronoun($pronouns)
+    static function validateCTEProgram($cte_program)
     {
-        $pronouns_array = $GLOBALS['dataLayer']->getPronouns();
-
-        /*if ($pronouns === 'select...') {
-            return false;
-        }*/
-
-        return (in_array($pronouns, $pronouns_array));
+        return (!empty($cte_program) && in_array($cte_program, DataLayer::getCTEPrograms()));
     }
 
-    /**
-     * This function validates the selected cte_program
-     * @param $cte_program
-     * @return bool
-     */
-    static function validateCteProgram($cte_program)
-    {
-
-        $programs = $GLOBALS['dataLayer']->getCtePrograms();
-
-        /*if ($pronouns === 'select...') {
-            return false;
-        }*/
-
-        return (in_array($cte_program, $programs));
-    }
-
-    /**
-     * This function validates the selected
-     * clothing size.
-     * @param $clothing_size
-     * @return bool
-     */
     static function validateClothingSize($clothing_size)
     {
-        $clothing_size_array = $GLOBALS['dataLayer']->getSizes();
-
-        /*if ($pronouns === 'select...') {
-            return false;
-        }*/
-
-        return (in_array($clothing_size, $clothing_size_array));
+        return (!empty($clothing_size) && in_array($clothing_size, DataLayer::getClothingSizes()));
     }
 
 

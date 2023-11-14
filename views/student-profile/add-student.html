@@ -39,25 +39,10 @@ Date: 10/10/2023
 
                     </div>
                     <div class="row mb-3">
-                        <check if="{{ isset(@SESSION.first_name) }}">
-                            <true>
-                                <input type="text"  class="form-control"
-                                       name="first_name" placeholder="First Name" value="{{ @SESSION.first_name }}">
-                            </true>
-                            <false>
-                                <input type="text"  class="form-control"
-                                       name="first_name" placeholder="First Name" >
-                            </false>
-                        </check>
 
+                        <input type="text" class="form-control" id="first_name"
+                               name="first_name" placeholder="First Name" value="">
 
-
-
-
-                        <!-- Display an error if there is one -->
-                        <check if="{{ isset(@errors['first_name']) }}">
-                            <span class="text-danger">{{ @errors['first_name'] }}</span>
-                        </check>
                     </div>
                     <div class="row mb-3">
                         <check if="{{ isset(@SESSION.middle_name) }}">
@@ -75,58 +60,25 @@ Date: 10/10/2023
 
                     </div>
                     <div class="row mb-3">
-                        <check if="{{ isset(@SESSION.last_name) }}">
-                            <true>
-                                <input type="text"  class="form-control"
-                                       name="last_name" placeholder="Last Name" value="{{ @SESSION.last_name }}">
-                            </true>
-                            <false>
-                                <input type="text"  class="form-control"
-                                       name="last_name" placeholder="Last Name">
-                            </false>
-                        </check>
 
+                        <input type="text" class="form-control" id="last_name"
+                               name="last_name" placeholder="Last Name" value="">
 
-
-
-                        <!-- Display an error if there is one -->
-                        <check if="{{ isset(@errors['last_name']) }}">
-                            <span class="text-danger">{{ @errors['last_name'] }}</span>
-                        </check>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="pronouns">Pronouns</label>
+
+                        <label class="input-group-text" for="pronouns" >Pronouns</label>
                         <select class="form-select" id="pronouns" name="pronouns">
-                            <check if="{{ isset(@SESSION.pronouns) }}">
-                                <true>
-                                    <option>select...</option>
-                                    <repeat group="{{ @pronouns }}" value="{{ @pronoun }}">
-                                        <check if="{{ @pronoun===@SESSION.pronouns }}">
-                                        <true>
-                                            <option value="{{ @pronoun }}" selected>{{ @pronoun }}</option>
-                                        </true>
-                                        <false>
-                                            <option value="{{ @pronoun }}">{{ @pronoun }}</option>
-                                        </false>
-                                        </check>
-                                    </repeat>
-                                </true>
-                                <false>
-                                    <option selected>select...</option>
-                                    <option value="they/them">they/them</option>
-                                    <option value="she/her">she/her</option>
-                                    <option value="he/him">he/him</option>
-                                    <option value="other">other</option>
-                                </false>
-                            </check>
+                            <option value="">select...</option>
+                            <option value="they/them">they/them</option>
+                            <option value="she/her">she/her</option>
+                            <option value="he/him">he/him</option>
+                            <option value="other">other</option>
 
                         </select>
 
-                        <check if="{{ isset(@errors['pronouns']) }}">
-                            <span class="text-danger">{{ @errors['pronouns'] }}</span>
-                        </check>
                     </div>
                 </div>
             </div>
@@ -144,47 +96,27 @@ Date: 10/10/2023
             <div class="input-group mb-3">
                 <label class="input-group-text" for="tribe_name">Tribe</label>
                 <select class="form-select" id="tribe_name" name="tribe_name">
-                    <check if="{{ isset(@SESSION.tribe_name) }}">
-                        <true>
-                            <option>select...</option>
-                            <repeat group="{{ @tribes }}" value="{{ @tribe }}">
-                                <check if="{{ @size===@SESSION.tribe_name }}">
-                                <true>
-                                    <option value="{{ @tribe }}" selected>{{ @tribe }}</option>
-                                </true>
-                                <false>
-                                    <option value="{{ @tribe }}">{{ @tribe }}</option>
-                                </false>
-                                </check>
-                            </repeat>
-                        </true>
-                        <false>
-                            <option selected>select...</option>
-                            <option value="Muckleshoot Indian Tribe">Muckleshoot Indian Tribe</option>
-                            <option value="Cherokee Nation">Cherokee Nation</option>
-                            <option value="Choctaw Nation">Choctaw Nation</option>
-                            <option value="Choctaw Nation">Choctaw Nation</option>
-                            <option value="Confederated Tribe of Colville">Confederated Tribe of Colville</option>
-                            <option value="Navajo Nation">Navajo Nation</option>
-                            <option value="Quileute Tribe">Quileute Tribe</option>
-                            <option value="Suquamish Tribe">Suquamish Tribe</option>
-                            <option value="Tlingit">Tlingit</option>
-                            <option value="Blackfeet">Blackfeet</option>
-                            <option value="Samish">Samish</option>
-                            <option value="Snoqualmie">Snoqualmie</option>
-                            <option value="Osage">Osage</option>
-                            <option value="Potawatomie">Potawatomie</option>
-                            <option value="Chicksaw">Chicksaw</option>
-                            <option value="Standing Rock Sioux">Standing Rock Sioux</option>
-                            <option value="Sioux">Sioux</option>
-                        </false>
-                    </check>
+
+                    <option value="">select...</option>
+                    <option value="muckleshoot">Muckleshoot Indian Tribe</option>
+                    <option value="cherokee">Cherokee Nation</option>
+                    <option value="choctaw">Choctaw Nation</option>
+                    <option value="turtle_mt">Choctaw Nation</option>
+                    <option value="confederated">Confederated Tribe of Colville</option>
+                    <option value="navajo">Navajo Nation</option>
+                    <option value="quileute">Quileute Tribe</option>
+                    <option value="suquamish">Suquamish Tribe</option>
+                    <option value="tlighit">Tlingit</option>
+                    <option value="blackfeet">Blackfeet</option>
+                    <option value="samish">Samish</option>
+                    <option value="snoqualmie">Snoqualmie</option>
+                    <option value="osage">Osage</option>
+                    <option value="potawatomie">Potawatomie</option>
+                    <option value="chicksaw">Chicksaw</option>
+                    <option value="standing_rock">Standing Rock Sioux</option>
+                    <option value="sioux">Sioux</option>
 
                 </select>
-
-                <check if="{{ isset(@errors['tribe_name']) }}">
-                    <span class="text-danger">{{ @errors['tribe_name'] }}</span>
-                </check>
             </div>
         </div>
 
@@ -192,38 +124,18 @@ Date: 10/10/2023
         <div class="row mb-3">
             <div class="input-group mb-3">
                 <label class="input-group-text" for="cte_program">CTE Program</label>
-                <select class="form-select" id="cte_program" name="cte_program">
-                    <check if="{{ isset(@SESSION.cte_program) }}">
-                        <true>
-                            <option>select...</option>
-                            <repeat group="{{ @programs }}" value="{{ @program }}">
-                                <check if="{{ @program===@SESSION.cte_program }}">
-                                <true>
-                                    <option value="{{ @program }}" selected>{{ @program }}</option>
-                                </true>
-                                <false>
-                                    <option value="{{ @program }}">{{ @program }}</option>
-                                </false>
-                                </check>
-                            </repeat>
-                        </true>
-                        <false>
-                            <option selected>select...</option>
-                            <option value="Forest Resource Management, BAS">Forest Resource Management, BAS</option>
-                            <option value="Forestry, AAS">Forestry, AAS</option>
-                            <option value="Geographic Information Systems, AAS">Geographic Information Systems, AAS</option>
-                            <option value="Park Management, AAS">Park Management, AAS</option>
-                            <option value="Water Quality, AAS">Water Quality, AAS</option>
-                            <option value="Wildland Fire, AAS">Wildland Fire, AAS</option>
-                            <option value="AAS-T">AAS-T</option>
-                        </false>
-                    </check>
+
+                <select class="form-select" id="cte_program" name="cte_program" value="">
+                    <option selected>select...</option>
+                    <option value="forest_rsrc_mngmt_bas">Forest Resource Management, BAS</option>
+                    <option value="forestry">Forestry, AAS</option>
+                    <option value="geo_information">Geographic Information Systems, AAS</option>
+                    <option value="park_mngmt">Park Management, AAS</option>
+                    <option value="water_quality">Water Quality, AAS</option>
+                    <option value="wild_fire">Wildland Fire, AAS</option>
+                    <option value="aas_t">AAS-T</option>
 
                 </select>
-
-                <check if="{{ isset(@errors['cte_program']) }}">
-                    <span class="text-danger">{{ @errors['cte_program'] }}</span>
-                </check>
             </div>
         </div>
 
@@ -232,77 +144,28 @@ Date: 10/10/2023
         <div class="row mb-3">
             <!-- email -->
             <div class="col-sm">
-                <check if="{{ isset(@SESSION.email) }}">
-                    <true>
-                        <input type="email"  class="form-control"
-                               name="email" placeholder="Email" value="{{ @SESSION.email }}">
-                    </true>
-                    <false>
-                        <input type="email"  class="form-control"
-                               name="email" placeholder="Email">
-                    </false>
-                </check>
 
-
-
-
-                <check if="{{ isset(@errors['email']) }}">
-                    <span class="text-danger">{{ @errors['email'] }}</span>
-                </check>
+                <input type="email" class="form-control" id="email"
+                       name="email" placeholder="Email" value="">
             </div>
             <!-- phone -->
             <div class="col-sm">
-                <check if="{{ isset(@SESSION.phone) }}">
-                    <true>
-                        <input type="tel"  class="form-control"
-                               name="phone" placeholder="206-555-1234" pattern="(\(\d{3}\)\s*|\d{3}[-\s]?)\d{3}[-\s]?\d{4}" value="{{ @SESSION.phone }}">
-                    </true>
-                    <false>
-                        <input type="tel"  class="form-control"
-                               name="phone" placeholder="206-555-1234" pattern="(\(\d{3}\)\s*|\d{3}[-\s]?)\d{3}[-\s]?\d{4}">
-                    </false>
-                </check>
-
-
-
-
-                <check if="{{ isset(@errors['phone']) }}">
-                    <span class="text-danger">{{ @errors['phone'] }}</span>
-                </check>
+                <input type="tel" class="form-control" id="phone"
+                       name="phone" placeholder="206-555-1234" value="">
             </div>
             <div class="col-sm">
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="clothing_size">Clothing Size</label>
-                    <select class="form-select" id="clothing_size" name="clothing_size">
-                        <check if="{{ isset(@SESSION.clothing_size) }}">
-                            <true>
-                                <option>select...</option>
-                                <repeat group="{{ @sizes }}" value="{{ @size }}">
-                                <check if="{{ @size===@SESSION.clothing_size }}">
-                                    <true>
-                                        <option value="{{ @size }}" selected>{{ @size }}</option>
-                                    </true>
-                                    <false>
-                                        <option value="{{ @size }}">{{ @size }}</option>
-                                    </false>
-                                </check>
-                                </repeat>
-                            </true>
-                            <false>
-                                <option selected>select...</option>
-                                <option value="xs">xs</option>
-                                <option value="s">s</option>
-                                <option value="m">m</option>
-                                <option value="lg">lg</option>
-                                <option value="xl">xl</option>
-                            </false>
-                        </check>
+
+                    <select class="form-select" id="clothing_size" name="clothing_size" value="">
+                        <option selected>select...</option>
+                        <option value="xs">xs</option>
+                        <option value="s">s</option>
+                        <option value="m">m</option>
+                        <option value="lg">lg</option>
+                        <option value="xl">xl</option>
 
                     </select>
-
-                    <check if="{{ isset(@errors['clothing_size']) }}">
-                        <span class="text-danger">{{ @errors['clothing_size'] }}</span>
-                    </check>
                 </div>
             </div>
         </div>
@@ -310,67 +173,20 @@ Date: 10/10/2023
         <!--row 4 thru 7-->
         <div class="row mb-3">
             <div class="mb-3">
-
-                <check if="{{ isset(@SESSION.course_history) }}">
-                    <true>
-                        <label for="course_history" class="form-label">Course History</label>
-                        <textarea id="course_history"  class="form-control" name="course_history" rows="4" value="{{ @SESSION.course_history }}"></textarea>
-                    </true>
-                    <false>
-                        <label for="course_history2" class="form-label">Course History</label>
-                        <textarea id="course_history2"  class="form-control" name="course_history" rows="4"></textarea>
-                    </false>
-                </check>
-
-
-
+                <label for="course_history" class="form-label">Course History</label>
+                <textarea id="course_history" class="form-control" name="course_history" value="" rows="4"></textarea>
             </div>
             <div class="mb-3">
-
-                <check if="{{ isset(@SESSION.academics) }}">
-                    <true>
-                        <label for="academics" class="form-label">Current Academic Progress</label>
-                        <textarea id="academics"  class="form-control" name="academics" rows="4" value="{{ @SESSION.academics }}"></textarea>
-                    </true>
-                    <false>
-                        <label for="academics1" class="form-label">Current Academic Progress</label>
-                        <textarea id="academics1"  class="form-control" name="academics" rows="4"></textarea>
-                    </false>
-                </check>
-
-
-
+                <label for="academic_progress" class="form-label">Current Academic Progress</label>
+                <textarea id="academic_progress" class="form-control" name="academic_progress" value="" rows="4"></textarea>
             </div>
             <div class="mb-3">
-
-                <check if="{{ isset(@SESSION.finances) }}">
-                    <true>
-                        <label for="finances" class="form-label">Financial Need</label>
-                        <textarea id="finances"  class="form-control" name="finances" rows="4" value="{{ @SESSION.finances }}"></textarea>
-                    </true>
-                    <false>
-                        <label for="finances1" class="form-label">Financial Need</label>
-                        <textarea id="finances1"  class="form-control" name="finances" rows="4"></textarea>
-                    </false>
-                </check>
-
+                <label for="finances" class="form-label">Financial Need</label>
+                <textarea id="finances" class="form-control" name="finances" value="" rows="4"></textarea>
             </div>
             <div class="mb-3">
-
-                <check if="{{ isset(@SESSION.notes) }}">
-                <true>
-                    <label for="notes" class="form-label">Notes</label>
-                    <textarea id="notes"  class="form-control" name="notes" rows="4" value="{{ @SESSION.notes }}"> </textarea>
-                </true>
-                <false>
-                    <label for="notes1" class="form-label">Notes</label>
-                    <textarea id="notes1"  class="form-control" name="notes" rows="4"> </textarea>
-                </false>
-                </check>
-               
-
-
-
+                <label for="notes" class="form-label">Notes</label>
+                <textarea id="notes" class="form-control" name="notes" value="" rows="4"></textarea>
             </div>
         </div>
 

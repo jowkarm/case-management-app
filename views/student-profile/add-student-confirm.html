@@ -32,10 +32,19 @@ Date: 10/10/2023
                     <div class="row mb-3">
                         <p>CTE Program: {{ @SESSION.cte_program }}</p>
                     </div>
+                    <div class="row mb-3">
+                        <p>Email: {{ @SESSION.email }}</p>
+                    </div>
+                    <div class="row mb-3">
+                        <p>Phone Number: {{ @SESSION.phone }}</p>
+                    </div>
+                    <div class="row mb-3">
+                        <p>Clothing Size: {{ @SESSION.clothing_size }}</p>
+                    </div>
                 </div>
             </div>
 
-            <!--col 2-->
+            <!--row 1 col 2-->
             <!-- image upload -->
             <div class="col-sm mb-3">
                     <img src="images/woman_profile_anonymous.png" class="img-fluid rounded"
@@ -43,25 +52,7 @@ Date: 10/10/2023
             </div>
         </div>
 
-        <!--row 2-->
-
-        <div class="row mb-3">
-            <!-- email -->
-            <div class="col-sm">
-                <p>Email: {{ @SESSION.email }}</p>
-            </div>
-            <!-- phone -->
-            <div class="col-sm">
-                <p>Phone Number: {{ @SESSION.phone }}</p>
-            </div>
-
-            <!-- clothing size -->
-            <div class="col-sm">
-                <p>Clothing Size: {{ @SESSION.clothing_size }}</p>
-            </div>
-        </div>
-
-        <!--row 4 thru 7-->
+        <!--row 2 thru 5-->
         <div class="row mb-3">
             <div class="mb-3">
                 <p>Course History: {{ @SESSION.course_history }}</p>
@@ -89,8 +80,8 @@ Date: 10/10/2023
             <div class="col-4"><!--empty--></div>
 
 
+            <div class="col-4 mt-auto" id="box-5">
 
-            <div class="col-4 mt-auto">
                 <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
                         id="next-button" type="submit">CONFIRM
                 </button>
