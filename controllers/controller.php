@@ -456,10 +456,10 @@ class Controller
 
     function case_log()
     {
-        // Only if a user is logged in can they add a student
+        /*// Only if a user is logged in can they add a student
         if (!Validation::loggedIn($this->_f3)) {
             $this->_f3->reroute('/login');
-        }
+        }*/
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Get the data
@@ -475,6 +475,9 @@ class Controller
                 $this->_f3->set('errors["sortBy"]', 'Invalid Selection');
             }
         }
+
+        // Set the title of the page
+        $this->_f3->set('title', 'Case Notes');
 
         // View page for all cases
         $view = new Template();
@@ -496,6 +499,9 @@ class Controller
 
         }
 
+        // Set the title of the page
+        $this->_f3->set('title', 'Add Note');
+
         // View page for all cases
         $view = new Template();
         echo $view->render('views/reports/add-note.html');
@@ -503,6 +509,7 @@ class Controller
 
     function note_confirm()
     {
+    }
 
         /**
          * Controller for the forgot-password route
@@ -625,5 +632,4 @@ class Controller
             echo $view->render('views/student-profile/student.html');
 
         }
-    }
 }
