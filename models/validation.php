@@ -126,10 +126,14 @@ class Validation
         return (!empty($cte_program) && in_array($cte_program, DataLayer::getCTEPrograms()));
     }
 
+
+    static function validSortingOptions($sortType)
+    {
+        return (in_array($sortType, (new DataLayer)->getSortOptions()));
+    }
+
     static function validateClothingSize($clothing_size)
     {
         return (!empty($clothing_size) && in_array($clothing_size, DataLayer::getClothingSizes()));
     }
-
-
 }

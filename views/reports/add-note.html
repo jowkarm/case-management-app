@@ -1,0 +1,154 @@
+<!--
+HTML markup for the Case Management New Case page
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: add-note.html
+Date: 11/12/2023
+-->
+
+<include href="views/includes/header.html"></include>
+
+<!--The alert included for home page-->
+<include href="views/includes/alert.html"></include>
+
+<div class="p-4 container w-75">
+    <h3>Add New Case Note</h3>
+    <h4>Case Number: {{ @case_number }}</h4>
+    <hr>
+
+    <form action="#" method="post">
+        <!--Student ID-->
+        <div class="row pt-4">
+            <div class="col-4">
+                <label class="form-label"> CtcLink ID</label>
+                <check if="{{ isset(@SESSION.ctclink_id) }}">
+                    <true>
+                        <input type="text"
+                               class="form-control"
+                               name="ctclink_id" placeholder="Student ctcLink Id" value="{{ @SESSION.ctclink_id }}">
+                    </true>
+                    <false>
+                        <input type="text"
+                               class="form-control"
+                               name="ctclink_id" placeholder="Student ctcLink Id">
+                    </false>
+                </check>
+            </div>
+        </div>
+
+        <!-- Force next columns to break to new line -->
+        <div class="w-100"></div>
+
+        <!--Name-->
+        <div class="row pt-4">
+            <div class="col">
+                <label class="form-label"> First Name</label>
+                <check if="{{ isset(@SESSION.first_name) }}">
+                    <true>
+                        <input type="text"  class="form-control"
+                               name="first_name" placeholder="First Name" value="{{ @SESSION.first_name }}">
+                    </true>
+                    <false>
+                        <input type="text"  class="form-control"
+                               name="first_name" placeholder="First Name" >
+                    </false>
+                </check>
+            </div>
+            <div class="col">
+                <label class="form-label"> Middle Name</label>
+                <check if="{{ isset(@SESSION.middle_name) }}">
+                    <true>
+                        <input type="text"  class="form-control"
+                               name="middle_name" placeholder="Middle Name" value="{{ @SESSION.middle_name }}">
+                    </true>
+                    <false>
+                        <input type="text"  class="form-control"
+                               name="middle_name" placeholder="Middle Name">
+                    </false>
+                </check>
+            </div>
+            <div class="col">
+                <label class="form-label"> Last Name</label>
+                <check if="{{ isset(@SESSION.last_name) }}">
+                    <true>
+                        <input type="text"  class="form-control"
+                               name="last_name" placeholder="Last Name" value="{{ @SESSION.last_name }}">
+                    </true>
+                    <false>
+                        <input type="text"  class="form-control"
+                               name="last_name" placeholder="Last Name">
+                    </false>
+                </check>
+            </div>
+        </div>
+
+        <!--Subject and Due Date Row-->
+        <div class="row pt-4">
+            <div class="col-4">
+                <label class="form-label"> Subject</label>
+                <check if="{{ isset(@SESSION.subject) }}">
+                    <true>
+                        <input type="text"  class="form-control"
+                               name="subject" placeholder="Subject" value="{{ @SESSION.subject }}">
+                    </true>
+                    <false>
+                        <input type="text"  class="form-control"
+                               name="subject" placeholder="Subject">
+                    </false>
+                </check>
+            </div>
+            <div class="col-4">
+                <label class="form-label"> Due Date</label>
+                <check if="{{ isset(@SESSION.due_date) }}">
+                    <true>
+                        <input type="date"  class="form-control"
+                               name="due_date" placeholder="Due Date" value="{{ @SESSION.due_date }}">
+                    </true>
+                    <false>
+                        <input type="date"  class="form-control"
+                               name="due_date" placeholder="Due Date">
+                    </false>
+                </check>
+            </div>
+        </div>
+
+        <!--Emotional Indicator-->
+        <div class="row pt-4">
+            <div class="col">
+                <label class="form-label">Emotional Indicator</label>
+                <!--*Insert Color*-->
+                <input type="radio" class="btn-check" name="options-outlined" id="green" autocomplete="off" checked>
+                <label class="btn btn-outline-success" for="green"></label>
+
+                <!--*Insert Color*-->
+                <input type="radio" class="btn-check" name="options-outlined" id="red" autocomplete="off">
+                <label class="btn btn-outline-danger" for="red"></label>
+
+                <!--*Insert Color*-->
+                <input type="radio" class="btn-check" name="options-outlined" id="yellow" autocomplete="off">
+                <label class="btn btn-outline-warning" for="yellow"></label>
+
+                <!--*Insert Color*-->
+                <input type="radio" class="btn-check" name="options-outlined" id="blue" autocomplete="off">
+                <label class="btn btn-outline-info" for="blue"></label>
+
+                <!--*Insert Color*-->
+                <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+                <label class="btn btn-outline-primary" for="danger-outlined"></label>
+            </div>
+        </div>
+
+        <!--Note Text Area-->
+        <div class="row pt-4">
+            <div>
+                <label class="form-label" for="caseNote">Note</label>
+                <textarea id="caseNote" class="form-control" name="caseNote" rows="4"></textarea>
+            </div>
+        </div>
+        <div>
+            <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
+                    id="next-button" type="submit">ADD NOTE
+            </button>
+        </div>
+    </form>
+</div>
+<include href="views/includes/footer.html"></include>

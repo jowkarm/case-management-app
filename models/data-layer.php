@@ -240,6 +240,11 @@ class DataLayer
     }
 
 
+    function getSortOptions()
+    {
+        return array("case_id", "student_id", "status", "date_opened", "due_date", "subject", "emotional_indicator");
+    }
+
 
     static function getPronouns()
     {
@@ -385,4 +390,135 @@ class DataLayer
     }
 
 
+    function insertNote($case)
+    {
+        // 1. define the query
+        $sql = "INSERT INTO Notes (due_date, subject, note)
+                VALUES (:due_date, :subject, :note)";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $due_date = $case->getDueDate();
+        $subject = $case->getStatus();
+        $note = $case->getNote();
+
+        $statement->bindParam(':due_date', $due_date);
+        $statement->bindParam(':subject', $subject);
+        $statement->bindParam(':note', $note);
+
+        //4. Execute
+        $statement->execute();
+
+        //5. Process the result, if there is one
+        $id = $this->_dbh->lastInsertId();
+        return $id;
+
+    }
+
+    function getNote($student_id)
+    {
+        $sql = "SELECT *
+                FROM Notes INNER JOIN Student 
+                ON Notes.student_id = Student.student_id
+                WHERE Notes.student_id = :student_id";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $statement->bindParam(':student_id', $student_id);
+
+        //4. Execute
+        $statement->execute();
+
+        // 5. Process the result
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if($row !== false){
+            $note = new Case_Note($row['student_id'],
+                $row['date_opened'],
+                $row['due_date'],
+                $row['subject'],
+                $row['note']);
+            $note->setCaseId($row['case_id']);
+
+            return $note;
+        } else {
+            return false;
+        }
+    }
+    function getAllCaseNotes()
+    {
+        $sql = "SELECT *
+                FROM Notes INNER JOIN Student 
+                ON Notes.student_id = Student.student_id";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        // 3. Execute
+        $statement->execute();
+
+        // 4. Process the result
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $notes = array();
+
+        foreach ($result as $row){
+            $note = new Case_Note($row['ctclink_id'],
+                $row['date_opened'],
+                $row['due_date'],
+                $row['subject'],
+                $row['note']);
+            $note->setCaseId($row['case_id']);
+            $notes[] = $note;
+        }
+        return $notes;
+    }
+
+    function getSortedCaseNotes($sortType)
+    {
+
+        // SELECT Statement - multiple rows
+        // 1. define the query
+        $sql = "SELECT * FROM Notes
+                ORDER BY " . $sortType;
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        // 3. Execute
+        $statement->execute();
+
+        // 4. Process the result
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $notes = array();
+
+        foreach ($result as $row){
+            $note = new Case_Note($row['ctclink_id'],
+                                $row['date_opened'],
+                                $row['due_date'],
+                                $row['subject'],
+                                $row['note']);
+            $note->setCaseId($row['case_id']);
+            $notes[] = $note;
+        }
+        return $notes;
+    }
+
+    function getNextCaseId()
+    {
+        // 1. define the query
+        $sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_NAME ='Notes';";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        // 3. Execute
+        return $statement->execute();
+
+    }
 }

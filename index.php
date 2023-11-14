@@ -80,6 +80,16 @@ $f3->route('GET /reports', function() {
     $GLOBALS['con']->reports();
 });
 
+
+// Define a case log route
+$f3->route('GET|POST /case-log', function() {
+   $GLOBALS['con']->case_log();
+});
+
+// Define a new note route
+$f3->route('GET|POST /add-note', function() {
+    $GLOBALS['con']->add_note();
+
 // Define a forgot-password route
 $f3->route('GET|POST /forgot-password', function() {
     $GLOBALS['con']->forgotPassword();
@@ -100,6 +110,10 @@ $f3->route('GET /confirm', function() {
     $GLOBALS['con']->confirm();
 });
 
+// Define a new note route
+$f3->route('GET /note-confirm', function() {
+    $GLOBALS['con']->add_note();
+});
 
 // Run Fat-Free
 $f3 -> run();
