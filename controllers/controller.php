@@ -342,4 +342,58 @@ class Controller
         echo $view->render('views/reports/reports.html');
 
     }
+
+    function case_log()
+    {
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            // Get the data
+            $sortBy = (isset($_POST['sort'])) ? $_POST['sort'] : '';
+
+            if (Validation::validSortingOptions($sortBy)) {
+                $this->_f3->set('SESSION.sort', $sortBy);
+
+                $notes = $GLOBALS['dataLayer']->getAllCaseNotes($this->_f3->get('SESSION.sort'));
+                // Get the data from the model and add to a new card
+                $this->_f3->set('SESSION.notes', $notes);
+            }
+            else {
+                $this->_f3->set('errors["sortBy"]', 'Invalid Selection');
+            }
+        }
+
+        // View page for all cases
+        $view = new Template();
+        echo $view->render('views/reports/case-log.html');
+    }
+
+    function add_note()
+    {
+        // Only if a user is logged in can they add a student
+//        if (!Validation::loggedIn($this->_f3)) {
+//            $this->_f3->reroute('/login');
+//        }
+
+        // Next Case ID in the Notes table
+        $this->_f3->set('case_number', $GLOBALS['dataLayer']->getNextCaseId());
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+
+
+        }
+
+        // View page for all cases
+        $view = new Template();
+        echo $view->render('views/reports/add-note.html');
+    }
+
+    function note_confirm()
+    {
+
+    }
 }

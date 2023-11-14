@@ -94,4 +94,9 @@ class Validation
     {
         return (!empty($pronoun) && in_array($pronoun, DataLayer::getPrononoun()));
     }
+
+    static function validSortingOptions($sortType)
+    {
+        return (in_array($sortType, (new DataLayer)->getSortOptions()));
+    }
 }
