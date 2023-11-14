@@ -247,10 +247,9 @@ class DataLayer
         return $pronouns;
     }
 
-    static function getClothingSizes()
+    static function getSizes()
         {
-            $sizes = array('xs', 's', 'm', 'l', 'xl', 'xxl');
-            return $sizes;
+            return array('xs', 's', 'm', 'l', 'xl', 'xxl');
         }
 
     static function getTribes()

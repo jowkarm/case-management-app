@@ -58,7 +58,7 @@ class Controller
         $middle_name = "";
         $last_name = "";
         $pronouns = "";
-        $tribe = "";
+        $tribe_name = "";
         $cte_program = "";
         $email = "";
         $phone = "";
@@ -79,7 +79,7 @@ class Controller
             if(isset($_POST['middle_name'])) {$middle_name = $_POST['middle_name'];}
             if(isset($_POST['last_name'])) {$last_name = $_POST['last_name'];}
             if(isset($_POST['pronouns'])) {$pronouns = $_POST['pronouns'];}
-            if(isset($_POST['tribe'])) {$tribe = $_POST['tribe'];}
+            if(isset($_POST['tribe_name'])) {$tribe_name = $_POST['tribe_name'];}
             if(isset($_POST['cte_program'])) {$cte_program = $_POST['cte_program'];}
             if(isset($_POST['email'])) {$email = $_POST['email'];}
             if(isset($_POST['phone'])) {$phone = $_POST['phone'];}
@@ -115,8 +115,8 @@ class Controller
             }
 
             // Validate the tribe selected
-            if(!Validation::validateTribe($tribe)) {
-            $this->_f3->set('errors["tribe"]', 'Invalid tribe selected');
+            if(!Validation::validateTribe($tribe_name)) {
+                $this->_f3->set('errors["tribe"]', 'Invalid tribe selected');
             }
 
             // Validate the cte program selected
@@ -136,7 +136,7 @@ class Controller
             $this->_f3->set('SESSION.last_name', $last_name);
             $this->_f3->set('SESSION.pronouns', $pronouns);
 
-            $this->_f3->set('SESSION.tribe', $tribe);
+            $this->_f3->set('SESSION.tribe_name', $tribe_name);
             $this->_f3->set('SESSION.cte_program', $cte_program);
             $this->_f3->set('SESSION.email', $email);
             $this->_f3->set('SESSION.phone', $phone);
