@@ -134,6 +134,6 @@ class Validation
 
     static function validateClothingSize($clothing_size)
     {
-        return (!empty($clothing_size) && in_array($clothing_size, DataLayer::getClothingSizes()));
+        return (!empty($clothing_size) && in_array($clothing_size, DataLayer::getSizes()));
     }
 }

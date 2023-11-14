@@ -54,21 +54,25 @@ Date: 10/10/2023
 
         <!--row 2 thru 5-->
         <div class="row mb-3">
-            <div class="mb-3">
-                <p>Course History: {{ @SESSION.course_history }}</p>
-            </div>
+            <div clas="col">
+            <div class="container">
+                <div class="mb-3">
+                    <p>Course History: {{ @SESSION.course_history }}</p>
+                </div>
 
-            <div class="mb-3">
-                <p>Current Academic Progress: {{ @SESSION.academics }}</p>
-            </div>
+                <div class="mb-3">
+                    <p>Current Academic Progress: {{ @SESSION.academic_progress }}</p>
+                </div>
 
-            <div class="mb-3">
-                <p>Financial Need: {{ @SESSION.finances }}</p>
-            </div>
+                <div class="mb-3">
+                    <p>Financial Need: {{ @SESSION.finances }}</p>
+                </div>
 
-            <div class="mb-3">
-                <p>Notes: {{ @SESSION.notes }}</p>
+                <div class="mb-3">
+                    <p>Notes: {{ @SESSION.notes }}</p>
+                </div>
             </div>
+        </div>
         </div>
 
         <!--confirm button-->
