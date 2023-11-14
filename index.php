@@ -41,6 +41,11 @@ $f3->route('GET|POST /add-student', function () {
     $GLOBALS['con']->addStudent();
 });
 
+//Route to add-student-confirmation form
+$f3->route('GET|POST /confirm', function () {
+    $GLOBALS['con']->confirm();
+});
+
 $f3->route('GET|POST /summary', function () {
     $GLOBALS['con']->summary();
 });
@@ -75,6 +80,7 @@ $f3->route('GET /reports', function() {
     $GLOBALS['con']->reports();
 });
 
+
 // Define a case log route
 $f3->route('GET|POST /case-log', function() {
    $GLOBALS['con']->case_log();
@@ -83,6 +89,25 @@ $f3->route('GET|POST /case-log', function() {
 // Define a new note route
 $f3->route('GET|POST /add-note', function() {
     $GLOBALS['con']->add_note();
+
+// Define a forgot-password route
+$f3->route('GET|POST /forgot-password', function() {
+    $GLOBALS['con']->forgotPassword();
+});
+
+// Define a reset-password route
+$f3->route('GET|POST /reset-password', function() {
+    $GLOBALS['con']->resetPassword();
+});
+
+// Define a student route
+$f3->route('GET|POST /student', function() {
+    $GLOBALS['con']->student();
+});
+
+// Define a student route
+$f3->route('GET /confirm', function() {
+    $GLOBALS['con']->confirm();
 });
 
 // Define a new note route
@@ -93,4 +118,3 @@ $f3->route('GET /note-confirm', function() {
 // Run Fat-Free
 $f3 -> run();
 
-//this is a test to see if branching is working

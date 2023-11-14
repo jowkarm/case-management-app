@@ -1,0 +1,93 @@
+
+<!--
+HTML markup for the Student Information Form page
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: home.php
+Date: 10/10/2023
+-->
+
+<include href="views/includes/header.html"></include>
+
+<!--add new student form-->
+<div class="p-4 container w-75">
+    <h3>Confirm Student Data</h3>
+    <hr>
+
+
+        <!--row 1-->
+        <div class="row pt-4">
+            <!--col 1-->
+            <div class="col-sm">
+                <div class="container">
+                    <div class="row mb-3">
+                        <p>Student Id: {{ @SESSION.ctclink_id }} </p>
+                    </div>
+                    <div class="row mb-3">
+                        <p>Student Name: {{ @SESSION.first_name }} {{ @SESSION.middle_name }}
+                            {{ @SESSION.last_name }} ({{ @SESSION.pronouns }})</p>
+                    </div>
+                    <div class="row mb-3">
+                        <p>Tribe: {{ @SESSION.tribe_name }}</p>
+                    </div>
+                    <div class="row mb-3">
+                        <p>CTE Program: {{ @SESSION.cte_program }}</p>
+                    </div>
+                    <div class="row mb-3">
+                        <p>Email: {{ @SESSION.email }}</p>
+                    </div>
+                    <div class="row mb-3">
+                        <p>Phone Number: {{ @SESSION.phone }}</p>
+                    </div>
+                    <div class="row mb-3">
+                        <p>Clothing Size: {{ @SESSION.clothing_size }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--row 1 col 2-->
+            <!-- image upload -->
+            <div class="col-sm mb-3">
+                    <img src="images/woman_profile_anonymous.png" class="img-fluid rounded"
+                         alt="monochromatic silhouette of woman">
+            </div>
+        </div>
+
+        <!--row 2 thru 5-->
+        <div class="row mb-3">
+            <div class="mb-3">
+                <p>Course History: {{ @SESSION.course_history }}</p>
+            </div>
+
+            <div class="mb-3">
+                <p>Current Academic Progress: {{ @SESSION.academics }}</p>
+            </div>
+
+            <div class="mb-3">
+                <p>Financial Need: {{ @SESSION.finances }}</p>
+            </div>
+
+            <div class="mb-3">
+                <p>Notes: {{ @SESSION.notes }}</p>
+            </div>
+        </div>
+
+        <!--confirm button-->
+        <div class="row pt-4 pb-6">
+            <div class="col-4 mt-auto">
+                <a href="add-student" class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button">Go Back</a>
+
+            </div>
+            <div class="col-4"><!--empty--></div>
+
+
+            <div class="col-4 mt-auto" id="box-5">
+
+                <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
+                        id="next-button" type="submit">CONFIRM
+                </button>
+            </div>
+
+        </div>
+</div>
+
+<include href="views/includes/footer.html"></include>

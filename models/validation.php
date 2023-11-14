@@ -82,6 +82,7 @@ class Validation
         return true;
     }
 
+
     /**
      * Checks to ensure a user is logged into the webpage
      */
@@ -90,13 +91,49 @@ class Validation
         return !empty($f3->get('SESSION.user'));
     }
 
-    static function validPronoun($pronoun)
+    /**
+     * This function checks to see that
+     * a string is a valid phone number
+     * with 10 digits.
+     */
+    static function validPhone($phoneNumber)
     {
-        return (!empty($pronoun) && in_array($pronoun, DataLayer::getPrononoun()));
+        // Remove any non-digit characters from the phone number
+        $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
+
+        // Check if the resulting string contains only numeric values
+        if (!ctype_digit($phoneNumber)) {
+            return false;
+        }
+
+        // Check if the phone number has exactly 10 digits
+        return strlen($phoneNumber) === 10;
     }
+
+
+    static function validatePronouns($pronouns)
+    {
+        return (!empty($pronouns) && in_array($pronouns, DataLayer::getPronouns()));
+    }
+
+    static function validateTribe($tribe)
+    {
+        return (!empty($tribe) && in_array($tribe, DataLayer::getTribes()));
+    }
+
+    static function validateCTEProgram($cte_program)
+    {
+        return (!empty($cte_program) && in_array($cte_program, DataLayer::getCTEPrograms()));
+    }
+
 
     static function validSortingOptions($sortType)
     {
         return (in_array($sortType, (new DataLayer)->getSortOptions()));
+    }
+
+    static function validateClothingSize($clothing_size)
+    {
+        return (!empty($clothing_size) && in_array($clothing_size, DataLayer::getClothingSizes()));
     }
 }

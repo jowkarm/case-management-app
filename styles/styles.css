@@ -1,5 +1,26 @@
+html{
+    height: 100%;
+    box-sizing: border-box;
+}
+
 body {
     background-color: #e3ddd0;
+    margin: 0;
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 10rem;
+    box-sizing: inherit;
+}
+
+footer {
+    background-color: #333;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    right: 0;
+    left: 0;
+    border-top: 0.4rem solid #525252;
 }
 
 header {
@@ -21,9 +42,10 @@ nav {
 
 .dropdown-menu {
     background: #ab8fa5!important;
-    :hover {
-        background: transparent!important;
-    }
+}
+
+.dropdown-menu :hover {
+    background: transparent!important;
 }
 
 .student-info {
@@ -37,14 +59,7 @@ table {
 }
 
 
-footer {
-    background-color: #333;
-    position: absolute;
-    z-index: 1;
-    right: 0;
-    left: 0;
-    border-top: 0.4rem solid #525252;
-}
+
 
 footer .rights {
     font-size: .7rem;
@@ -175,3 +190,16 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px #C4C4E577 inset !important;
 }
+
+/* customize the styles of student tabs */
+.nav-tabs{
+    --bs-nav-tabs-link-active-bg: #49496C;
+    border-bottom: #49496C;
+    margin: 5px 0 0 0;
+}
+
+.nav-tabs .nav-link{
+    background: #6B6B8C;
+}
+
+
