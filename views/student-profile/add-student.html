@@ -42,10 +42,11 @@ Date: 10/10/2023
                         <label class="input-group-text" for="pronouns" >Pronouns</label>
                         <select class="form-select" id="pronouns" name="pronouns">
                             <option value="">select...</option>
-                            <option value="they/them">they/them</option>
-                            <option value="she/her">she/her</option>
-                            <option value="he/him">he/him</option>
-                            <option value="other">other</option>
+
+                            <repeat group="{{ @pronouns }}" value="{{ @pronoun }}">
+                                <option value="{{ @pronoun }}">{{ @pronoun }}</option>
+                            </repeat>
+
                         </select>
 
                     </div>
@@ -66,23 +67,11 @@ Date: 10/10/2023
                 <label class="input-group-text" for="tribe_name">Tribe</label>
                 <select class="form-select" id="tribe_name" name="tribe_name">
                     <option value="">select...</option>
-                    <option value="Muckleshoot">Muckleshoot Indian Tribe</option>
-                    <option value="Cherokee">Cherokee Nation</option>
-                    <option value="Choctaw">Choctaw Nation</option>
-                    <option value="Turtle_mt">Choctaw Nation</option>
-                    <option value="Confederated">Confederated Tribe of Colville</option>
-                    <option value="Navajo">Navajo Nation</option>
-                    <option value="Quileute">Quileute Tribe</option>
-                    <option value="Suquamish">Suquamish Tribe</option>
-                    <option value="Tlighit">Tlingit</option>
-                    <option value="Blackfeet">Blackfeet</option>
-                    <option value="Samish">Samish</option>
-                    <option value="Snoqualmie">Snoqualmie</option>
-                    <option value="Osage">Osage</option>
-                    <option value="Potawatomie">Potawatomie</option>
-                    <option value="Chicksaw">Chicksaw</option>
-                    <option value="Standing_rock">Standing Rock Sioux</option>
-                    <option value="Sioux">Sioux</option>
+
+                    <repeat group="{{ @tribes }}" value="{{ @tribe }}">
+                        <option value="{{ @tribe }}">{{ @tribe }}</option>
+                    </repeat>
+
                 </select>
             </div>
         </div>
@@ -93,13 +82,11 @@ Date: 10/10/2023
                 <label class="input-group-text" for="cte_program">CTE Program</label>
                 <select class="form-select" id="cte_program" name="cte_program" value="">
                     <option selected>select...</option>
-                    <option value="Forest Resource Management, BAS">Forest Resource Management, BAS</option>
-                    <option value="Forestry, AAS">Forestry, AAS</option>
-                    <option value="Geographic Information Systems, AAS">Geographic Information Systems, AAS</option>
-                    <option value="Park Management, AAS">Park Management, AAS</option>
-                    <option value="Water Quality, AAS">Water Quality, AAS</option>
-                    <option value="Wildland Fire, AAS">Wildland Fire, AAS</option>
-                    <option value="AAS-T">AAS-T</option>
+
+                    <repeat group="{{ @programs }}" value="{{ @program }}">
+                        <option value="{{ @program }}">{{ @program }}</option>
+                    </repeat>
+
                 </select>
             </div>
         </div>
@@ -122,11 +109,11 @@ Date: 10/10/2023
                     <label class="input-group-text" for="clothing_size">Clothing Size</label>
                     <select class="form-select" id="clothing_size" name="clothing_size" value="">
                         <option selected>select...</option>
-                        <option value="xs">xs</option>
-                        <option value="s">s</option>
-                        <option value="m">m</option>
-                        <option value="lg">lg</option>
-                        <option value="xl">xl</option>
+
+                        <repeat group="{{ @sizes }}" value="{{ @size }}">
+                            <option value="{{ @size }}">{{ @size }}</option>
+                        </repeat>
+
                     </select>
                 </div>
             </div>
