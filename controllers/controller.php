@@ -643,4 +643,19 @@ class Controller
             echo $view->render('views/student-profile/student.html');
 
         }
+
+
+        /**
+         * Controller for the home route
+         */
+        function customRange()
+        {
+            // Set the title of the page
+            $this->_f3->set('title', 'Custom Range');
+
+            // Define a view page
+            $view = new Template();
+            echo $view->render('views/reports/custom-range.html');
+
+        }
 }
