@@ -21,61 +21,31 @@ Date: 10/10/2023
             <div class="col-sm">
                 <div class="container">
                     <div class="row mb-3">
-                        <check if="{{ isset(@SESSION.ctclink_id) }}">
-                            <true>
-                                <input type="text"
-                                       class="form-control"
-                                       name="ctclink_id" placeholder="Student ctcLink Id" value="{{ @SESSION.ctclink_id }}">
-                            </true>
-                            <false>
-                                <input type="text"
-                                       class="form-control"
-                                       name="ctclink_id" placeholder="Student ctcLink Id">
-                            </false>
-                        </check>
-
-
-
-
+                        <input type="text" class="form-control" id="ctclink_id"
+                               name="ctclink_id" placeholder="Student Id" value="">
                     </div>
                     <div class="row mb-3">
-
                         <input type="text" class="form-control" id="first_name"
                                name="first_name" placeholder="First Name" value="">
-
                     </div>
                     <div class="row mb-3">
-                        <check if="{{ isset(@SESSION.middle_name) }}">
-                            <true>
-                                <input type="text"  class="form-control"
-                                       name="middle_name" placeholder="Middle Name" value="{{ @SESSION.middle_name }}">
-                            </true>
-                            <false>
-                                <input type="text"  class="form-control"
-                                       name="middle_name" placeholder="Middle Name">
-                            </false>
-                        </check>
-
-
-
+                        <input type="text" class="form-control" id="middle_name"
+                               name="middle_name" placeholder="Middle Name" value="">
                     </div>
                     <div class="row mb-3">
-
                         <input type="text" class="form-control" id="last_name"
                                name="last_name" placeholder="Last Name" value="">
-
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="input-group mb-3">
-
                         <label class="input-group-text" for="pronouns" >Pronouns</label>
                         <select class="form-select" id="pronouns" name="pronouns">
                             <option value="">select...</option>
-                            <option value="they/them">they/them</option>
-                            <option value="she/her">she/her</option>
-                            <option value="he/him">he/him</option>
-                            <option value="other">other</option>
+
+                            <repeat group="{{ @pronouns }}" value="{{ @pronoun }}">
+                                <option value="{{ @pronoun }}">{{ @pronoun }}</option>
+                            </repeat>
 
                         </select>
 
@@ -96,25 +66,11 @@ Date: 10/10/2023
             <div class="input-group mb-3">
                 <label class="input-group-text" for="tribe_name">Tribe</label>
                 <select class="form-select" id="tribe_name" name="tribe_name">
-
                     <option value="">select...</option>
-                    <option value="muckleshoot">Muckleshoot Indian Tribe</option>
-                    <option value="cherokee">Cherokee Nation</option>
-                    <option value="choctaw">Choctaw Nation</option>
-                    <option value="turtle_mt">Choctaw Nation</option>
-                    <option value="confederated">Confederated Tribe of Colville</option>
-                    <option value="navajo">Navajo Nation</option>
-                    <option value="quileute">Quileute Tribe</option>
-                    <option value="suquamish">Suquamish Tribe</option>
-                    <option value="tlighit">Tlingit</option>
-                    <option value="blackfeet">Blackfeet</option>
-                    <option value="samish">Samish</option>
-                    <option value="snoqualmie">Snoqualmie</option>
-                    <option value="osage">Osage</option>
-                    <option value="potawatomie">Potawatomie</option>
-                    <option value="chicksaw">Chicksaw</option>
-                    <option value="standing_rock">Standing Rock Sioux</option>
-                    <option value="sioux">Sioux</option>
+
+                    <repeat group="{{ @tribes }}" value="{{ @tribe }}">
+                        <option value="{{ @tribe }}">{{ @tribe }}</option>
+                    </repeat>
 
                 </select>
             </div>
@@ -124,16 +80,12 @@ Date: 10/10/2023
         <div class="row mb-3">
             <div class="input-group mb-3">
                 <label class="input-group-text" for="cte_program">CTE Program</label>
-
                 <select class="form-select" id="cte_program" name="cte_program" value="">
                     <option selected>select...</option>
-                    <option value="forest_rsrc_mngmt_bas">Forest Resource Management, BAS</option>
-                    <option value="forestry">Forestry, AAS</option>
-                    <option value="geo_information">Geographic Information Systems, AAS</option>
-                    <option value="park_mngmt">Park Management, AAS</option>
-                    <option value="water_quality">Water Quality, AAS</option>
-                    <option value="wild_fire">Wildland Fire, AAS</option>
-                    <option value="aas_t">AAS-T</option>
+
+                    <repeat group="{{ @programs }}" value="{{ @program }}">
+                        <option value="{{ @program }}">{{ @program }}</option>
+                    </repeat>
 
                 </select>
             </div>
@@ -144,7 +96,6 @@ Date: 10/10/2023
         <div class="row mb-3">
             <!-- email -->
             <div class="col-sm">
-
                 <input type="email" class="form-control" id="email"
                        name="email" placeholder="Email" value="">
             </div>
@@ -156,14 +107,12 @@ Date: 10/10/2023
             <div class="col-sm">
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="clothing_size">Clothing Size</label>
-
                     <select class="form-select" id="clothing_size" name="clothing_size" value="">
                         <option selected>select...</option>
-                        <option value="xs">xs</option>
-                        <option value="s">s</option>
-                        <option value="m">m</option>
-                        <option value="lg">lg</option>
-                        <option value="xl">xl</option>
+
+                        <repeat group="{{ @sizes }}" value="{{ @size }}">
+                            <option value="{{ @size }}">{{ @size }}</option>
+                        </repeat>
 
                     </select>
                 </div>

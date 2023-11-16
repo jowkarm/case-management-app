@@ -163,7 +163,6 @@ class Controller
             $this->_f3->set('SESSION.middle_name', $middle_name);
             $this->_f3->set('SESSION.last_name', $last_name);
             $this->_f3->set('SESSION.pronouns', $pronouns);
-
             $this->_f3->set('SESSION.tribe_name', $tribe_name);
             $this->_f3->set('SESSION.cte_program', $cte_program);
             $this->_f3->set('SESSION.email', $email);
@@ -174,12 +173,16 @@ class Controller
             $this->_f3->set('SESSION.finances', $finances);
             $this->_f3->set('SESSION.notes', $notes);
 
-            // Redirect to the confirmation page
-            $this->_f3->reroute('/confirm');
+            //if there are no errors
+            //TODO add error array conditional here!
+
+                // Redirect to the confirmation page
+                $this->_f3->reroute('/confirm');
+
         }
 
         // Set arrays
-        $this->_f3->set('programs', $GLOBALS['dataLayer']->getCtePrograms());
+        $this->_f3->set('programs', $GLOBALS['dataLayer']->getCTEPrograms());
         $this->_f3->set('sizes', $GLOBALS['dataLayer']->getSizes());
         $this->_f3->set('pronouns', $GLOBALS['dataLayer']->getPronouns());
         $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
