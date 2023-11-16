@@ -13,9 +13,10 @@
         height: 25px;
         background: linear-gradient(
           to right,
-          red,
-          rgb(255, 128, 0),
-          yellow,
+          rgb(255, 0, 15),
+          rgb(255, 128, 15),
+          rgb(255, 255, 15),
+          rgb(128, 255, 0),
           rgb(0, 255, 0)
         );
         outline: none;
@@ -72,27 +73,31 @@
       />
       <p>Value: <span id="demo"></span></p>
       <br />
+      <br />
       <p>Color:&nbsp; <span id="color-demo"></span></p>
+
     </div>
 
     <script>
-      var slider = document.getElementById("myRange");
-      var output = document.getElementById("demo");
-      var outputColor = document.getElementById("color-demo");
+      const slider = document.getElementById("myRange");
+      const output = document.getElementById("demo");
+      const outputColor = document.getElementById("color-demo");
       output.innerHTML = slider.value;
 
       slider.oninput = function () {
         // display the value
         output.innerHTML = this.value;
+
+        // calculate the color (rgb) and display it
         const value = this.value;
-        if (this.value < 3.56) {
-          var green = (value - 1) * 100;
+        if (this.value < 3) {
+          const green = ((value - 1) / 2) * 255;
           outputColor.style.backgroundColor =
-            "rgb(" + 255 + "," + green + "," + 0 + ")";
+            "rgb(" + 255 + "," + green + "," + 15 + ")";
         } else {
-          var red = ((5 - value) / 5) * 255;
+          const red = ((5 - value) / 2) * 255;
           outputColor.style.backgroundColor =
-            "rgb(" + red + "," + 255 + "," + 0 + ")";
+            "rgb(" + red + "," + 255 + "," + 15 + ")";
         }
       };
     </script>
