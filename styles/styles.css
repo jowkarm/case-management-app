@@ -202,4 +202,90 @@ input:-webkit-autofill:active{
     background: #6B6B8C;
 }
 
+.color-picker {
+    --emotion-indicator: oklch(60.54% 0.15 0);
+}
+
+.slider {
+    width: 66%;
+
+    -webkit-appearance: none;
+    height: 25px;
+    background: linear-gradient(
+            to right,
+            oklch(60.54% 0.15 0),
+            oklch(60.54% 0.15 10),
+            oklch(60.54% 0.15 20),
+            oklch(60.54% 0.15 30),
+            oklch(60.54% 0.15 40),
+            oklch(60.54% 0.15 50),
+            oklch(60.54% 0.15 60),
+            oklch(60.54% 0.15 70),
+            oklch(60.54% 0.15 80),
+            oklch(60.54% 0.15 90),
+            oklch(60.54% 0.15 100),
+            oklch(60.54% 0.15 110),
+            oklch(60.54% 0.15 120),
+            oklch(60.54% 0.15 130),
+            oklch(60.54% 0.15 140),
+            oklch(60.54% 0.15 150),
+            oklch(60.54% 0.15 160),
+            oklch(60.54% 0.15 170),
+            oklch(60.54% 0.15 180),
+            oklch(60.54% 0.15 190),
+            oklch(60.54% 0.15 200),
+            oklch(60.54% 0.15 210),
+            oklch(60.54% 0.15 220),
+            oklch(60.54% 0.15 230),
+            oklch(60.54% 0.15 240),
+            oklch(60.54% 0.15 250),
+            oklch(60.54% 0.15 260),
+            oklch(60.54% 0.15 270),
+            oklch(60.54% 0.15 280),
+            oklch(60.54% 0.15 290),
+            oklch(60.54% 0.15 300),
+            oklch(60.54% 0.15 310),
+            oklch(60.54% 0.15 320),
+            oklch(60.54% 0.15 330),
+            oklch(60.54% 0.15 340),
+            oklch(60.54% 0.15 350),
+            oklch(60.54% 0.15 360)
+    );
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-style: solid;
+    border-color: rgb(119, 117, 117);
+    box-shadow: 3px 3px 4px #8364aa;
+    background: #ebeeed11;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    border-style: solid;
+    border-color: rgb(119, 117, 117);
+    box-shadow: 3px 3px 4px #8364aa;
+    background: #ebeeed11;
+    cursor: pointer;
+}
+
+.color-picker span {
+    padding: 1px 5%;
+    border-radius: 5%;
+    background-color: var(--emotion-indicator);
+}
 
