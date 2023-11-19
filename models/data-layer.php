@@ -242,7 +242,7 @@ class DataLayer
 
     function getSortOptions()
     {
-        return array("case_id", "student_id", "status", "date_opened", "due_date", "subject", "emotional_indicator");
+        return array("case_id", "ctclink_id", "status", "date_opened", "due_date", "subject", "emotional_indicator");
     }
 
 
@@ -391,23 +391,48 @@ class DataLayer
     }
 
 
-    function insertNote($case)
+    function insertNote($student, $case)
     {
+        /* Search for the student using their ctclink ID and get their student ID */
         // 1. define the query
-        $sql = "INSERT INTO Notes (due_date, subject, note)
-                VALUES (:due_date, :subject, :note)";
+        $sql = "SELECT student_id FROM Student
+                WHERE ctclink_id = :ctclink_id";
 
         // 2. prepare the statement
         $statement = $this->_dbh->prepare($sql);
 
         //3. Bind the parameters
-        $due_date = $case->getDueDate();
-        $subject = $case->getStatus();
-        $note = $case->getNote();
+        $ctclink_id = $student->getCtclinkId();
 
+        $statement->bindParam(':ctclink_id', $ctclink_id);
+        //4. Execute
+        $statement->execute();
+
+        // Save the result
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        // Use the result as a field for Insert statement
+
+        /* Insert the note and use the student ID taken from the student*/
+        // 1. define the query
+        $sql = "INSERT INTO Notes (student_id, due_date, subject, note, emotional_indicator)
+                VALUES (:student_id, :due_date, :subject, :note, :emotional_indicator)";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $student_id = $result['student_id'];
+        $due_date = $case->getDueDate();
+        $subject = $case->getSubject();
+        $note = $case->getNote();
+        $emotional_indicator = $case->getEmotionalIndicator();
+
+        $statement->bindParam(':student_id', $student_id);
         $statement->bindParam(':due_date', $due_date);
         $statement->bindParam(':subject', $subject);
         $statement->bindParam(':note', $note);
+        $statement->bindParam(':emotional_indicator', $emotional_indicator);
 
         //4. Execute
         $statement->execute();
@@ -415,7 +440,6 @@ class DataLayer
         //5. Process the result, if there is one
         $id = $this->_dbh->lastInsertId();
         return $id;
-
     }
 
     function getNote($student_id)
@@ -438,7 +462,7 @@ class DataLayer
         $row = $statement->fetch(PDO::FETCH_ASSOC);
 
         if($row !== false){
-            $note = new Case_Note($row['student_id'],
+            $note = new Case_Note($row['ctclink_id'],
                 $row['date_opened'],
                 $row['due_date'],
                 $row['subject'],
@@ -469,10 +493,10 @@ class DataLayer
 
         foreach ($result as $row){
             $note = new Case_Note($row['ctclink_id'],
-                $row['date_opened'],
                 $row['due_date'],
                 $row['subject'],
-                $row['note']);
+                $row['note'],
+                $row['emotional_indicator']);
             $note->setCaseId($row['case_id']);
             $notes[] = $note;
         }
@@ -484,7 +508,9 @@ class DataLayer
 
         // SELECT Statement - multiple rows
         // 1. define the query
-        $sql = "SELECT * FROM Notes
+        $sql = "SELECT * 
+                FROM Notes INNER JOIN Student 
+                ON Notes.student_id = Student.student_id
                 ORDER BY " . $sortType;
 
         // 2. prepare the statement
@@ -500,10 +526,10 @@ class DataLayer
 
         foreach ($result as $row){
             $note = new Case_Note($row['ctclink_id'],
-                                $row['date_opened'],
                                 $row['due_date'],
                                 $row['subject'],
-                                $row['note']);
+                                $row['note'],
+                                $row['emotional_indicator']);
             $note->setCaseId($row['case_id']);
             $notes[] = $note;
         }
@@ -519,7 +545,9 @@ class DataLayer
         $statement = $this->_dbh->prepare($sql);
 
         // 3. Execute
-        return $statement->execute();
+        $statement->execute();
 
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result['AUTO_INCREMENT'];
     }
 }

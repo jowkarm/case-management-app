@@ -20,24 +20,25 @@ class Case_Note
     private $_due_date;
     private $_subject;
     private $_note;
-    private $_emotional_indicator;
+    private $_emotional_indicator;// Needs to be one of these:
+                                  // peace, gratitude, kindness, enthusiasm,
+                                  // optimism, hope, apathy, annoyance, worry, anxiety,
+                                  // sadness, jealousy, hatred, fear, no comment
 
     /**
-     * @param $_case_id
      * @param $_student
-     * @param $_status
-     * @param $_date_opened
      * @param $_due_date
      * @param $_subject
      * @param $_note
+     * @param $_emotional_indicator
      */
-    public function __construct($_student, $_date_opened, $_due_date, $_subject, $_note)
+    public function __construct($_student, $_due_date, $_subject, $_note, $_emotional_indicator)
     {
         $this->_student_id = $_student;
-        $this->_date_opened = $_date_opened;
         $this->_due_date = $_due_date;
         $this->_subject = $_subject;
         $this->_note = $_note;
+        $this->_emotional_indicator = $_emotional_indicator;
     }
 
     /**

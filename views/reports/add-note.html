@@ -20,6 +20,10 @@ Date: 11/12/2023
         <div class="row pt-4">
             <div class="col-4">
                 <label class="form-label"> CtcLink ID</label>
+                <!-- Display an error if there is one -->
+                <check if="{{ isset(@errors['student_id']) }}">
+                    <span class="text-danger">{{ @errors['student_id'] }}</span>
+                </check>
                 <check if="{{ isset(@SESSION.ctclink_id) }}">
                     <true>
                         <input type="text"
@@ -39,8 +43,9 @@ Date: 11/12/2023
         <div class="w-100"></div>
 
         <!--Name-->
-        <div class="row pt-4">
+        <!--<div class="row pt-4">
             <div class="col">
+                &lt;!&ndash;First Name&ndash;&gt;
                 <label class="form-label"> First Name</label>
                 <check if="{{ isset(@SESSION.first_name) }}">
                     <true>
@@ -54,6 +59,7 @@ Date: 11/12/2023
                 </check>
             </div>
             <div class="col">
+                &lt;!&ndash;Middle Name&ndash;&gt;
                 <label class="form-label"> Middle Name</label>
                 <check if="{{ isset(@SESSION.middle_name) }}">
                     <true>
@@ -67,6 +73,7 @@ Date: 11/12/2023
                 </check>
             </div>
             <div class="col">
+                &lt;!&ndash;Last Name&ndash;&gt;
                 <label class="form-label"> Last Name</label>
                 <check if="{{ isset(@SESSION.last_name) }}">
                     <true>
@@ -79,12 +86,19 @@ Date: 11/12/2023
                     </false>
                 </check>
             </div>
-        </div>
+        </div>-->
 
         <!--Subject and Due Date Row-->
         <div class="row pt-4">
             <div class="col-4">
+                <!--Subject-->
                 <label class="form-label"> Subject</label>
+
+                <!-- Display an error if there is one -->
+                <check if="{{ isset(@errors['subject']) }}">
+                    <span class="text-danger">{{ @errors['subject'] }}</span>
+                </check>
+
                 <check if="{{ isset(@SESSION.subject) }}">
                     <true>
                         <input type="text"  class="form-control"
@@ -97,7 +111,14 @@ Date: 11/12/2023
                 </check>
             </div>
             <div class="col-4">
+                <!--Due Date-->
                 <label class="form-label"> Due Date</label>
+
+                <!-- Display an error if there is one -->
+                <check if="{{ isset(@errors['due_date']) }}">
+                    <span class="text-danger">{{ @errors['due_date'] }}</span>
+                </check>
+
                 <check if="{{ isset(@SESSION.due_date) }}">
                     <true>
                         <input type="date"  class="form-control"
@@ -113,35 +134,55 @@ Date: 11/12/2023
 
         <!--Emotional Indicator-->
         <div class="row pt-4">
-            <div class="col">
-                <label class="form-label">Emotional Indicator</label>
-                <!--*Insert Color*-->
-                <input type="radio" class="btn-check" name="options-outlined" id="green" autocomplete="off" checked>
-                <label class="btn btn-outline-success" for="green"></label>
+            <div class="color-picker">
+                <label class="form-label"> Emotional Indicator </label>
 
-                <!--*Insert Color*-->
-                <input type="radio" class="btn-check" name="options-outlined" id="red" autocomplete="off">
-                <label class="btn btn-outline-danger" for="red"></label>
+                <!-- Display an error if there is one -->
+                <check if="{{ isset(@errors['emotional_indicator']) }}">
+                    <span class="text-danger">{{ @errors['emotional_indicator'] }}</span>
+                </check>
 
-                <!--*Insert Color*-->
-                <input type="radio" class="btn-check" name="options-outlined" id="yellow" autocomplete="off">
-                <label class="btn btn-outline-warning" for="yellow"></label>
-
-                <!--*Insert Color*-->
-                <input type="radio" class="btn-check" name="options-outlined" id="blue" autocomplete="off">
-                <label class="btn btn-outline-info" for="blue"></label>
-
-                <!--*Insert Color*-->
-                <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
-                <label class="btn btn-outline-primary" for="danger-outlined"></label>
+                <br>
+                <check if="{{ isset(@SESSION.emotional_indicator) }}">
+                    <true>
+                        <input type="range"
+                               min="0" max="360"
+                               step="0.1"
+                               value="{{ @SESSION.emotional_indicator }}"
+                               name="emotional_indicator"
+                               class="slider">
+                        <br>
+                        <br>
+                        <p>Color:&nbsp; <span></span></p>
+                    </true>
+                    <false>
+                        <input type="range"
+                               min="0" max="360"
+                               step="0.1"
+                               value="0"
+                               name="emotional_indicator"
+                               class="slider">
+                        <br>
+                        <br>
+                        <p>Color:&nbsp; <span></span></p>
+                    </false>
+                </check>
             </div>
         </div>
 
         <!--Note Text Area-->
         <div class="row pt-4">
             <div>
-                <label class="form-label" for="caseNote">Note</label>
-                <textarea id="caseNote" class="form-control" name="caseNote" rows="4"></textarea>
+                <label class="form-label">Note</label>
+                <check if="{{ isset(@SESSION.caseNote) }}">
+                    <true>
+                        <textarea class="form-control" name="caseNote" rows="4"
+                                  value="{{ @SESSION.caseNote }}"></textarea>
+                    </true>
+                    <false>
+                        <textarea class="form-control" name="caseNote" rows="4"></textarea>
+                    </false>
+                </check>
             </div>
         </div>
         <div>

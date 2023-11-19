@@ -34,6 +34,8 @@ class Controller
         // Set the title of the page
         $this->_f3->set('title', 'Home');
 
+
+
         // Define a view page
         $view = new Template();
         echo $view->render('views/home.html');
@@ -467,10 +469,12 @@ class Controller
 
     function case_log()
     {
-        /*// Only if a user is logged in can they add a student
-        if (!Validation::loggedIn($this->_f3)) {
-            $this->_f3->reroute('/login');
-        }*/
+
+        // Only if a user is logged in can they add a student
+//        if (!Validation::loggedIn($this->_f3)) {
+//            $this->_f3->reroute('/login');
+//        }
+
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Get the data
@@ -479,16 +483,22 @@ class Controller
             if (Validation::validSortingOptions($sortBy)) {
                 $this->_f3->set('SESSION.sort', $sortBy);
 
-                $notes = $GLOBALS['dataLayer']->getAllCaseNotes($this->_f3->get('SESSION.sort'));
+                $notes = $GLOBALS['dataLayer']->getSortedCaseNotes($this->_f3->get('SESSION.sort'));
                 // Get the data from the model and add to a new card
                 $this->_f3->set('SESSION.notes', $notes);
             } else {
                 $this->_f3->set('errors["sortBy"]', 'Invalid Selection');
             }
+        } else {
+            $notes = $GLOBALS['dataLayer']->getAllCaseNotes();
+
+            $this->_f3->set('SESSION.notes', $notes);
         }
 
         // Set the title of the page
-        $this->_f3->set('title', 'Case Notes');
+
+        $this->_f3->set('title', 'Case Log');
+
 
         // View page for all cases
         $view = new Template();
@@ -505,142 +515,274 @@ class Controller
         // Next Case ID in the Notes table
         $this->_f3->set('case_number', $GLOBALS['dataLayer']->getNextCaseId());
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            // Get the data
+            $student_id = (isset($_POST['ctclink_id'])) ? $_POST['ctclink_id'] : '';
+            /*$first_name = (isset($_POST['first_name'])) ? $_POST['first_name'] : '';
+            $middle_name = (isset($_POST['middle_name'])) ? $_POST['middle_name'] : '';
+            $last_name = (isset($_POST['last_name'])) ? $_POST['last_name'] : '';*/
+            $due_date = (isset($_POST['due_date'])) ? $_POST['due_date'] : '';
+            $subject = (isset($_POST['subject'])) ? $_POST['subject'] : '';
+            $note = (isset($_POST['caseNote'])) ? $_POST['caseNote'] : '';
+            $emotional_indicator = (isset($_POST['emotional_indicator'])) ? $_POST['emotional_indicator'] : '';
+
+            // Validate Emotional Indicator
+            if($emotional_indicator < 0 || $emotional_indicator > 360){
+                $this->_f3->set('errors["emotional_indicator"]', 'Invalid Emotion Entered');
+            }
+
+            switch ($emotional_indicator) {
+                case $emotional_indicator <= 25.7:
+                    $emotional_indicator = "peace";
+                    break;
+                case $emotional_indicator > 25.7 && $emotional_indicator <= 51.4:
+                    $emotional_indicator = "gratitude";
+                    break;
+                case $emotional_indicator > 51.4 && $emotional_indicator <= 77.1:
+                    $emotional_indicator = "kindness";
+                    break;
+                case $emotional_indicator > 77.1 && $emotional_indicator <= 102.8:
+                    $emotional_indicator = "enthusiasm";
+                    break;
+                case $emotional_indicator > 102.8 && $emotional_indicator <= 128.5:
+                    $emotional_indicator = "optimism";
+                    break;
+                case $emotional_indicator > 128.5 && $emotional_indicator <= 154.2:
+                    $emotional_indicator = "hope";
+                    break;
+                case $emotional_indicator > 154.2 && $emotional_indicator <= 179.9:
+                    $emotional_indicator = "apathy";
+                    break;
+                case $emotional_indicator > 179.9 && $emotional_indicator <= 205.6:
+                    $emotional_indicator = "annoyance";
+                    break;
+                case $emotional_indicator > 205.6 && $emotional_indicator <= 231.3:
+                    $emotional_indicator = "worry";
+                    break;
+                case $emotional_indicator > 231.3 && $emotional_indicator <= 257:
+                    $emotional_indicator = "anxiety";
+                    break;
+                case $emotional_indicator > 257 && $emotional_indicator <= 282.7:
+                    $emotional_indicator = "sadness";
+                    break;
+                case $emotional_indicator > 282.7 && $emotional_indicator <= 308.4:
+                    $emotional_indicator = "jealousy";
+                    break;
+                case $emotional_indicator > 308.4 && $emotional_indicator <= 334.1:
+                    $emotional_indicator = "hatred";
+                    break;
+                case $emotional_indicator > 334.1:
+                    $emotional_indicator = "fear";
+                    break;
+            }
+
+            $students = $GLOBALS['dataLayer']->getAllStudents();
+            //echo var_dump($students);
+
+            // Validate Student ID
+            foreach ($students as $row) {
+                if($row->getCtclinkId() == $student_id) {
+                    $this->_f3->set('errors["student_id"]', 'Student ID found');
+                    $this->_f3->clear('errors["student_id"]');
+                    $student = $row;
+                    break;
+                } else {
+                    $this->_f3->set('errors["student_id"]', 'This ID does not exist');
+                }
+            }
+
+            /*// Validate First Name
+            if(!empty($first_name)) {
+                if(!Validation::validName($first_name)) {
+                    $this->_f3->set('errors["first_name"]', 'Invalid name entered');
+
+                } else {
+
+                }
+            }
+
+            // Validate Middle Name
+            if(!empty($middle_name)) {
+                if(!Validation::validName($middle_name)) {
+                    $this->_f3->set('errors["middle_name"]', 'Invalid name entered');
+                } else {
+
+                }
+            }
+
+            // Validate Last Name
+            if(!empty($last_name)) {
+                if(!Validation::validName($last_name)) {
+                    $this->_f3->set('errors["last_name"]', 'Invalid name entered');
+                } else {
+
+                }
+            }
+
+            // Validate Due Date
+            if(!Validation::($due_date)){
+                $this->_f3->set('errors["due_date"]', 'Invalid Date Entered');
+            }
+
+            // Validate Subject
+            if(!Validation::($subject)){
+                $this->_f3->set('errors["subject"]', 'Invalid Subject Entered');
+            }
+
+            // Validate Note
+            if(!Validation::($note)){
+                $this->_f3->set('errors["note"]', 'Invalid Note Entered');
+            }*/
+
+
+            // If there are no errors, create the case note and
+            // redirect to the Case Log page
+            if(empty($this->_f3->get('errors'))) {
+                $case_note = new Case_Note($student_id, $due_date, $subject, $note, $emotional_indicator);
+                $case_id = $GLOBALS['dataLayer']->insertNote($student, $case_note);
+                $alert = new Alert('Case Note: ' . $case_id .' has been created.', 'green');
+                $this->_f3->set('SESSION.alert', $alert);
+                $this->_f3->reroute('/');
+            }
 
         }
 
         // Set the title of the page
-        $this->_f3->set('title', 'Add Note');
+
+        $this->_f3->set('title', 'Add Case Note');
+
 
         // View page for all cases
         $view = new Template();
         echo $view->render('views/reports/add-note.html');
     }
 
-    function note_confirm()
+
+
+
+    /**
+     * Controller for the forgot-password route
+     */
+    function forgotPassword()
     {
-    }
+        //If the form has been posted
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-        /**
-         * Controller for the forgot-password route
-         */
+            // Get the data
+            $email = (isset($_POST['email'])) ? $_POST['email'] : '';
 
-        function forgotPassword()
-        {
-            //If the form has been posted
-            if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
-                // Get the data
-                $email = (isset($_POST['email'])) ? $_POST['email'] : '';
-
-                // *** If email is not valid, set an error variable
-                if (!Validation::validEmail($email)) {
-                    $this->_f3->set('errors["email"]', 'Invalid email entered');
-                }
-
-
-                // Redirect to home route if there
-                // are no errors (errors array is empty)
-                if (empty($this->_f3->get('errors'))) {
-
-                    $uuid = $GLOBALS['dataLayer']->passwordResetLink($email);
-                    $send_email = SendEmail::sendPasswordResetLink($email, 'info@case-management-app.com', $uuid, $this->_f3);
-                    if ($send_email) {
-                        $alert = new Alert('Check your email for password reset link.', 'yellow');
-                        $this->_f3->set('SESSION.alert', $alert);
-                    }
-
-                    $this->_f3->reroute('/');
-                }
-
+            // *** If email is not valid, set an error variable
+            if (!Validation::validEmail($email)) {
+                $this->_f3->set('errors["email"]', 'Invalid email entered');
             }
 
-            // Set the title of the page
-            $this->_f3->set('title', 'Forgot Password');
 
+            // Redirect to home route if there
+            // are no errors (errors array is empty)
+            if (empty($this->_f3->get('errors'))) {
 
-            // Define a view page
-            $view = new Template();
-            echo $view->render('views/login/forgot-password.html');
-        }
-
-        /**
-         * Controller for the reset-password route
-         */
-        function resetPassword()
-        {
-            //If the form has been posted
-            if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
-                // Get data
-                $password = (isset($_POST['password'])) ? $_POST['password'] : '';
-                $confirm_password = (isset($_POST['confirmPassword'])) ? $_POST['confirmPassword'] : '';
-
-                // *** If password is not valid, set an error variable
-                if (!Validation::validatePassword($password)) {
-                    $this->_f3->set('errors["password"]', 'Password length should be between 8 and 20 characters and 
-                contains at least one uppercase letter, one lowercase letter, one digit, and one special character');
-                }
-
-                // *** If confirm_password is not valid, set an error variable
-                if (!Validation::validateConfirmPassword($password, $confirm_password)) {
-                    $this->_f3->set('errors["confirm_password"]', 'The passwords must match');
-                }
-
-                // Redirect to home route if there
-                // are no errors (errors array is empty)
-                if (empty($this->_f3->get('errors'))) {
-
-                    $GLOBALS['dataLayer']->updatePassword($_POST['uuid'], $password);
-
-                    $alert = new Alert('Your password is updated successfully.', 'green');
+                $uuid = $GLOBALS['dataLayer']->passwordResetLink($email);
+                $send_email = SendEmail::sendPasswordResetLink($email, 'info@case-management-app.com', $uuid, $this->_f3);
+                if ($send_email) {
+                    $alert = new Alert('Check your email for password reset link.', 'yellow');
                     $this->_f3->set('SESSION.alert', $alert);
-
-                    $this->_f3->reroute('/');
                 }
 
-            }
-
-            if (!isset($_GET['uuid'])) {
-                //Redirect to the default route
                 $this->_f3->reroute('/');
             }
 
-            $uuid = $_GET['uuid'];
-            $result = $GLOBALS['dataLayer']->checkUuidExpirationTime($uuid);
-
-            if (!$result) {
-                $alert = new Alert('Your password reset link is expired.', 'red');
-                $this->_f3->set('SESSION.alert', $alert);
-            } else {
-                $this->_f3->set('uuid', $uuid);
-            }
-
-            // Set the title of the page
-            $this->_f3->set('title', 'Reset Password');
-
-
-            // Define a view page
-            $view = new Template();
-            echo $view->render('views/login/reset-password.html');
-
-            // Unset (clear) the session variable
-            $this->_f3->set('SESSION.alert', null);
         }
 
-        /**
-         * ToDo: Complete this controller
-         * Controller for the student route
-         */
-        function student()
-        {
-            // Set the title of the page
-            $this->_f3->set('title', 'Student');
+        // Set the title of the page
+        $this->_f3->set('title', 'Forgot Password');
 
-            // Define a view page
-            $view = new Template();
-            echo $view->render('views/student-profile/student.html');
+
+        // Define a view page
+        $view = new Template();
+        echo $view->render('views/login/forgot-password.html');
+    }
+
+    /**
+     * Controller for the reset-password route
+     */
+    function resetPassword()
+    {
+        //If the form has been posted
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            // Get data
+            $password = (isset($_POST['password'])) ? $_POST['password'] : '';
+            $confirm_password = (isset($_POST['confirmPassword'])) ? $_POST['confirmPassword'] : '';
+
+            // *** If password is not valid, set an error variable
+            if (!Validation::validatePassword($password)) {
+                $this->_f3->set('errors["password"]', 'Password length should be between 8 and 20 characters and 
+            contains at least one uppercase letter, one lowercase letter, one digit, and one special character');
+            }
+
+            // *** If confirm_password is not valid, set an error variable
+            if (!Validation::validateConfirmPassword($password, $confirm_password)) {
+                $this->_f3->set('errors["confirm_password"]', 'The passwords must match');
+            }
+
+            // Redirect to home route if there
+            // are no errors (errors array is empty)
+            if (empty($this->_f3->get('errors'))) {
+
+                $GLOBALS['dataLayer']->updatePassword($_POST['uuid'], $password);
+
+                $alert = new Alert('Your password is updated successfully.', 'green');
+                $this->_f3->set('SESSION.alert', $alert);
+
+                $this->_f3->reroute('/');
+            }
+
+        }
+
+        if (!isset($_GET['uuid'])) {
+            //Redirect to the default route
+            $this->_f3->reroute('/');
+        }
+
+        $uuid = $_GET['uuid'];
+        $result = $GLOBALS['dataLayer']->checkUuidExpirationTime($uuid);
+
+        if (!$result) {
+            $alert = new Alert('Your password reset link is expired.', 'red');
+            $this->_f3->set('SESSION.alert', $alert);
+        } else {
+            $this->_f3->set('uuid', $uuid);
+        }
+
+        // Set the title of the page
+        $this->_f3->set('title', 'Reset Password');
+
+
+
+        // Define a view page
+        $view = new Template();
+        echo $view->render('views/login/reset-password.html');
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
+    }
+
+    /**
+     * ToDo: Complete this controller
+     * Controller for the student route
+     */
+    function student()
+    {
+        // Set the title of the page
+        $this->_f3->set('title', 'Student');
+
+        // Define a view page
+        $view = new Template();
+        echo $view->render('views/student-profile/student.html');
+
+    }
+}
 
         }
 
@@ -659,3 +801,4 @@ class Controller
 
         }
 }
+
