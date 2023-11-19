@@ -48,6 +48,7 @@ class Controller
 
         // Unset (clear) the session variable
         $this->_f3->set('SESSION.alert', null);
+        $this->_f3->set('SESSION.student', null);
     }
 
     /**
@@ -55,10 +56,10 @@ class Controller
      */
     function addStudent()
     {
-//        // Only if a user is logged in can they add a student
-//        if (!Validation::loggedIn($this->_f3)) {
-//            $this->_f3->reroute('/login');
-//        }
+        /*// Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+        $this->_f3->reroute('/login');
+        }*/
 
         //Initialize the variables
         $ctclink_id = "";
@@ -165,21 +166,22 @@ class Controller
                 $this->_f3->set('errors["clothing_size"]', 'Invalid clothing size selected');
             }
 
-            // Store data in the F3 framework session
-            $this->_f3->set('SESSION.ctclink_id', $ctclink_id);
-            $this->_f3->set('SESSION.first_name', $first_name);
-            $this->_f3->set('SESSION.middle_name', $middle_name);
-            $this->_f3->set('SESSION.last_name', $last_name);
-            $this->_f3->set('SESSION.pronouns', $pronouns);
-            $this->_f3->set('SESSION.tribe_name', $tribe_name);
-            $this->_f3->set('SESSION.cte_program', $cte_program);
-            $this->_f3->set('SESSION.email', $email);
-            $this->_f3->set('SESSION.phone', $phone);
-            $this->_f3->set('SESSION.clothing_size', $clothing_size);
-            $this->_f3->set('SESSION.course_history', $course_history);
-            $this->_f3->set('SESSION.academic_progress', $academic_progress);
-            $this->_f3->set('SESSION.finances', $finances);
-            $this->_f3->set('SESSION.notes', $notes);
+            // create a student object
+            $student = new Student($first_name, $middle_name, $last_name, $ctclink_id);
+            $student->setPronouns($pronouns);
+            $student->setTribeName($tribe_name);
+            $student->setCteProgram($cte_program);
+            $student->setEmail($email);
+            $student->setPhoneNumber($phone);
+            $student->setClothingSize($clothing_size);
+            $student->setCourseHistory($course_history);
+            $student->setAcademicProgress($academic_progress);
+            $student->setFinancialNeeds($finances);
+            $student->setCases($notes);
+
+            // Store the student object in the F3 framework session
+            $this->_f3->set('SESSION.student', $student);
+
 
             //if there are no errors
             //TODO add error array conditional here!
@@ -196,11 +198,16 @@ class Controller
         $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
 
         // Set the title of the page
-        $this->_f3->set('title', 'Add a Student');
+        $this->_f3->set('title', 'Add New Student');
 
         // Display the form
         $view = new Template();
-        echo $view->render('views/student-profile/add-student.html');
+        if($this->_f3->get('SESSION.student') !== null){
+            echo $view->render('views/student-profile/update-student.html');
+        } else {
+            echo $view->render('views/student-profile/add-student.html');
+        }
+
     }
 
 
@@ -223,8 +230,6 @@ class Controller
         // Display add-student-confirmation view
         $view = new Template();
         echo $view->render('views/student-profile/add-student-confirm.html');
-
-        session_destroy();
     }
 
     /**

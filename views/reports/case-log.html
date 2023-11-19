@@ -13,43 +13,45 @@ Date: 11/06/2023
 
 <main class="container mb-5 logs-tab tabs-body">
     <div class="container w-75">
-<!--Sort Feature-->
-<form action="#" method="post">
-    <div class="row">
-        <div class="col-3 ">
-            <label for="sort" class="form-label"> SORT BY </label>
-            <select class="form-select" id="sort" name="sort" onchange="this.form.submit()">
-                <option selected>-----</option>
-                <option value="case_id"> Case Number </option>
-                <option value="ctclink_id"> Student ID </option>
-                <option value="is_closed"> Status </option>
-                <option value="date_opened"> Date Opened </option>
-                <option value="due_date"> Due Date </option>
-                <option value="subject"> Subject </option>
-            </select>
-        </div>
-    </div>
-</form>
-
-<!--Individual Case Note Cards-->
-<div>
-    <div class="d-flex flex-row flex-wrap justify-content-center mt-2">
-        <check if="{{ isset(@SESSION.notes) }}">
-            <repeat group="{{ @SESSION.notes }}" value="{{ @note }}">
-                <div class="card m-3">
-                    <img src="" class="card-img-top">
-                    <div class="card-body m-auto">
-                        <h5 class="card-title">{{ @note->getCaseId() }}</h5>
-                        <p class="card-text">Student ID: {{ @note->getStudentId() }}
-                            <br>
-                            Status: {{ @note->getStatus() }}
-                        </p>
-                        <a href="note?id={{ @note->getCaseId() }}" class="btn btn-primary dark-blue-bg">More Details</a>
-                    </div>
+        <br>
+        <br>
+        <!--Sort Feature-->
+        <form action="#" method="post">
+            <div class="row">
+                <div class="col-3 ">
+                    <label for="sort" class="form-label"> SORT BY </label>
+                    <select class="form-select" id="sort" name="sort" onchange="this.form.submit()">
+                        <option selected>-----</option>
+                        <option value="case_id"> Case Number </option>
+                        <option value="ctclink_id"> Student ID </option>
+                        <option value="is_closed"> Status </option>
+                        <option value="date_opened"> Date Opened </option>
+                        <option value="due_date"> Due Date </option>
+                        <option value="subject"> Subject </option>
+                    </select>
                 </div>
-            </repeat>
-        </check>
-    </div>
+            </div>
+        </form>
+
+        <!--Individual Case Note Cards-->
+        <div>
+            <div class="d-flex flex-row flex-wrap justify-content-center mt-2">
+                <check if="{{ isset(@SESSION.notes) }}">
+                    <repeat group="{{ @SESSION.notes }}" value="{{ @note }}">
+                        <div class="card m-3">
+                            <img src="" class="card-img-top">
+                            <div class="card-body m-auto">
+                                <h5 class="card-title">{{ @note->getCaseId() }}</h5>
+                                <p class="card-text">Student ID: {{ @note->getStudentId() }}
+                                    <br>
+                                    Status: {{ @note->getStatus() }}
+                                </p>
+                                <a href="note?id={{ @note->getCaseId() }}" class="btn btn-primary dark-blue-bg">More Details</a>
+                            </div>
+                        </div>
+                    </repeat>
+                </check>
+            </div>
     <!--<table class="table table-bordered">
         <caption class="text-center"><strong>Case Log</strong></caption>
         <thead class="table-group-divider">

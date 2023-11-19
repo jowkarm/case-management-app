@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 20, 2023 at 11:49 PM
+-- Generation Time: Nov 19, 2023 at 02:49 AM
 -- Server version: 10.2.44-MariaDB
 -- PHP Version: 8.1.16
 
@@ -18,10 +18,38 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `gutierre_projects`
+-- Database: `mehdigre_projects`
 --
-CREATE DATABASE IF NOT EXISTS `gutierre_projects` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `gutierre_projects`;
+CREATE DATABASE IF NOT EXISTS `mehdigre_projects` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `mehdigre_projects`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Notes`
+--
+
+DROP TABLE IF EXISTS `Notes`;
+CREATE TABLE IF NOT EXISTS `Notes` (
+  `case_id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) NOT NULL,
+  `is_closed` tinyint(1) NOT NULL DEFAULT 0,
+  `date_opened` datetime DEFAULT current_timestamp(),
+  `due_date` date DEFAULT NULL,
+  `subject` varchar(30) NOT NULL,
+  `note` varchar(1000) DEFAULT NULL,
+  `emotional_indicator` varchar(15) NOT NULL DEFAULT 'no comment',
+  PRIMARY KEY (`case_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Notes`
+--
+
+INSERT INTO `Notes` (`case_id`, `student_id`, `is_closed`, `date_opened`, `due_date`, `subject`, `note`, `emotional_indicator`) VALUES(1, 1, 1, '2023-11-14 17:01:31', '2023-10-20', 'Finance', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin venenatis elit sem, sit amet elementum est aliquam ac. Curabitur nibh augue, condimentum et viverra posuere, facilisis a augue. Suspendisse potenti. Sed facilisis leo sed felis lacinia finibus. Mauris dignissim ligula id massa semper, a facilisis metus interdum.', 'no comment');
+INSERT INTO `Notes` (`case_id`, `student_id`, `is_closed`, `date_opened`, `due_date`, `subject`, `note`, `emotional_indicator`) VALUES(2, 2, 1, '2023-11-14 17:01:31', '2023-10-20', 'Finance', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin venenatis elit sem, sit amet elementum est aliquam ac. Curabitur nibh augue, condimentum et viverra posuere, facilisis a augue. Suspendisse potenti. Sed facilisis leo sed felis lacinia finibus. Mauris dignissim ligula id massa semper, a facilisis metus interdum.', 'no comment');
+INSERT INTO `Notes` (`case_id`, `student_id`, `is_closed`, `date_opened`, `due_date`, `subject`, `note`, `emotional_indicator`) VALUES(3, 3, 1, '2023-11-14 17:01:31', '2023-10-20', 'Finance', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin venenatis elit sem, sit amet elementum est aliquam ac. Curabitur nibh augue, condimentum et viverra posuere, facilisis a augue. Suspendisse potenti. Sed facilisis leo sed felis lacinia finibus. Mauris dignissim ligula id massa semper, a facilisis metus interdum.', 'no comment');
+INSERT INTO `Notes` (`case_id`, `student_id`, `is_closed`, `date_opened`, `due_date`, `subject`, `note`, `emotional_indicator`) VALUES(4, 4, 1, '2023-11-14 17:01:31', '2023-10-20', 'Finance', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin venenatis elit sem, sit amet elementum est aliquam ac. Curabitur nibh augue, condimentum et viverra posuere, facilisis a augue. Suspendisse potenti. Sed facilisis leo sed felis lacinia finibus. Mauris dignissim ligula id massa semper, a facilisis metus interdum.', 'no comment');
 
 -- --------------------------------------------------------
 
@@ -36,6 +64,16 @@ CREATE TABLE IF NOT EXISTS `Student` (
   `middle_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) NOT NULL,
   `ctclink_id` int(11) NOT NULL,
+  `pronouns` varchar(20) DEFAULT NULL,
+  `tribe_name` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(10) DEFAULT NULL,
+  `cte_program` varchar(50) DEFAULT NULL,
+  `clothing_size` varchar(10) DEFAULT NULL,
+  `course_history` blob DEFAULT NULL,
+  `academic_progress` blob DEFAULT NULL,
+  `financial_needs` blob DEFAULT NULL,
+  `cases` blob DEFAULT NULL,
   PRIMARY KEY (`student_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
@@ -43,27 +81,26 @@ CREATE TABLE IF NOT EXISTS `Student` (
 -- Dumping data for table `Student`
 --
 
-INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`) VALUES
-(1, 'John', 'Michael', 'Smith', 624788754),
-(2, 'Jane', 'Marie', 'Doe', 125297801),
-(3, 'Robert', 'William', 'Johnson', 752122771),
-(4, 'Alice', 'Elizabeth', 'Brown', 384720487),
-(5, 'David', 'Thomas', 'Wilson', 667234150),
-(6, 'Emily', 'Grace', 'Anderson', 182009322),
-(7, 'Daniel', 'Richard', 'Martin', 908344188),
-(8, 'Sophia', 'Olivia', 'Clark', 995693008),
-(9, 'Matthew', 'Alexander', 'White', 253432507),
-(10, 'Ella', 'Abigail', 'Thompson', 280083540),
-(11, 'William', 'Joseph', 'Harris', 640120211),
-(12, 'Ava', 'Natalie', 'Robinson', 360350464),
-(13, 'James', 'Christopher', 'Lewis', 881391718),
-(14, 'Liam', 'Ethan', 'Turner', 325907229),
-(15, 'Olivia', 'Samantha', 'Parker', 985361021),
-(16, 'Benjamin', 'Daniel', 'Baker', 949083449),
-(17, 'Charlotte', 'Grace', 'Mitchell', 789334214),
-(18, 'Elijah', 'Carter', 'Green', 99420754),
-(19, 'Mia', 'Victoria', 'Hall', 129101156),
-(20, 'Michael', 'William', 'Carter', 347243548);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(1, 'John', 'Michael', 'Smith', 624788754, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(2, 'Jane', 'Marie', 'Doe', 125297801, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(3, 'Robert', 'William', 'Johnson', 752122771, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(4, 'Alice', 'Elizabeth', 'Brown', 384720487, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(5, 'David', 'Thomas', 'Wilson', 667234150, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(6, 'Emily', 'Grace', 'Anderson', 182009322, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(7, 'Daniel', 'Richard', 'Martin', 908344188, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(8, 'Sophia', 'Olivia', 'Clark', 995693008, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(9, 'Matthew', 'Alexander', 'White', 253432507, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(10, 'Ella', 'Abigail', 'Thompson', 280083540, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(11, 'William', 'Joseph', 'Harris', 640120211, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(12, 'Ava', 'Natalie', 'Robinson', 360350464, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(13, 'James', 'Christopher', 'Lewis', 881391718, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(14, 'Liam', 'Ethan', 'Turner', 325907229, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(15, 'Olivia', 'Samantha', 'Parker', 985361021, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(16, 'Benjamin', 'Daniel', 'Baker', 949083449, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(17, 'Charlotte', 'Grace', 'Mitchell', 789334214, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(18, 'Elijah', 'Carter', 'Green', 99420754, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(19, 'Mia', 'Victoria', 'Hall', 129101156, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `Student` (`student_id`, `first_name`, `middle_name`, `last_name`, `ctclink_id`, `pronouns`, `tribe_name`, `email`, `phone`, `cte_program`, `clothing_size`, `course_history`, `academic_progress`, `financial_needs`, `cases`) VALUES(20, 'Michael', 'William', 'Carter', 347243548, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -83,15 +120,15 @@ CREATE TABLE IF NOT EXISTS `User` (
   `password_timestamp` datetime DEFAULT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`user_id`, `first_name`, `last_name`, `email`, `role`, `password`, `uuid`, `password_timestamp`, `is_active`) VALUES
-(5, 'Mehdi', 'Jokar', 'jokar.mehdi2@gmail.com', 'restricted', '$2y$10$2PQ8gbZMs2hBiri9Z.3pUutuSkRuKjb8tuzHAem5Y2MzclDmMGJJK', '44271323-6fb9-11ee-968a-f23c91a78bbf', NULL, 1),
-(6, 'Anthony', 'Gutierrez', 'gutierrez.anthony@student.greenriver.edu', 'restricted', '$2y$10$CO1CIzXHa.GeK6dqVJwKX.HdzqfoaYeWV8.e3gQ/B3cn/7Z6rIqTu', '0dc6d1d2-73d2-11ee-968a-f23c91a78bb', NULL, 1);
+INSERT INTO `User` (`user_id`, `first_name`, `last_name`, `email`, `role`, `password`, `uuid`, `password_timestamp`, `is_active`) VALUES(6, 'Anthony', 'Gutierrez', 'gutierrez.anthony@student.greenriver.edu', 'restricted', '$2y$10$0md/7z3po4w.x.HAqpD8R.k1mPq13R5fyPXDBEU3up2e/dJTI14WO', '2f53f92b-729b-11ee-968a-f23c91a78bbf', NULL, 1);
+INSERT INTO `User` (`user_id`, `first_name`, `last_name`, `email`, `role`, `password`, `uuid`, `password_timestamp`, `is_active`) VALUES(7, 'Jo', 'Cichon', 'cichon.jo@student.greenriver.edu', 'restricted', '$2y$10$4XM2hYqkwaTC1AxMPjxBgeo7kM9NcBWOunavBjbBwrhpNljnM0cvC', '32c8a690-72a1-11ee-968a-f23c91a78bbf', NULL, 1);
+INSERT INTO `User` (`user_id`, `first_name`, `last_name`, `email`, `role`, `password`, `uuid`, `password_timestamp`, `is_active`) VALUES(9, 'Mehdi', 'Jokar', 'jokar.mehdi2@gmail.com', 'restricted', '$2y$10$nhkTul6wSCJPXXYLIAAZZ.klzPCfBrW7h/GuwFyrgp7ROPKR2DzuK', '2dab5636-8692-11ee-968a-f23c91a78bbf', '2023-11-19 04:29:21', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

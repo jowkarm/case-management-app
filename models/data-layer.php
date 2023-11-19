@@ -248,34 +248,29 @@ class DataLayer
 
     static function getPronouns()
     {
-        $pronouns = array('they/them', 'she/her', 'he/him', 'other');
-        return $pronouns;
+        return array('they/them', 'she/her', 'he/him', 'other');
     }
 
     static function getSizes()
-        {
-            return array('xs', 's', 'm', 'l', 'xl', 'xxl');
-        }
+    {
+        return array('xs', 's', 'm', 'l', 'xl', 'xxl');
+    }
 
     static function getTribes()
     {
-        $tribes = array('Muckleshoot Indian Tribe', 'Cherokee Nation', 'Choctaw Nation',
+        return array('Muckleshoot Indian Tribe', 'Cherokee Nation', 'Choctaw Nation',
             'Turtle Mountain Band of Chippewa', 'Confederated Tribe of Colville',
             'Navajo Nation', 'Quileute Tribe', 'Suquamish Tribe', 'Tlighit',
             'Blackfeet', 'Samish', 'Snoqualmie', 'Osage', 'Potawatomie', 'Chicksaw',
             'Standing Rock Sioux', 'Sioux');
-
-        return $tribes;
     }
 
     static function getCTEprograms()
     {
-        $cte_programs = array('Forest Resource Management, BAS',
+        return array('Forest Resource Management, BAS',
             'Forestry', 'Geographic Information Systems, AAS',
             'Park Management, AAS', 'Water Quality, AAS',
             'Wildland Fire, AAS', 'AAS-T');
-
-        return $cte_programs;
     }
 
 
