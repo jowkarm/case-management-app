@@ -38,7 +38,13 @@ class Controller
 
         // Define a view page
         $view = new Template();
-        echo $view->render('views/home.html');
+
+        if ($this->_f3->get('SESSION.user') == null) {
+            $this->_f3->reroute('/login');
+        } else {
+            echo $view->render('views/home.html');
+        }
+
 
         // Unset (clear) the session variable
         $this->_f3->set('SESSION.alert', null);
@@ -197,20 +203,6 @@ class Controller
         echo $view->render('views/student-profile/add-student.html');
     }
 
-    /**
-     * Controller for the summary route
-     */
-    function summary()
-    {
-        // Set the title of the page
-        $this->_f3->set('title', 'Summary');
-
-        // Display a summary view
-        $view = new Template();
-        echo $view->render('views/student-profile/summary.html');
-
-        session_destroy();
-    }
 
     /**
      * Controller for the add-student-confirm route
@@ -446,8 +438,8 @@ class Controller
         // Destroys session array
         session_destroy();
 
-        $alert = new Alert('You logged out successfully!', 'green');
-        $this->_f3->set('SESSION.alert', $alert);
+        /*$alert = new Alert('You logged out successfully!', 'green');
+        $this->_f3->set('SESSION.alert', $alert);*/
 
         $this->_f3->reroute('/');
     }
@@ -782,23 +774,21 @@ class Controller
         echo $view->render('views/student-profile/student.html');
 
     }
-}
-
-        }
 
 
-        /**
-         * Controller for the home route
-         */
-        function customRange()
-        {
-            // Set the title of the page
-            $this->_f3->set('title', 'Custom Range');
 
-            // Define a view page
-            $view = new Template();
-            echo $view->render('views/reports/custom-range.html');
+    /**
+     * Controller for the home route
+     */
+    function customRange()
+    {
+        // Set the title of the page
+        $this->_f3->set('title', 'Custom Range');
 
-        }
+        // Define a view page
+        $view = new Template();
+        echo $view->render('views/reports/custom-range.html');
+
+    }
 }
 
