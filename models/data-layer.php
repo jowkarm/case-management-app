@@ -259,19 +259,21 @@ class DataLayer
 
     static function getTribes()
     {
-        $tribes = array('muckleshoot', 'cherokee', 'choctaw',
-            'turtle_mt', 'confederated', 'navajo', 'quileute',
-            'suquamish', 'tlighit', 'blackfeet', 'samish',
-            'snoqualmie', 'osage', 'potawatomie', 'chicksaw',
-            'standing_rock', 'sioux');
+        $tribes = array('Muckleshoot Indian Tribe', 'Cherokee Nation', 'Choctaw Nation',
+            'Turtle Mountain Band of Chippewa', 'Confederated Tribe of Colville',
+            'Navajo Nation', 'Quileute Tribe', 'Suquamish Tribe', 'Tlighit',
+            'Blackfeet', 'Samish', 'Snoqualmie', 'Osage', 'Potawatomie', 'Chicksaw',
+            'Standing Rock Sioux', 'Sioux');
 
         return $tribes;
     }
 
     static function getCTEprograms()
     {
-        $cte_programs = array('forest_rsrc_mngmt_bas', 'forestry', 'geo_information', 'park_mngmt',
-            'water_quality', 'wild_fire', 'aas_t');
+        $cte_programs = array('Forest Resource Management, BAS',
+            'Forestry', 'Geographic Information Systems, AAS',
+            'Park Management, AAS', 'Water Quality, AAS',
+            'Wildland Fire, AAS', 'AAS-T');
 
         return $cte_programs;
     }

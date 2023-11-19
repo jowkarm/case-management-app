@@ -27,7 +27,7 @@ header {
     width: 100%;
 }
 
-nav {
+/*nav {
     background: #ab8fa5;
 }
 
@@ -42,7 +42,7 @@ nav {
 
 .dropdown-menu {
     background: #ab8fa5!important;
-}
+}*/
 
 .dropdown-menu :hover {
     background: transparent!important;

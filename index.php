@@ -116,6 +116,11 @@ $f3->route('GET /note-confirm', function() {
     $GLOBALS['con']->add_note();
 });
 
+// Define a new note route
+$f3->route('GET /custom-range', function() {
+    $GLOBALS['con']->customRange();
+});
+
 // Run Fat-Free
 $f3 -> run();
 

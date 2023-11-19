@@ -165,7 +165,6 @@ class Controller
             $this->_f3->set('SESSION.middle_name', $middle_name);
             $this->_f3->set('SESSION.last_name', $last_name);
             $this->_f3->set('SESSION.pronouns', $pronouns);
-
             $this->_f3->set('SESSION.tribe_name', $tribe_name);
             $this->_f3->set('SESSION.cte_program', $cte_program);
             $this->_f3->set('SESSION.email', $email);
@@ -176,12 +175,16 @@ class Controller
             $this->_f3->set('SESSION.finances', $finances);
             $this->_f3->set('SESSION.notes', $notes);
 
-            // Redirect to the confirmation page
-            $this->_f3->reroute('/confirm');
+            //if there are no errors
+            //TODO add error array conditional here!
+
+                // Redirect to the confirmation page
+                $this->_f3->reroute('/confirm');
+
         }
 
         // Set arrays
-        $this->_f3->set('programs', $GLOBALS['dataLayer']->getCtePrograms());
+        $this->_f3->set('programs', $GLOBALS['dataLayer']->getCTEPrograms());
         $this->_f3->set('sizes', $GLOBALS['dataLayer']->getSizes());
         $this->_f3->set('pronouns', $GLOBALS['dataLayer']->getPronouns());
         $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
@@ -216,6 +219,14 @@ class Controller
     {
         // Set the title of the page
         $this->_f3->set('title', 'Confirm');
+
+        //If the form has been posted
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $alert = new Alert('A new student has been added!', 'green');
+                $this->_f3->set('SESSION.alert', $alert);
+                $this->_f3->reroute('/');
+        }
 
         // Display add-student-confirmation view
         $view = new Template();
@@ -458,10 +469,12 @@ class Controller
 
     function case_log()
     {
+
         // Only if a user is logged in can they add a student
 //        if (!Validation::loggedIn($this->_f3)) {
 //            $this->_f3->reroute('/login');
 //        }
+
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Get the data
@@ -483,7 +496,9 @@ class Controller
         }
 
         // Set the title of the page
+
         $this->_f3->set('title', 'Case Log');
+
 
         // View page for all cases
         $view = new Template();
@@ -634,12 +649,15 @@ class Controller
         }
 
         // Set the title of the page
+
         $this->_f3->set('title', 'Add Case Note');
+
 
         // View page for all cases
         $view = new Template();
         echo $view->render('views/reports/add-note.html');
     }
+
 
 
 
@@ -741,6 +759,7 @@ class Controller
         $this->_f3->set('title', 'Reset Password');
 
 
+
         // Define a view page
         $view = new Template();
         echo $view->render('views/login/reset-password.html');
@@ -764,3 +783,22 @@ class Controller
 
     }
 }
+
+        }
+
+
+        /**
+         * Controller for the home route
+         */
+        function customRange()
+        {
+            // Set the title of the page
+            $this->_f3->set('title', 'Custom Range');
+
+            // Define a view page
+            $view = new Template();
+            echo $view->render('views/reports/custom-range.html');
+
+        }
+}
+
