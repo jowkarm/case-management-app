@@ -22,7 +22,7 @@ class Student
     private $_pronouns;
     private $_tribe_name;
     private $_email;
-    private $_phone_number;
+    private $_phone;
     private $_clothing_size;
     private $_course_history;
     private $_academic_progress;

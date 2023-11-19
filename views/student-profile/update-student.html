@@ -1,0 +1,201 @@
+
+<!--
+HTML markup for the Student Information Form page
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: home.php
+Date: 10/10/2023
+-->
+
+<include href="views/includes/header.html"></include>
+
+<!--add new student form-->
+<main class="container mb-5 student-tab tabs-body">
+  <div class="container w-75">
+    <br>
+    <br>
+    <h3>{{ @title }}</h3>
+    <hr>
+
+    <form action="#" method="post">
+
+      <!--row 1-->
+      <div class="row pt-4">
+        <!--col 1-->
+        <div class="col-sm">
+
+          <div class="row mb-3">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="ctclink_id"
+                     name="ctclink_id" placeholder="ctcLink Id" value="{{ @SESSION.student->getCtclinkId() }}">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="first_name"
+                     name="first_name" placeholder="First Name" value="{{ @SESSION.student->getFirstName() }}">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="middle_name"
+                     name="middle_name" placeholder="Middle Name" value="{{ @SESSION.student->getMiddleName() }}">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="last_name"
+                     name="last_name" placeholder="Last Name" value="{{ @SESSION.student->getLastName() }}">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="pronouns" >Pronouns</label>
+              <select class="form-select" id="pronouns" name="pronouns">
+                <option value="">select...</option>
+
+                <repeat group="{{ @pronouns }}" value="{{ @pronoun }}">
+                  <check if="{{ @pronoun == @SESSION.student->getPronouns() }}">
+                    <true>
+                      <option value="{{ @pronoun }}" selected>{{ @pronoun }}</option>
+                    </true>
+                    <false>
+                      <option value="{{ @pronoun }}">{{ @pronoun }}</option>
+                    </false>
+                  </check>
+                </repeat>
+
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <!--col 2-->
+        <!-- image upload -->
+        <div class="col-sm mb-3">
+                        <textarea class="form-control" id="image_upload" rows="12"
+                                  placeholder="Upload image here..."></textarea>
+        </div>
+      </div>
+
+
+      <!--row 2-->
+      <div class="row mb-3">
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="tribe_name">Tribe</label>
+          <select class="form-select" id="tribe_name" name="tribe_name">
+            <option value="">select...</option>
+
+            <repeat group="{{ @tribes }}" value="{{ @tribe }}">
+              <check if="{{ @tribe == @SESSION.student->getTribeName() }}">
+                <true>
+                  <option value="{{ @tribe }}" selected>{{ @tribe }}</option>
+                </true>
+                <false>
+                  <option value="{{ @tribe }}">{{ @tribe }}</option>
+                </false>
+              </check>
+            </repeat>
+
+          </select>
+        </div>
+      </div>
+
+      <!--row 3-->
+      <div class="row mb-3">
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="cte_program">CTE Program</label>
+          <select class="form-select" id="cte_program" name="cte_program" value="">
+            <option selected>select...</option>
+
+            <repeat group="{{ @programs }}" value="{{ @program }}">
+              <check if="{{ @program == @SESSION.student->getCteProgram() }}">
+                <true>
+                  <option value="{{ @program }}" selected>{{ @program }}</option>
+                </true>
+                <false>
+                  <option value="{{ @program }}">{{ @program }}</option>
+                </false>
+              </check>
+
+            </repeat>
+
+          </select>
+        </div>
+      </div>
+
+
+      <!--row 4-->
+      <div class="row mb-3">
+        <!-- email -->
+        <div class="col-sm">
+          <input type="email" class="form-control" id="email"
+                 name="email" placeholder="Email" value="{{ @SESSION.student->getEmail() }}">
+        </div>
+        <!-- phone -->
+        <div class="col-sm">
+          <input type="tel" class="form-control" id="phone"
+                 name="phone" placeholder="206-555-1234" value="{{ @SESSION.student->getPhoneNumber() }}">
+        </div>
+        <div class="col-sm">
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="clothing_size">Clothing Size</label>
+            <select class="form-select" id="clothing_size" name="clothing_size" value="">
+              <option selected>select...</option>
+
+              <repeat group="{{ @sizes }}" value="{{ @size }}">
+                <check if="{{ @size == @SESSION.student->getClothingSize() }}">
+                  <true>
+                    <option value="{{ @size }}" selected>{{ @size }}</option>
+                  </true>
+                  <false>
+                    <option value="{{ @size }}">{{ @size }}</option>
+                  </false>
+                </check>
+
+              </repeat>
+
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!--row 4 thru 7-->
+      <div class="row mb-3">
+        <div class="mb-3">
+          <label for="course_history" class="form-label">Course History</label>
+          <textarea id="course_history" class="form-control" name="course_history" value="{{ @SESSION.student->getCourseHistory() }}" rows="4"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="academic_progress" class="form-label">Current Academic Progress</label>
+          <textarea id="academic_progress" class="form-control" name="academic_progress" value="{{ @SESSION.student->getAcademicProgress() }}" rows="4"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="finances" class="form-label">Financial Need</label>
+          <textarea id="finances" class="form-control" name="finances" value="{{ @SESSION.student->getFinancialNeeds() }}" rows="4"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="notes" class="form-label">Notes</label>
+          <textarea id="notes" class="form-control" name="notes" value="{{ @SESSION.student->getCases() }}" rows="4"></textarea>
+        </div>
+      </div>
+
+
+      <!--go to confirmation page button-->
+      <div class="row pt-4 pb-6">
+        <div class="col-4"><!--empty--></div>
+        <div class="col-4"><!--empty--></div>
+
+
+        <div class="col-4 mt-auto mb-3" id="box-5">
+          <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
+                  id="next-button" type="submit">Continue
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
+<include href="views/includes/footer.html"></include>
+

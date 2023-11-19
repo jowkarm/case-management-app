@@ -11,149 +11,160 @@ Date: 10/10/2023
 <!--add new student form-->
 <main class="container mb-5 student-tab tabs-body">
     <div class="container w-75">
-    <h3>Add New Student</h3>
-    <hr>
+        <br>
+        <br>
+        <h3>Add New Student</h3>
+        <hr>
 
-    <form action="#" method="post">
+        <form action="#" method="post">
 
-        <!--row 1-->
-        <div class="row pt-4">
-            <!--col 1-->
-            <div class="col-sm">
-                <div class="container">
-                    <div class="row mb-3">
-                        <input type="text" class="form-control" id="ctclink_id"
-                               name="ctclink_id" placeholder="Student Id" value="">
-                    </div>
-                    <div class="row mb-3">
-                        <input type="text" class="form-control" id="first_name"
-                               name="first_name" placeholder="First Name" value="">
-                    </div>
-                    <div class="row mb-3">
-                        <input type="text" class="form-control" id="middle_name"
-                               name="middle_name" placeholder="Middle Name" value="">
-                    </div>
-                    <div class="row mb-3">
-                        <input type="text" class="form-control" id="last_name"
-                               name="last_name" placeholder="Last Name" value="">
-                    </div>
+            <!--row 1-->
+            <div class="row pt-4">
+                <!--col 1-->
+                <div class="col-sm">
+
+                        <div class="row mb-3">
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="ctclink_id"
+                                   name="ctclink_id" placeholder="ctcLink Id">
+                        </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="first_name"
+                                   name="first_name" placeholder="First Name">
+                        </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="middle_name"
+                                   name="middle_name" placeholder="Middle Name">
+                        </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="last_name"
+                                   name="last_name" placeholder="Last Name">
+                        </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="pronouns" >Pronouns</label>
+                                <select class="form-select" id="pronouns" name="pronouns">
+                                    <option value="">select...</option>
+
+                                    <repeat group="{{ @pronouns }}" value="{{ @pronoun }}">
+                                        <option value="{{ @pronoun }}">{{ @pronoun }}</option>
+                                    </repeat>
+
+                                </select>
+                            </div>
+                        </div>
+
                 </div>
+
+                <!--col 2-->
+                <!-- image upload -->
+                <div class="col-sm mb-3">
+                        <textarea class="form-control" id="image_upload" rows="12"
+                                  placeholder="Upload image here..."></textarea>
+                </div>
+            </div>
+
+
+                <!--row 2-->
                 <div class="row mb-3">
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="pronouns" >Pronouns</label>
-                        <select class="form-select" id="pronouns" name="pronouns">
+                        <label class="input-group-text" for="tribe_name">Tribe</label>
+                        <select class="form-select" id="tribe_name" name="tribe_name">
                             <option value="">select...</option>
 
-                            <repeat group="{{ @pronouns }}" value="{{ @pronoun }}">
-                                <option value="{{ @pronoun }}">{{ @pronoun }}</option>
+                            <repeat group="{{ @tribes }}" value="{{ @tribe }}">
+                                <option value="{{ @tribe }}">{{ @tribe }}</option>
                             </repeat>
 
                         </select>
-
                     </div>
                 </div>
-            </div>
 
-            <!--col 2-->
-            <!-- image upload -->
-            <div class="col-sm mb-3">
-                    <textarea class="form-control" id="image_upload" rows="10"
-                              placeholder="Upload image here..."></textarea>
-            </div>
-        </div>
+                <!--row 3-->
+                <div class="row mb-3">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="cte_program">CTE Program</label>
+                        <select class="form-select" id="cte_program" name="cte_program" value="">
+                            <option selected>select...</option>
 
-        <!--row 2-->
-        <div class="row mb-3">
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="tribe_name">Tribe</label>
-                <select class="form-select" id="tribe_name" name="tribe_name">
-                    <option value="">select...</option>
+                            <repeat group="{{ @programs }}" value="{{ @program }}">
+                                <option value="{{ @program }}">{{ @program }}</option>
+                            </repeat>
 
-                    <repeat group="{{ @tribes }}" value="{{ @tribe }}">
-                        <option value="{{ @tribe }}">{{ @tribe }}</option>
-                    </repeat>
-
-                </select>
-            </div>
-        </div>
-
-        <!--row 3-->
-        <div class="row mb-3">
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="cte_program">CTE Program</label>
-                <select class="form-select" id="cte_program" name="cte_program" value="">
-                    <option selected>select...</option>
-
-                    <repeat group="{{ @programs }}" value="{{ @program }}">
-                        <option value="{{ @program }}">{{ @program }}</option>
-                    </repeat>
-
-                </select>
-            </div>
-        </div>
+                        </select>
+                    </div>
+                </div>
 
 
-        <!--row 4-->
-        <div class="row mb-3">
-            <!-- email -->
-            <div class="col-sm">
-                <input type="email" class="form-control" id="email"
-                       name="email" placeholder="Email" value="">
-            </div>
-            <!-- phone -->
-            <div class="col-sm">
-                <input type="tel" class="form-control" id="phone"
-                       name="phone" placeholder="206-555-1234" value="">
-            </div>
-            <div class="col-sm">
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="clothing_size">Clothing Size</label>
-                    <select class="form-select" id="clothing_size" name="clothing_size" value="">
-                        <option selected>select...</option>
+                <!--row 4-->
+                <div class="row mb-3">
+                    <!-- email -->
+                    <div class="col-sm">
+                        <input type="email" class="form-control" id="email"
+                               name="email" placeholder="Email">
+                    </div>
+                    <!-- phone -->
+                    <div class="col-sm">
+                        <input type="tel" class="form-control" id="phone"
+                               name="phone" placeholder="206-555-1234">
+                    </div>
+                    <div class="col-sm">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="clothing_size">Clothing Size</label>
+                            <select class="form-select" id="clothing_size">
+                                <option selected>select...</option>
 
-                        <repeat group="{{ @sizes }}" value="{{ @size }}">
-                            <option value="{{ @size }}">{{ @size }}</option>
-                        </repeat>
+                                <repeat group="{{ @sizes }}" value="{{ @size }}">
+                                    <option value="{{ @size }}">{{ @size }}</option>
+                                </repeat>
 
-                    </select>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--row 4 thru 7-->
+                <div class="row mb-3">
+                    <div class="mb-3">
+                        <label for="course_history" class="form-label">Course History</label>
+                        <textarea id="course_history" class="form-control" name="course_history" rows="4"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="academic_progress" class="form-label">Current Academic Progress</label>
+                        <textarea id="academic_progress" class="form-control" name="academic_progress" rows="4"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="finances" class="form-label">Financial Need</label>
+                        <textarea id="finances" class="form-control" name="finances" rows="4"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea id="notes" class="form-control" name="notes" rows="4"></textarea>
+                    </div>
+                </div>
+
+
+            <!--go to confirmation page button-->
+            <div class="row pt-4 pb-6">
+                <div class="col-4"><!--empty--></div>
+                <div class="col-4"><!--empty--></div>
+
+
+                <div class="col-4 mt-auto mb-3" id="box-5">
+                    <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
+                            id="next-button" type="submit">Continue
+                    </button>
                 </div>
             </div>
-        </div>
-
-        <!--row 4 thru 7-->
-        <div class="row mb-3">
-            <div class="mb-3">
-                <label for="course_history" class="form-label">Course History</label>
-                <textarea id="course_history" class="form-control" name="course_history" value="" rows="4"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="academic_progress" class="form-label">Current Academic Progress</label>
-                <textarea id="academic_progress" class="form-control" name="academic_progress" value="" rows="4"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="finances" class="form-label">Financial Need</label>
-                <textarea id="finances" class="form-control" name="finances" value="" rows="4"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="notes" class="form-label">Notes</label>
-                <textarea id="notes" class="form-control" name="notes" value="" rows="4"></textarea>
-            </div>
-        </div>
-
-        <!--go to confirmation page button-->
-        <div class="row pt-4 pb-6">
-            <div class="col-4"><!--empty--></div>
-            <div class="col-4"><!--empty--></div>
-
-
-            <div class="col-4 mt-auto" id="box-5">
-                <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button"
-                        id="next-button" type="submit">Continue
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </main>
 
 <include href="views/includes/footer.html"></include>
