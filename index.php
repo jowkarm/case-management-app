@@ -36,7 +36,7 @@ $f3->route('GET /home', function() {
     $GLOBALS['con']->home();
 });
 
-// Define a route to handle the form submission and summary display
+// Define a route to handle the form submission
 $f3->route('GET|POST /add-student', function () {
     $GLOBALS['con']->addStudent();
 });
@@ -44,10 +44,6 @@ $f3->route('GET|POST /add-student', function () {
 //Route to add-student-confirmation form
 $f3->route('GET|POST /confirm', function () {
     $GLOBALS['con']->confirm();
-});
-
-$f3->route('GET|POST /summary', function () {
-    $GLOBALS['con']->summary();
 });
 
 // Define a student-list route for student list

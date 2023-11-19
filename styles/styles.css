@@ -108,8 +108,8 @@ The styling for alert.
     customize the colors of bootstrap classes
  */
 .btn-outline-secondary {
-    --bs-btn-color: #ab8fa5;
-    --bs-btn-border-color: #ab8fa5;
+    --bs-btn-color: darkslateblue;
+    --bs-btn-border-color: darkslateblue;
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #ab8fa5;
     --bs-btn-hover-border-color: #ab8fa5;
@@ -122,6 +122,7 @@ The styling for alert.
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: #ab8fa5;
     --bs-gradient: none;
+    background-color: #f5d5d5;
 }
 
 .table-dark {
@@ -191,16 +192,6 @@ input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px #C4C4E577 inset !important;
 }
 
-/* customize the styles of student tabs */
-.nav-tabs{
-    --bs-nav-tabs-link-active-bg: #49496C;
-    border-bottom: #49496C;
-    margin: 5px 0 0 0;
-}
-
-.nav-tabs .nav-link{
-    background: #6B6B8C;
-}
 
 .color-picker {
     --emotion-indicator: oklch(60.54% 0.15 0);
@@ -289,3 +280,58 @@ input:-webkit-autofill:active{
     background-color: var(--emotion-indicator);
 }
 
+/**
+    Tabs colors
+ */
+
+.welcome-tab{
+    background-color: lavender;
+}
+
+.student-tab{
+    background-color: #edf5ef
+}
+
+.logs-tab{
+    background-color: #d5eef5
+}
+
+.reports-tab{
+    background-color: #f5f4d5;
+}
+
+.logout-tab{
+    background-color: #f5d5d5;
+}
+
+.tabs-body{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.navbar {
+    padding: 0 !important;
+}
+
+.container{
+    padding-left: 0 !important;
+}
+
+.nav-tabs .nav-link {
+
+    border-bottom: 0 !important;
+}
+
+
+/*
+!* customize the styles of student tabs *!
+.nav-tabs{
+--bs-nav-tabs-link-active-bg: #49496C;
+border-bottom: #49496C;
+margin: 5px 0 0 0;
+}
+
+.nav-tabs .nav-link{
+background: #6B6B8C;
+}*/
