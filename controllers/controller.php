@@ -77,7 +77,6 @@ class Controller
         $finances = "";
         $notes = "";
         $photo = "";
-        $file_name = "";
 
 
         //If the form has posted
@@ -131,42 +130,57 @@ class Controller
 
             // Validate the data
             // Validate the first name
-            if (empty($fName) || !Validation::validName($first_name)) {
-                $this->_f3->set('errors["fName]', 'Invalid name entered');
+            if (empty($first_name) || !Validation::validName($first_name)) {
+                $this->_f3->set('errors["first_name]', 'Invalid first name entered');
             }
 
-            /* TODO Allow middle name to be blank
-            Validate the middle name
-            if(empty($mName)) {
-            } elseif(!Validation::validName($middle_name)) {
-                $this->_f3->set('errors["mName]', 'Invalid name entered');
-            }*/
+
+            //Validate the middle name
+            if(!empty($middle_name) && !Validation::validName($middle_name)) {
+                $this->_f3->set('errors["middle_name]', 'Invalid middle name entered');
+            }
 
             // Validate the last name
-            if (empty($lName) || !Validation::validName($last_name)) {
-                $this->_f3->set('errors["lName]', 'Invalid name entered');
+            if (empty($last_name) || !Validation::validName($last_name)) {
+                $this->_f3->set('errors["last_name]', 'Invalid last name entered');
+            }
+
+            // Validate the ctcLink Id
+            if (empty($ctclink_id) || !Validation::validCtcLinkId($ctclink_id)) {
+                $this->_f3->set('errors["ctclink_id]', 'Invalid ctclink id entered');
             }
 
             // Validate the pronoun selected
-
-            if (!Validation::validatePronouns($pronouns)) {
+            if (!empty($pronouns) && !Validation::validatePronouns($pronouns)) {
                 $this->_f3->set('errors["pronouns"]', 'Invalid pronouns selected');
             }
 
+
             // Validate the tribe selected
-            if (!Validation::validateTribe($tribe_name)) {
-                $this->_f3->set('errors["tribe"]', 'Invalid tribe selected');
+            if (!empty($tribe_name) && !Validation::validateTribe($tribe_name)) {
+                $this->_f3->set('errors["tribe_name"]', 'Invalid tribe selected');
             }
 
             // Validate the cte program selected
-            if (!Validation::validateCTEProgram($cte_program)) {
+            if (!empty($cte_program) && !Validation::validateCTEProgram($cte_program)) {
                 $this->_f3->set('errors["cte_program"]', 'Invalid CTE program selected');
             }
 
             // Validate the clothing size selected
-            if (!Validation::validateClothingSize($clothing_size)) {
+            if (!empty($clothing_size) && !Validation::validateClothingSize($clothing_size)) {
                 $this->_f3->set('errors["clothing_size"]', 'Invalid clothing size selected');
             }
+
+            // Validate the email
+            if (empty($email) || !Validation::validEmail($email)) {
+                $this->_f3->set('errors["email"]', 'Invalid email entered');
+            }
+
+            // Validate the phone number
+            if (empty($phone) || !Validation::validPhone($phone)) {
+                $this->_f3->set('errors["phone"]', 'Invalid phone number entered. It must be 10 digits.');
+            }
+
 
             //=========Upload Image==================//
             if(isset($_FILES['image']) && $_FILES['image']['name'] != ''){
@@ -199,6 +213,7 @@ class Controller
             }
             //================End of image upload================
 
+
             // create a student object
             $student = new Student($first_name, $middle_name, $last_name, $ctclink_id);
             $student->setPronouns($pronouns);
@@ -218,12 +233,13 @@ class Controller
             $this->_f3->set('SESSION.student', $student);
 
 
-            //if there are no errors
-            //TODO add error array conditional here!
+            // Redirect to confirm route if there
+            // are no errors (errors array is empty)
+            if (empty($this->_f3->get('errors'))) {
 
                 // Redirect to the confirmation page
                 $this->_f3->reroute('/confirm');
-
+            }
         }
 
         // Set arrays
