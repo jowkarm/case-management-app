@@ -27,22 +27,6 @@ header {
     width: 100%;
 }
 
-/*nav {
-    background: #ab8fa5;
-}
-
-nav a, button {
-    color: white!important;
-}
-
-nav {
-    border: black 3px solid;
-    padding: 2% 0;
-}
-
-.dropdown-menu {
-    background: #ab8fa5!important;
-}*/
 
 .dropdown-menu :hover {
     background: transparent!important;
@@ -335,3 +319,7 @@ margin: 5px 0 0 0;
 .nav-tabs .nav-link{
 background: #6B6B8C;
 }*/
+
+.img-fluid{
+    max-height: 100% !important;
+}

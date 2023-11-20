@@ -76,6 +76,8 @@ class Controller
         $academic_progress = "";
         $finances = "";
         $notes = "";
+        $photo = "";
+        $file_name = "";
 
 
         //If the form has posted
@@ -166,18 +168,51 @@ class Controller
                 $this->_f3->set('errors["clothing_size"]', 'Invalid clothing size selected');
             }
 
+            //=========Upload Image==================//
+            if(isset($_FILES['image']) && $_FILES['image']['name'] != ''){
+                $errors= array();
+                $file_name = $_FILES['image']['name'];
+                $file_size =$_FILES['image']['size'];
+                $file_tmp =$_FILES['image']['tmp_name'];
+                $file_ext= strtolower(pathinfo($file_name,PATHINFO_EXTENSION));
+
+                $extensions= array("jpeg","jpg","png");
+
+                if(in_array($file_ext,$extensions)=== false){
+                    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+                }
+
+
+                if($file_size > 2097152){
+                    $errors[]='File size must be exactly 2 MB';
+                }
+
+                if(empty($errors)){
+                    $photo = file_get_contents($file_tmp);
+
+                }else{
+                    $this->_f3->set('errors["image"]', $errors);
+                }
+            } else {
+                $file_name = 'woman_profile_anonymous.png';
+                $photo = file_get_contents('images/woman_profile_anonymous.png');
+            }
+            //================End of image upload================
+
             // create a student object
             $student = new Student($first_name, $middle_name, $last_name, $ctclink_id);
             $student->setPronouns($pronouns);
             $student->setTribeName($tribe_name);
             $student->setCteProgram($cte_program);
             $student->setEmail($email);
-            $student->setPhoneNumber($phone);
+            $student->setPhone($phone);
             $student->setClothingSize($clothing_size);
             $student->setCourseHistory($course_history);
             $student->setAcademicProgress($academic_progress);
             $student->setFinancialNeeds($finances);
             $student->setCases($notes);
+            $student->setProfilePhoto($photo);
+            $student->setFileName($file_name);
 
             // Store the student object in the F3 framework session
             $this->_f3->set('SESSION.student', $student);
