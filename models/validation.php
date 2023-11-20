@@ -17,18 +17,29 @@ class Validation
     /**
      * This function checks to see that a
      * string is all alphabetic (no numbers)
-     * and not empty
      */
     static function validName($name)
     {
         $name = trim($name);
         $name = strip_tags($name);
 
-        /*if (empty($name)) {
-            return false;
-        }*/ // does not work with middle name validation since middle name should be optional
-
         return preg_match('/^[A-Za-z\s\-]+$/', $name);
+    }
+
+    /**
+     * This function validate the ctcLink Id
+     */
+    static function validCtcLinkId($id)
+    {
+        // Remove any whitespaces from the input string
+        $cleanedInput = trim($id);
+
+        // Check if the cleaned input is numeric and has exactly 9 digits
+        if (is_numeric($cleanedInput) && strlen($cleanedInput) === 9) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -101,11 +112,6 @@ class Validation
         // Remove any non-digit characters from the phone number
         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
 
-        // Check if the resulting string contains only numeric values
-        if (!ctype_digit($phoneNumber)) {
-            return false;
-        }
-
         // Check if the phone number has exactly 10 digits
         return strlen($phoneNumber) === 10;
     }
@@ -113,17 +119,17 @@ class Validation
 
     static function validatePronouns($pronouns)
     {
-        return (!empty($pronouns) && in_array($pronouns, DataLayer::getPronouns()));
+        return (in_array($pronouns, DataLayer::getPronouns()));
     }
 
     static function validateTribe($tribe)
     {
-        return (!empty($tribe) && in_array($tribe, DataLayer::getTribes()));
+        return (in_array($tribe, DataLayer::getTribes()));
     }
 
     static function validateCTEProgram($cte_program)
     {
-        return (!empty($cte_program) && in_array($cte_program, DataLayer::getCTEPrograms()));
+        return (in_array($cte_program, DataLayer::getCTEPrograms()));
     }
 
 
@@ -134,6 +140,6 @@ class Validation
 
     static function validateClothingSize($clothing_size)
     {
-        return (!empty($clothing_size) && in_array($clothing_size, DataLayer::getSizes()));
+        return (in_array($clothing_size, DataLayer::getSizes()));
     }
 }
