@@ -23,26 +23,26 @@ Date: 10/10/2023
             <div class="col-sm">
                 <div class="container">
                     <div class="row mb-3">
-                        <p>Student Id: {{ @SESSION.student->getCtclinkId() }} </p>
+                        <p><b>Student Id:</b> {{ @SESSION.student->getCtclinkId() }} </p>
                     </div>
                     <div class="row mb-3">
-                        <p>Student Name: {{ @SESSION.student->getFirstName() }} {{ @SESSION.student->getMiddleName() }}
+                        <p><b>Student Name:</b> {{ @SESSION.student->getFirstName() }} {{ @SESSION.student->getMiddleName() }}
                             {{ @SESSION.student->getLastName() }} ({{ @SESSION.student->getPronouns() }})</p>
                     </div>
                     <div class="row mb-3">
-                        <p>Tribe: {{ @SESSION.student->getTribeName() }}</p>
+                        <p><b>Tribe:</b> {{ @SESSION.student->getTribeName() }}</p>
                     </div>
                     <div class="row mb-3">
-                        <p>CTE Program: {{ @SESSION.student->getCteProgram() }}</p>
+                        <p><b>CTE Program:</b> {{ @SESSION.student->getCteProgram() }}</p>
                     </div>
                     <div class="row mb-3">
-                        <p>Email: {{ @SESSION.student->getEmail() }}</p>
+                        <p><b>Email:</b> {{ @SESSION.student->getEmail() }}</p>
                     </div>
                     <div class="row mb-3">
-                        <p>Phone Number: {{ @SESSION.student->getPhoneNumber() }}</p>
+                        <p><b>Phone Number:</b> {{ @SESSION.student->getPhone() }}</p>
                     </div>
                     <div class="row mb-3">
-                        <p>Clothing Size: {{ @SESSION.student->getClothingSize() }}</p>
+                        <p><b>Clothing Size:</b> {{ @SESSION.student->getClothingSize() }}</p>
                     </div>
                 </div>
             </div>
@@ -50,8 +50,10 @@ Date: 10/10/2023
             <!--row 1 col 2-->
             <!-- image upload -->
             <div class="col-sm mb-3">
-                    <img src="images/woman_profile_anonymous.png" class="img-fluid rounded"
-                         alt="monochromatic silhouette of woman">
+                <div class="row mb-3 float-right">
+                    <img src="data:image/png;base64,{{ base64_encode(@SESSION.student->getProfilePhoto()) }}" class="img-responsive img-thumbnail w-75 mx-auto"
+                     alt="{{ @SESSION.student->getFileName() }}">
+                </div>
             </div>
         </div>
 
@@ -60,19 +62,19 @@ Date: 10/10/2023
             <div class="col">
             <div class="container">
                 <div class="mb-3">
-                    <p>Course History: {{ @SESSION.student->getCourseHistory() }}</p>
+                    <p><b>Course History:</b> {{ @SESSION.student->getCourseHistory() }}</p>
                 </div>
 
                 <div class="mb-3">
-                    <p>Current Academic Progress: {{ @SESSION.student->getAcademicProgress() }}</p>
+                    <p><b>Current Academic Progress:</b> {{ @SESSION.student->getAcademicProgress() }}</p>
                 </div>
 
                 <div class="mb-3">
-                    <p>Financial Need: {{ @SESSION.student->getFinancialNeeds() }}</p>
+                    <p><b>Financial Need:</b> {{ @SESSION.student->getFinancialNeeds() }}</p>
                 </div>
 
                 <div class="mb-3">
-                    <p>Notes: {{ @SESSION.student->getCases() }}</p>
+                    <p><b>Notes:</b> {{ @SESSION.student->getCases() }}</p>
                 </div>
             </div>
         </div>

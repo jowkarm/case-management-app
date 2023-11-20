@@ -23,6 +23,8 @@ class Student
     private $_tribe_name;
     private $_email;
     private $_phone;
+    private $_profile_photo;
+    private $_file_name;
     private $_clothing_size;
     private $_course_history;
     private $_academic_progress;
@@ -187,21 +189,6 @@ class Student
         $this->_email = $email;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPhoneNumber()
-    {
-        return $this->_phone_number;
-    }
-
-    /**
-     * @param mixed $phone_number
-     */
-    public function setPhoneNumber($phone_number)
-    {
-        $this->_phone_number = $phone_number;
-    }
 
     /**
      * @return mixed
@@ -283,6 +270,53 @@ class Student
         $this->_cases = $cases;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPhone()
+    {
+        return $this->_phone;
+    }
+
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->_phone = $phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProfilePhoto()
+    {
+        return $this->_profile_photo;
+    }
+
+    /**
+     * @param mixed $profile_photo
+     */
+    public function setProfilePhoto($profile_photo)
+    {
+        $this->_profile_photo = $profile_photo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileName()
+    {
+        return $this->_file_name;
+    }
+
+    /**
+     * @param mixed $file_name
+     */
+    public function setFileName($file_name)
+    {
+        $this->_file_name = $file_name;
+    }
 
 
 

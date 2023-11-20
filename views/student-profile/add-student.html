@@ -16,7 +16,7 @@ Date: 10/10/2023
         <h3>Add New Student</h3>
         <hr>
 
-        <form action="#" method="post">
+        <form action="#" method="post" enctype="multipart/form-data">
 
             <!--row 1-->
             <div class="row pt-4">
@@ -65,14 +65,26 @@ Date: 10/10/2023
 
                 <!--col 2-->
                 <!-- image upload -->
-                <div class="col-sm mb-3">
-                        <textarea class="form-control" id="image_upload" rows="12"
-                                  placeholder="Upload image here..."></textarea>
+                <div class="col-sm">
+                    <div class="row mb-3" id="imageContainer">
+                        <img src="images/woman_profile_anonymous.png" class="img-responsive img-thumbnail w-75 mx-auto"
+                             alt="monochromatic silhouette of woman">
+                    </div>
                 </div>
             </div>
 
+            <!--row 2-->
+            <div class="row mb-3">
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="image"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                        <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    </svg></label>
+                    <input type="file" class="form-control" id="image" name="image" onchange="displayImage()">
+                </div>
+            </div>
 
-                <!--row 2-->
+                <!--row 3-->
                 <div class="row mb-3">
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="tribe_name">Tribe</label>
@@ -87,7 +99,7 @@ Date: 10/10/2023
                     </div>
                 </div>
 
-                <!--row 3-->
+                <!--row 4-->
                 <div class="row mb-3">
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="cte_program">CTE Program</label>
@@ -103,7 +115,7 @@ Date: 10/10/2023
                 </div>
 
 
-                <!--row 4-->
+                <!--row 5-->
                 <div class="row mb-3">
                     <!-- email -->
                     <div class="col-sm">
@@ -130,7 +142,7 @@ Date: 10/10/2023
                     </div>
                 </div>
 
-                <!--row 4 thru 7-->
+                <!--row 5 thru 7-->
                 <div class="row mb-3">
                     <div class="mb-3">
                         <label for="course_history" class="form-label">Course History</label>
