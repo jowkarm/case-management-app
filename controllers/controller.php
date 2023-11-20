@@ -110,6 +110,7 @@ class Controller
             }
             if (isset($_POST['phone'])) {
                 $phone = $_POST['phone'];
+                $phone = preg_replace('/[^0-9]/', '', $phone);
             }
             if (isset($_POST['clothing_size'])) {
                 $clothing_size = $_POST['clothing_size'];
@@ -272,10 +273,27 @@ class Controller
 
         //If the form has been posted
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $student = $this->_f3->get('SESSION.student');
+            $alert = "";
+            if(empty($student->getStudentId())){
+                $inserted = $GLOBALS['dataLayer']->insertStudent($student);
+                if($inserted){
+                    $alert = new Alert('A new student has been added!', 'green');
+                } else{
+                    $alert = new Alert('Error: unsuccessfull insert!', 'red');
+                }
+            } else{
+                $updated = $GLOBALS['dataLayer']->updateStudent($student);
+                if($updated){
+                    $alert = new Alert('The student data has been updated!', 'green');
+                } else{
+                    $alert = new Alert('Error: unsuccessfull update!', 'red');
+                }
+            }
 
-                $alert = new Alert('A new student has been added!', 'green');
-                $this->_f3->set('SESSION.alert', $alert);
-                $this->_f3->reroute('/');
+            $this->_f3->set('SESSION.alert', $alert);
+            $this->_f3->reroute('/');
+
         }
 
         // Display add-student-confirmation view
@@ -844,6 +862,229 @@ class Controller
         // Define a view page
         $view = new Template();
         echo $view->render('views/reports/custom-range.html');
+
+    }
+
+    /**
+     * ToDO: needs work
+     * Controller for the form route
+     */
+    function updateStudent()
+    {
+        /*// Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+        $this->_f3->reroute('/login');
+        }*/
+
+        $student = "";
+
+        if(isset($_GET['id']) && $_GET['id'] > 0){
+            $student = $GLOBALS['dataLayer']->getAStudent($_GET['id']);
+        } else {
+            // Redirect to the home page
+            $this->_f3->reroute('/');
+        }
+
+        // Store the student object in the F3 framework session
+        $this->_f3->set('SESSION.student', $student);
+
+
+        //If the form has posted
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            //Initialize the variables
+            $ctclink_id = "";
+            $first_name = "";
+            $middle_name = "";
+            $last_name = "";
+            $pronouns = "";
+            $tribe_name = "";
+            $cte_program = "";
+            $email = "";
+            $phone = "";
+            $clothing_size = "";
+            $course_history = "";
+            $academic_progress = "";
+            $finances = "";
+            $notes = "";
+            $photo = "";
+
+            // Retrieve data from the form fields
+
+            if (isset($_POST['ctclink_id'])) {
+                $ctclink_id = $_POST['ctclink_id'];
+            }
+            if (isset($_POST['first_name'])) {
+                $first_name = $_POST['first_name'];
+            }
+            if (isset($_POST['middle_name'])) {
+                $middle_name = $_POST['middle_name'];
+            }
+            if (isset($_POST['last_name'])) {
+                $last_name = $_POST['last_name'];
+            }
+            if (isset($_POST['pronouns'])) {
+                $pronouns = $_POST['pronouns'];
+            }
+            if (isset($_POST['tribe_name'])) {
+                $tribe_name = $_POST['tribe_name'];
+            }
+            if (isset($_POST['cte_program'])) {
+                $cte_program = $_POST['cte_program'];
+            }
+            if (isset($_POST['email'])) {
+                $email = $_POST['email'];
+            }
+            if (isset($_POST['phone'])) {
+                $phone = $_POST['phone'];
+                $phone = preg_replace('/[^0-9]/', '', $phone);
+            }
+            if (isset($_POST['clothing_size'])) {
+                $clothing_size = $_POST['clothing_size'];
+            }
+            if (isset($_POST['course_history'])) {
+                $course_history = $_POST['course_history'];
+            }
+            if (isset($_POST['academic_progress'])) {
+                $academic_progress = $_POST['academic_progress'];
+            }
+            if (isset($_POST['finances'])) {
+                $finances = $_POST['finances'];
+            }
+            if (isset($_POST['notes'])) {
+                $notes = $_POST['notes'];
+            }
+
+
+            // Validate the data
+            // Validate the first name
+            if (empty($first_name) || !Validation::validName($first_name)) {
+                $this->_f3->set('errors["first_name]', 'Invalid first name entered');
+            }
+
+
+            //Validate the middle name
+            if(!empty($middle_name) && !Validation::validName($middle_name)) {
+                $this->_f3->set('errors["middle_name]', 'Invalid middle name entered');
+            }
+
+            // Validate the last name
+            if (empty($last_name) || !Validation::validName($last_name)) {
+                $this->_f3->set('errors["last_name]', 'Invalid last name entered');
+            }
+
+            // Validate the ctcLink Id
+            if (empty($ctclink_id) || !Validation::validCtcLinkId($ctclink_id)) {
+                $this->_f3->set('errors["ctclink_id]', 'Invalid ctclink id entered');
+            }
+
+            // Validate the pronoun selected
+            if (!empty($pronouns) && !Validation::validatePronouns($pronouns)) {
+                $this->_f3->set('errors["pronouns"]', 'Invalid pronouns selected');
+            }
+
+
+            // Validate the tribe selected
+            if (!empty($tribe_name) && !Validation::validateTribe($tribe_name)) {
+                $this->_f3->set('errors["tribe_name"]', 'Invalid tribe selected');
+            }
+
+            // Validate the cte program selected
+            if (!empty($cte_program) && !Validation::validateCTEProgram($cte_program)) {
+                $this->_f3->set('errors["cte_program"]', 'Invalid CTE program selected');
+            }
+
+            // Validate the clothing size selected
+            if (!empty($clothing_size) && !Validation::validateClothingSize($clothing_size)) {
+                $this->_f3->set('errors["clothing_size"]', 'Invalid clothing size selected');
+            }
+
+            // Validate the email
+            if (empty($email) || !Validation::validEmail($email)) {
+                $this->_f3->set('errors["email"]', 'Invalid email entered');
+            }
+
+            // Validate the phone number
+            if (empty($phone) || !Validation::validPhone($phone)) {
+                $this->_f3->set('errors["phone"]', 'Invalid phone number entered. It must be 10 digits.');
+            }
+
+
+            //=========Upload Image==================//
+            if(isset($_FILES['image']) && $_FILES['image']['name'] != ''){
+                $errors= array();
+                $file_name = $_FILES['image']['name'];
+                $file_size =$_FILES['image']['size'];
+                $file_tmp =$_FILES['image']['tmp_name'];
+                $file_ext= strtolower(pathinfo($file_name,PATHINFO_EXTENSION));
+
+                $extensions= array("jpeg","jpg","png");
+
+                if(in_array($file_ext,$extensions)=== false){
+                    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+                }
+
+
+                if($file_size > 2097152){
+                    $errors[]='File size must be exactly 2 MB';
+                }
+
+                if(empty($errors)){
+                    $photo = file_get_contents($file_tmp);
+
+                }else{
+                    $this->_f3->set('errors["image"]', $errors);
+                }
+            } else {
+                $file_name = 'woman_profile_anonymous.png';
+                $photo = file_get_contents('images/woman_profile_anonymous.png');
+            }
+            //================End of image upload================
+
+
+
+            $this->_f3->get('SESSION.student')->setPronouns($pronouns);
+            $this->_f3->get('SESSION.student')->setTribeName($tribe_name);
+            $this->_f3->get('SESSION.student')->setCteProgram($cte_program);
+            $this->_f3->get('SESSION.student')->setEmail($email);
+            $this->_f3->get('SESSION.student')->setPhone($phone);
+            $this->_f3->get('SESSION.student')->setClothingSize($clothing_size);
+            $this->_f3->get('SESSION.student')->setCourseHistory($course_history);
+            $this->_f3->get('SESSION.student')->setAcademicProgress($academic_progress);
+            $this->_f3->get('SESSION.student')->setFinancialNeeds($finances);
+            $this->_f3->get('SESSION.student')->setCases($notes);
+            $this->_f3->get('SESSION.student')->setProfilePhoto($photo);
+            $this->_f3->get('SESSION.student')->setFileName($file_name);
+            $this->_f3->get('SESSION.student')->setFirstName($first_name);
+            $this->_f3->get('SESSION.student')->setMiddleName($middle_name);
+            $this->_f3->get('SESSION.student')->setLastName($last_name);
+            $this->_f3->get('SESSION.student')->setCtclinkId($ctclink_id);
+
+
+
+
+            // Redirect to confirm route if there
+            // are no errors (errors array is empty)
+            if (empty($this->_f3->get('errors'))) {
+
+                // Redirect to the confirmation page
+                $this->_f3->reroute('/confirm');
+            }
+        }
+
+        // Set arrays
+        $this->_f3->set('programs', $GLOBALS['dataLayer']->getCTEPrograms());
+        $this->_f3->set('sizes', $GLOBALS['dataLayer']->getSizes());
+        $this->_f3->set('pronouns', $GLOBALS['dataLayer']->getPronouns());
+        $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
+
+        // Set the title of the page
+        $this->_f3->set('title', 'Update Student Data');
+
+        // Display the form
+        $view = new Template();
+        echo $view->render('views/student-profile/update-student.html');
+
 
     }
 }

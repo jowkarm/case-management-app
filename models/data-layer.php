@@ -545,4 +545,159 @@ class DataLayer
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result['AUTO_INCREMENT'];
     }
+
+
+    function insertStudent($student){
+
+        // Insert into the Student table
+        $sqlStudent = "INSERT INTO Student (first_name, middle_name, last_name, ctclink_id, pronouns, tribe_name, email, phone, cte_program, clothing_size, profile_photo, course_history, academic_progress, financial_needs, cases, file_name)
+               VALUES (:first_name, :middle_name, :last_name, :ctclink_id, :pronouns, :tribe_name, :email, :phone, :cte_program, :clothing_size, :profile_photo, :course_history, :academic_progress, :financial_needs, :cases, :file_name)";
+
+        $statementStudent = $this->_dbh->prepare($sqlStudent);
+
+        // Bind parameters
+        $first_name = $student->getFirstName();
+        $middle_name = $student->getMiddleName();
+        $last_name = $student->getLastName();
+        $ctclink_id = $student->getCtclinkId();
+        $pronouns = $student->getPronouns();
+        $tribe_name = $student->getTribeName();
+        $email = $student->getEmail();
+        $phone = $student->getPhone();
+        $cte_program = $student->getCteProgram();
+        $clothing_size = $student->getClothingSize();
+        $profile_photo = $student->getProfilePhoto();
+        $course_history = $student->getCourseHistory();
+        $academic_progress = $student->getAcademicProgress();
+        $financial_needs = $student->getFinancialNeeds();
+        $cases = $student->getCases();
+        $file_name = $student->getFileName();
+
+
+
+
+        $statementStudent->bindParam(':first_name', $first_name);
+        $statementStudent->bindParam(':middle_name', $middle_name);
+        $statementStudent->bindParam(':last_name', $last_name);
+        $statementStudent->bindParam(':ctclink_id', $ctclink_id);
+        $statementStudent->bindParam(':pronouns', $pronouns);
+        $statementStudent->bindParam(':tribe_name', $tribe_name);
+        $statementStudent->bindParam(':email', $email);
+        $statementStudent->bindParam(':phone', $phone);
+        $statementStudent->bindParam(':cte_program', $cte_program);
+        $statementStudent->bindParam(':clothing_size', $clothing_size);
+        $statementStudent->bindParam(':profile_photo', $profile_photo);
+        $statementStudent->bindParam(':course_history', $course_history);
+        $statementStudent->bindParam(':academic_progress', $academic_progress);
+        $statementStudent->bindParam(':financial_needs', $financial_needs);
+        $statementStudent->bindParam(':cases', $cases);
+        $statementStudent->bindParam(':file_name', $file_name);
+
+        // Execute the statement
+        return $statementStudent->execute();
+    }
+
+    function updateStudent($student){
+
+        // Insert into the Student table
+        $sqlStudent = "UPDATE Student
+                        SET first_name = :first_name, 
+                            middle_name = :middle_name, 
+                            last_name = :last_name, 
+                            pronouns = :pronouns, 
+                            tribe_name = :tribe_name, 
+                            ctclink_id = :ctclink_id, 
+                            email = :email, 
+                            phone = :phone, 
+                            cte_program = :cte_program, 
+                            clothing_size = :clothing_size, 
+                            profile_photo = :profile_photo, 
+                            course_history = :course_history, 
+                            academic_progress = :academic_progress, 
+                            financial_needs = :financial_needs, 
+                            cases = :cases, 
+                            file_name = :file_name
+                        WHERE student_id = :student_id";
+
+
+        $statementStudent = $this->_dbh->prepare($sqlStudent);
+
+        // Bind parameters
+        $first_name = $student->getFirstName();
+        $middle_name = $student->getMiddleName();
+        $last_name = $student->getLastName();
+        $ctclink_id = $student->getCtclinkId();
+        $pronouns = $student->getPronouns();
+        $tribe_name = $student->getTribeName();
+        $email = $student->getEmail();
+        $phone = $student->getPhone();
+        $cte_program = $student->getCteProgram();
+        $clothing_size = $student->getClothingSize();
+        $profile_photo = $student->getProfilePhoto();
+        $course_history = $student->getCourseHistory();
+        $academic_progress = $student->getAcademicProgress();
+        $financial_needs = $student->getFinancialNeeds();
+        $cases = $student->getCases();
+        $file_name = $student->getFileName();
+        $student_id = $student->getStudentId();
+
+
+
+
+        $statementStudent->bindParam(':first_name', $first_name);
+        $statementStudent->bindParam(':middle_name', $middle_name);
+        $statementStudent->bindParam(':last_name', $last_name);
+        $statementStudent->bindParam(':ctclink_id', $ctclink_id);
+        $statementStudent->bindParam(':pronouns', $pronouns);
+        $statementStudent->bindParam(':tribe_name', $tribe_name);
+        $statementStudent->bindParam(':email', $email);
+        $statementStudent->bindParam(':phone', $phone);
+        $statementStudent->bindParam(':cte_program', $cte_program);
+        $statementStudent->bindParam(':clothing_size', $clothing_size);
+        $statementStudent->bindParam(':profile_photo', $profile_photo);
+        $statementStudent->bindParam(':course_history', $course_history);
+        $statementStudent->bindParam(':academic_progress', $academic_progress);
+        $statementStudent->bindParam(':financial_needs', $financial_needs);
+        $statementStudent->bindParam(':cases', $cases);
+        $statementStudent->bindParam(':file_name', $file_name);
+        $statementStudent->bindParam(':student_id', $student_id);
+
+        // Execute the statement
+        return $statementStudent->execute();
+    }
+
+    function getAStudent($student_id){
+        // Define the query
+        $sqlRetrieveStudent = "SELECT * FROM Student WHERE student_id = :student_id";
+
+        // Prepare the statement
+        $statementRetrieveStudent = $this->_dbh->prepare($sqlRetrieveStudent);
+
+        // Bind the parameter
+        $statementRetrieveStudent->bindParam(':student_id', $student_id);
+
+        // Execute the statement
+        $statementRetrieveStudent->execute();
+
+        // Fetch the student data
+        $row = $statementRetrieveStudent->fetch(PDO::FETCH_ASSOC);
+
+        $student = new Student($row['first_name'], $row['middle_name'], $row['last_name'], $row['ctclink_id']);
+
+        $student->setStudentId($row['student_id']);
+        $student->setCteProgram($row['cte_program']);
+        $student->setPronouns($row['pronouns']);
+        $student->setTribeName($row['tribe_name']);
+        $student->setEmail($row['email']);
+        $student->setClothingSize($row['clothing_size']);
+        $student->setCourseHistory($row['first_name']);
+        $student->setAcademicProgress($row['academic_progress']);
+        $student->setFinancialNeeds($row['financial_needs']);
+        $student->setCases($row['cases']);
+        $student->setPhone($row['phone']);
+        $student->setProfilePhoto($row['profile_photo']);
+        $student->setFileName($row['file_name']);
+
+        return $student;
+    }
 }
