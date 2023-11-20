@@ -117,6 +117,11 @@ $f3->route('GET /custom-range', function() {
     $GLOBALS['con']->customRange();
 });
 
+// Define a route to handle the update student
+$f3->route('GET|POST /update-student', function () {
+    $GLOBALS['con']->updateStudent();
+});
+
 // Run Fat-Free
 $f3 -> run();
 
