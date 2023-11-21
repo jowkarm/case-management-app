@@ -666,7 +666,7 @@ class DataLayer
         return $statementStudent->execute();
     }
 
-    function getAStudent($student_id){
+    function getStudent($student_id){
         // Define the query
         $sqlRetrieveStudent = "SELECT * FROM Student WHERE student_id = :student_id";
 
@@ -699,5 +699,21 @@ class DataLayer
         $student->setFileName($row['file_name']);
 
         return $student;
+    }
+
+
+    function deleteStudent($student_id){
+        // Define the query
+        $sqlRetrieveStudent = "DELETE FROM Student WHERE student_id = :student_id";
+
+        // Prepare the statement
+        $statementRetrieveStudent = $this->_dbh->prepare($sqlRetrieveStudent);
+
+        // Bind the parameter
+        $statementRetrieveStudent->bindParam(':student_id', $student_id);
+
+        // Execute the statement
+        return $statementRetrieveStudent->execute();
+
     }
 }

@@ -13,8 +13,7 @@ Date: 10/10/2023
   <div class="container w-75">
     <br>
     <br>
-    <h3>{{ @SESSION.student->getFirstName() }} {{ @SESSION.student->getMiddleName() }}
-      {{ @SESSION.student->getLastName() }}</h3>
+    <h3>Delete Student</h3>
     <hr>
 
 
@@ -81,7 +80,24 @@ Date: 10/10/2023
       </div>
     </div>
 
+    <!--confirm button-->
+    <div class="row pt-4 pb-6 mb-3">
+      <div class="col-4 mt-auto">
+        <a href="student-list" class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button mb-3">Go Back</a>
 
+      </div>
+      <div class="col-4"><!--empty--></div>
+
+
+      <div class="col-4 mt-auto" id="box-5">
+        <form action="#" method="post">
+          <button class="p-2 rounded btn btn-danger w-100 product-data-form-button mb-3"
+                  id="next-button" type="submit">Delete
+          </button>
+        </form>
+      </div>
+
+    </div>
   </div>
 </main>
 

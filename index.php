@@ -98,7 +98,7 @@ $f3->route('GET|POST /reset-password', function() {
 });
 
 // Define a student route
-$f3->route('GET|POST /student', function() {
+$f3->route('GET /student', function() {
     $GLOBALS['con']->student();
 });
 
@@ -120,6 +120,11 @@ $f3->route('GET /custom-range', function() {
 // Define a route to handle the update student
 $f3->route('GET|POST /update-student', function () {
     $GLOBALS['con']->updateStudent();
+});
+
+// Define a route to handle delete student
+$f3->route('GET|POST /delete-student', function () {
+    $GLOBALS['con']->deleteStudent();
 });
 
 // Run Fat-Free

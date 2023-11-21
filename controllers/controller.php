@@ -42,7 +42,7 @@ class Controller
         if ($this->_f3->get('SESSION.user') == null) {
             $this->_f3->reroute('/login');
         } else {
-            echo $view->render('views/home.html');
+            $this->_f3->reroute('/student-list');
         }
 
 
@@ -60,6 +60,9 @@ class Controller
         if (!Validation::loggedIn($this->_f3)) {
         $this->_f3->reroute('/login');
         }*/
+
+        // clear the student object in the F3 framework session
+        $this->_f3->set('SESSION.student', null);
 
         //Initialize the variables
         $ctclink_id = "";
@@ -250,7 +253,7 @@ class Controller
         $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
 
         // Set the title of the page
-        $this->_f3->set('title', 'Add New Student');
+        $this->_f3->set('title', 'Add Student');
 
         // Display the form
         $view = new Template();
@@ -338,6 +341,10 @@ class Controller
 
         // Unset (clear) the session variable
         $this->_f3->set('SESSION.search', null);
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
+        $this->_f3->set('SESSION.student', null);
     }
 
     /**
@@ -492,9 +499,20 @@ class Controller
         $this->_f3->set('title', 'Login');
 
 
+        /**
+         * TEST Alert
+         */
+        $alert = new Alert('This is a test alert', 'green');
+        $this->_f3->set('SESSION.alert', $alert);
+
+
         // Define a view page
         $view = new Template();
         echo $view->render('views/login/login.html');
+
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
     }
 
     /**
@@ -835,11 +853,28 @@ class Controller
     }
 
     /**
-     * ToDo: Complete this controller
      * Controller for the student route
      */
     function student()
     {
+
+        /*// Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+        $this->_f3->reroute('/login');
+        }*/
+
+        $student = "";
+
+        if(isset($_GET['id']) && $_GET['id'] > 0){
+            $student = $GLOBALS['dataLayer']->getStudent($_GET['id']);
+        } else {
+            // Redirect to the home page
+            $this->_f3->reroute('/student-list');
+        }
+
+        // Store the student object in the F3 framework session
+        $this->_f3->set('SESSION.student', $student);
+
         // Set the title of the page
         $this->_f3->set('title', 'Student');
 
@@ -866,7 +901,6 @@ class Controller
     }
 
     /**
-     * ToDO: needs work
      * Controller for the form route
      */
     function updateStudent()
@@ -879,7 +913,7 @@ class Controller
         $student = "";
 
         if(isset($_GET['id']) && $_GET['id'] > 0){
-            $student = $GLOBALS['dataLayer']->getAStudent($_GET['id']);
+            $student = $GLOBALS['dataLayer']->getStudent($_GET['id']);
         } else {
             // Redirect to the home page
             $this->_f3->reroute('/');
@@ -1079,11 +1113,65 @@ class Controller
         $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
 
         // Set the title of the page
-        $this->_f3->set('title', 'Update Student Data');
+        $this->_f3->set('title', 'Update Student');
 
         // Display the form
         $view = new Template();
         echo $view->render('views/student-profile/update-student.html');
+
+
+    }
+
+    /**
+     * Controller for the form route
+     */
+    function deleteStudent()
+    {
+        /*// Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+        $this->_f3->reroute('/login');
+        }*/
+
+
+
+
+        //If the form has posted
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $deleted = $GLOBALS['dataLayer']->deleteStudent($this->_f3->get('SESSION.student')->getStudentId());
+
+
+            if($deleted){
+                $alert = new Alert('The student has been deleted successfully!', 'green');
+            } else{
+                $alert = new Alert('Error: unsuccessfull delete!', 'red');
+            }
+
+            $this->_f3->set('SESSION.alert', $alert);
+            // Redirect to the home page
+            $this->_f3->reroute('/student-list');
+        }
+
+
+        $student = "";
+
+
+        if(isset($_GET['id']) && $_GET['id'] > 0){
+            $student = $GLOBALS['dataLayer']->getStudent($_GET['id']);
+        } else {
+            // Redirect to the home page
+            $this->_f3->reroute('/student-list');
+        }
+
+        // Store the student object in the F3 framework session
+        $this->_f3->set('SESSION.student', $student);
+
+        // Set the title of the page
+        $this->_f3->set('title', 'Delete Student');
+
+        // Display the form
+        $view = new Template();
+        echo $view->render('views/student-profile/delete-student.html');
 
 
     }

@@ -7,10 +7,10 @@ Date: 10/20/2023
 
 <check if="{{ isset(@SESSION.alert) }}">
   <true>
-    <div class="d-flex justify-content-center my-4">
+    <div class="d-flex justify-content-center my-4 alert-popover">
       <div id="myAlert" class="{{ @SESSION.alert->getColor() }} w-75">
         <span class="closer" onclick="closeAlert()">&times;</span>
-        {{ @SESSION.alert->getText() }}
+         {{ @SESSION.alert->getText() }}
       </div>
     </div>
   </true>
