@@ -9,96 +9,46 @@ Date: 10/10/2023
 
 <!--The alert included for home page-->
 <include href="views/includes/alert.html"></include>
+<main class="container mb-5 logs-tab tabs-body">
 
+    <div class="container w-75">
+        <br>
+        <br>
+        <div class="row my-2 b-2">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <a class="btn btn-outline-secondary" href="add-note" role="button">Add Note</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <!--Sort Feature-->
+                <form action="#" method="post"  class="form-horizontal">
+                    <div class="input-group mb-3">
+                        <select class="form-select" id="sort" name="sort" onchange="this.form.submit()">
+                            <option selected>SORT BY</option>
+                            <option value="case_id"> Case Number </option>
+                            <option value="ctclink_id"> Student ID </option>
+                            <option value="tribe"> Tribe </option> /*ONly need tribe and CTC ID      */
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Line Break-->
+        <div class="row my-2">
+            <hr>
+        </div>
 <main class="container mb-5 reports-tab tabs-body">
     <div class="container w-75">
         <br>
         <br>
     <h3 class="pb-2 ps-2 mb-4 border-bottom border-dark">STUDENT</h3>
-    <div class="row">
-        <div class="student-info col">
-            <table class="table table-bordered">
-                <caption class="text-center"><strong>Student List</strong></caption>
-                <thead class="table-group-divider">
-                <tr>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                </tr>
-                <tr>
-                    <td>Jane</td>
-                    <td>Doe</td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="2"><a href="add-student">Add New Student</a></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><a href="student-list">View All</a></td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
-        <div class="student-info col">
-            <table class="table table-bordered">
-                <caption class="text-center"><strong>Levels Of Concern</strong></caption>
-                <thead class="table-group-divider">
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Concern Level</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td class="text-bg-danger p-3">RED</td>
-                </tr>
-                <tr>
-                    <td>Jane Doe</td>
-                    <td class="text-bg-warning p-3">YELLOW</td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="2"><a href="#">View All</a></td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
-    <h3 class="pb-2 ps-2 mb-4 border-bottom border-dark">APPOINTMENTS</h3>
-    <div class="row">
-        <div class="student-info col">
-            <table class="table table-bordered">
-                <caption class="text-center"><strong>Upcoming Appointments</strong></caption>
-                <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>10/10/2023 @ 2:00pm</td>
-                </tr>
-                <tr>
-                    <td>Jane Doe</td>
-                    <td>Cancelled</td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="2"><a href="add-note">Add New Note</a></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><a href="case-log">View All</a></td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
+        <br>
+        <br>
 </div>
 </main>
-
+        <br>
+        <br>
 <include href="views/includes/footer.html"></include>

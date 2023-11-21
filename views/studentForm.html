@@ -1,0 +1,63 @@
+
+<!--
+HTML markup for the Student Information Form page
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: home.html
+Date: 10/10/2023
+-->
+
+<include href="views/includes/header.html"></include>
+
+<div class="container w-75">
+    <br>
+    <br>
+    <h3>Student Information Form</h3>
+    <br>
+    <br>
+    <form action="#" method="post"  class="form-horizontal">
+        <div class="mb-3">
+            <label for="studentID" class="form-label">Student ID</label>
+            <input type="text" class="form-control" id="studentID" name="studentID" required>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="pronouns" class="form-label">Pronouns</label>
+            <input type="text" class="form-control" id="pronouns" name="pronouns" required>
+        </div>
+        <div class="mb-3">
+            <label for="tribe" class="form-label">Tribe</label>
+            <input type="text" class="form-control" id="tribe" name="tribe" required>
+        </div>
+        <div class="mb-3">
+            <label for="clothingSize" class="form-label">Clothing Size</label>
+            <input type="text" class="form-control" id="clothingSize" name="clothingSize" required>
+        </div>
+        <div class="mb-3">
+            <label for="courseHistory" class="form-label">Course History</label>
+            <textarea id="courseHistory" class="form-control" name="courseHistory" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="academics" class="form-label">Academics</label>
+            <textarea id="academics" class="form-control" name="academics" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="finances" class="form-label">Finances</label>
+            <textarea id="finances" class="form-control" name="finances" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="caseNotes" class="form-label">Case Notes</label>
+            <textarea id="caseNotes" class="form-control" name="caseNotes" rows="4" required></textarea>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <br>
+        <br>
+    </form>
+</div>
+
+<include href="views/includes/footer.html"></include>
+

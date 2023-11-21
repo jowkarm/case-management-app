@@ -1,0 +1,57 @@
+
+<!--
+HTML markup for the Summary page
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: home.html
+Date: 10/10/2023
+-->
+
+<include href="views/includes/header.html"></include>
+<div class="container w-75">
+    <div class="col-5">
+        <br>
+        <br>
+        <h3>Summary</h3>
+        <br>
+
+        <div class="row border-bottom">
+            <p><b>Student ID:</b> {{ @SESSION.studentID }}</p>
+        </div>
+        <div class="row border-bottom">
+            <p><b>Name:</b> {{ @SESSION.name }}</p>
+        </div>
+
+        <div class="row border-bottom">
+            <p><b>Pronouns:</b> {{ @SESSION.pronouns }}</p>
+        </div>
+
+        <div class="row border-bottom">
+            <p><b>Tribe:</b> {{ @SESSION.tribe }}</p>
+        </div>
+
+        <div class="row border-bottom">
+            <p><b>Clothing Size:</b> {{ @SESSION.clothingSize }}</p>
+        </div>
+
+        <div class="row border-bottom">
+            <p><b>Course History:</b> {{ @SESSION.courseHistory }}</p>
+        </div>
+
+        <div class="row border-bottom">
+            <p><b>Academics:</b> {{ @SESSION.academics }}</p>
+        </div>
+
+        <div class="row border-bottom">
+            <p><b>Finances:</b> {{ @SESSION.finances }}</p>
+        </div>
+
+        <div class="row">
+            <p><b>Case Notes:</b> {{ @SESSION.caseNotes }}</p>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+
+<include href="views/includes/footer.html"></include>
+
