@@ -61,8 +61,6 @@ class Controller
         $this->_f3->reroute('/login');
         }*/
 
-        // clear the student object in the F3 framework session
-        $this->_f3->set('SESSION.student', null);
 
         //Initialize the variables
         $ctclink_id = "";
@@ -185,6 +183,26 @@ class Controller
                 $this->_f3->set('errors["phone"]', 'Invalid phone number entered. It must be 10 digits.');
             }
 
+            // create a student object if it does not exist
+            if($this->_f3->get('SESSION.student') !== null){
+                $student = $this->_f3->get('SESSION.student');
+            } else {
+                $student = new Student($first_name, $middle_name, $last_name, $ctclink_id);
+                $student->setPronouns($pronouns);
+                $student->setTribeName($tribe_name);
+                $student->setCteProgram($cte_program);
+                $student->setEmail($email);
+                $student->setPhone($phone);
+                $student->setClothingSize($clothing_size);
+                $student->setCourseHistory($course_history);
+                $student->setAcademicProgress($academic_progress);
+                $student->setFinancialNeeds($finances);
+                $student->setCases($notes);
+            }
+
+
+
+
 
             //=========Upload Image==================//
             if(isset($_FILES['image']) && $_FILES['image']['name'] != ''){
@@ -211,31 +229,14 @@ class Controller
                 }else{
                     $this->_f3->set('errors["image"]', $errors);
                 }
-            } else {
-                $file_name = 'woman_profile_anonymous.png';
-                $photo = file_get_contents('images/woman_profile_anonymous.png');
+
+                $student->setProfilePhoto($photo);
+                $student->setFileName($file_name);
             }
             //================End of image upload================
 
-
-            // create a student object
-            $student = new Student($first_name, $middle_name, $last_name, $ctclink_id);
-            $student->setPronouns($pronouns);
-            $student->setTribeName($tribe_name);
-            $student->setCteProgram($cte_program);
-            $student->setEmail($email);
-            $student->setPhone($phone);
-            $student->setClothingSize($clothing_size);
-            $student->setCourseHistory($course_history);
-            $student->setAcademicProgress($academic_progress);
-            $student->setFinancialNeeds($finances);
-            $student->setCases($notes);
-            $student->setProfilePhoto($photo);
-            $student->setFileName($file_name);
-
             // Store the student object in the F3 framework session
             $this->_f3->set('SESSION.student', $student);
-
 
             // Redirect to confirm route if there
             // are no errors (errors array is empty)
@@ -295,9 +296,10 @@ class Controller
             }
 
             $this->_f3->set('SESSION.alert', $alert);
-            $this->_f3->reroute('/');
+            $this->_f3->reroute('/student-list');
 
         }
+
 
         // Display add-student-confirmation view
         $view = new Template();
@@ -341,8 +343,6 @@ class Controller
 
         // Unset (clear) the session variable
         $this->_f3->set('SESSION.search', null);
-
-        // Unset (clear) the session variable
         $this->_f3->set('SESSION.alert', null);
         $this->_f3->set('SESSION.student', null);
     }
@@ -412,7 +412,7 @@ class Controller
                     }
 
                 }
-                $this->_f3->reroute('/');
+                $this->_f3->reroute('/login');
             }
         }
 
@@ -445,7 +445,7 @@ class Controller
             $alert = new Alert('Your email address is confirmed.', 'green');
             $this->_f3->set('SESSION.alert', $alert);
         }
-        $this->_f3->reroute('/');
+        $this->_f3->reroute('/login');
     }
 
     /**
@@ -489,7 +489,7 @@ class Controller
                         $this->_f3->set('errors["password"]', 'Wrong password entered');
                     } else {
                         $this->_f3->set('SESSION.user', $user);
-                        $this->_f3->reroute('/');
+                        $this->_f3->reroute('/student-list');
                     }
                 }
             }
@@ -498,12 +498,6 @@ class Controller
         // Set the title of the page
         $this->_f3->set('title', 'Login');
 
-
-        /**
-         * TEST Alert
-         */
-        $alert = new Alert('This is a test alert', 'green');
-        $this->_f3->set('SESSION.alert', $alert);
 
 
         // Define a view page
@@ -530,10 +524,12 @@ class Controller
         // Destroys session array
         session_destroy();
 
-        /*$alert = new Alert('You logged out successfully!', 'green');
-        $this->_f3->set('SESSION.alert', $alert);*/
+        $alert = new Alert('You logged out successfully!', 'green');
+        $this->_f3->set('SESSION.alert', $alert);
 
-        $this->_f3->reroute('/');
+        $this->_f3->reroute('/login');
+
+
     }
 
     /**
@@ -773,7 +769,7 @@ class Controller
                     $this->_f3->set('SESSION.alert', $alert);
                 }
 
-                $this->_f3->reroute('/');
+                $this->_f3->reroute('/login');
             }
 
         }
@@ -819,7 +815,7 @@ class Controller
                 $alert = new Alert('Your password is updated successfully.', 'green');
                 $this->_f3->set('SESSION.alert', $alert);
 
-                $this->_f3->reroute('/');
+                $this->_f3->reroute('/login');
             }
 
         }
@@ -881,6 +877,10 @@ class Controller
         // Define a view page
         $view = new Template();
         echo $view->render('views/student-profile/student.html');
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
+        $this->_f3->set('SESSION.student', null);
 
     }
 
@@ -1069,9 +1069,10 @@ class Controller
                 }else{
                     $this->_f3->set('errors["image"]', $errors);
                 }
-            } else {
-                $file_name = 'woman_profile_anonymous.png';
-                $photo = file_get_contents('images/woman_profile_anonymous.png');
+
+                $this->_f3->get('SESSION.student')->setProfilePhoto($photo);
+                $this->_f3->get('SESSION.student')->setFileName($file_name);
+
             }
             //================End of image upload================
 
@@ -1087,8 +1088,6 @@ class Controller
             $this->_f3->get('SESSION.student')->setAcademicProgress($academic_progress);
             $this->_f3->get('SESSION.student')->setFinancialNeeds($finances);
             $this->_f3->get('SESSION.student')->setCases($notes);
-            $this->_f3->get('SESSION.student')->setProfilePhoto($photo);
-            $this->_f3->get('SESSION.student')->setFileName($file_name);
             $this->_f3->get('SESSION.student')->setFirstName($first_name);
             $this->_f3->get('SESSION.student')->setMiddleName($middle_name);
             $this->_f3->get('SESSION.student')->setLastName($last_name);

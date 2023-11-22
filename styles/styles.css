@@ -75,7 +75,9 @@ The styling for alert.
 }
 
 .alert-popover{
-    position:fixed;
+    position: absolute;
+    top: 450px;
+    left: 25%;
     z-index: 999;
 }
 

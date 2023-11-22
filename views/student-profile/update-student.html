@@ -99,8 +99,8 @@ Date: 10/10/2023
         <!-- image upload -->
         <div class="col-sm mb-3">
           <div class="row mb-3" id="imageContainer">
-            <img src="images/woman_profile_anonymous.png" class="img-responsive img-thumbnail w-75 mx-auto"
-                 alt="monochromatic silhouette of woman">
+            <img src="data:image/png;base64,{{ base64_encode(@SESSION.student->getProfilePhoto()) }}" class="img-responsive img-thumbnail w-75 mx-auto"
+                 alt="{{ @SESSION.student->getFileName() }}">
           </div>
         </div>
       </div>
