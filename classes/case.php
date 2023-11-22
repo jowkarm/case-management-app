@@ -15,15 +15,18 @@ class Case_Note
 {
     private $_case_id; // primary key in table
     private $_student_id; // foreign key in table
+    private $_first_name;   //required
+    private $_middle_name;
+    private $_last_name;    //required
     private $_status;
     private $_date_opened;
     private $_due_date;
     private $_subject;
     private $_note;
     private $_emotional_indicator;// Needs to be one of these:
-                                  // peace, gratitude, kindness, enthusiasm,
-                                  // optimism, hope, apathy, annoyance, worry, anxiety,
-                                  // sadness, jealousy, hatred, fear, no comment
+    // peace, gratitude, kindness, enthusiasm,
+    // optimism, hope, apathy, annoyance, worry, anxiety,
+    // sadness, jealousy, hatred, fear, no comment
 
     /**
      * @param $_student
@@ -167,6 +170,54 @@ class Case_Note
     public function setEmotionalIndicator($emotional_indicator)
     {
         $this->_emotional_indicator = $emotional_indicator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->_first_name;
+    }
+
+    /**
+     * @param mixed $first_name
+     */
+    public function setFirstName($first_name): void
+    {
+        $this->_first_name = $first_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMiddleName()
+    {
+        return $this->_middle_name;
+    }
+
+    /**
+     * @param mixed $middle_name
+     */
+    public function setMiddleName($middle_name): void
+    {
+        $this->_middle_name = $middle_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->_last_name;
+    }
+
+    /**
+     * @param mixed $last_name
+     */
+    public function setLastName($last_name): void
+    {
+        $this->_last_name = $last_name;
     }
 
 

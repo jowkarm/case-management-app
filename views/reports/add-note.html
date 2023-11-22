@@ -14,186 +14,185 @@ Date: 11/12/2023
     <div class="container w-75">
         <br>
         <br>
-    <h3>Add New Case Note</h3>
-    <h4>Case Number: {{ @case_number }}</h4>
-    <hr>
+        <h3>Add Case</h3>
+        <hr>
 
-    <form action="#" method="post">
-        <!--Student ID-->
-        <div class="row pt-4">
-            <div class="col-4">
-                <label class="form-label"> CtcLink ID</label>
-                <!-- Display an error if there is one -->
-                <check if="{{ isset(@errors['student_id']) }}">
-                    <span class="text-danger">{{ @errors['student_id'] }}</span>
-                </check>
-                <check if="{{ isset(@SESSION.ctclink_id) }}">
-                    <true>
-                        <input type="text"
-                               class="form-control"
-                               name="ctclink_id" placeholder="Student ctcLink Id" value="{{ @SESSION.ctclink_id }}">
-                    </true>
-                    <false>
-                        <input type="text"
-                               class="form-control"
-                               name="ctclink_id" placeholder="Student ctcLink Id">
-                    </false>
-                </check>
+        <form action="#" method="post">
+            <!--Student ID-->
+            <div class="row pt-4">
+                <div class="col-4">
+                    <label class="form-label"> CtcLink ID</label>
+                    <!-- Display an error if there is one -->
+                    <check if="{{ isset(@errors['student_id']) }}">
+                        <span class="text-danger">{{ @errors['student_id'] }}</span>
+                    </check>
+                    <check if="{{ isset(@SESSION.ctclink_id) }}">
+                        <true>
+                            <input type="text"
+                                   class="form-control"
+                                   name="ctclink_id" placeholder="Student ctcLink Id" value="{{ @SESSION.ctclink_id }}">
+                        </true>
+                        <false>
+                            <input type="text"
+                                   class="form-control"
+                                   name="ctclink_id" placeholder="Student ctcLink Id">
+                        </false>
+                    </check>
+                </div>
             </div>
-        </div>
 
-        <!-- Force next columns to break to new line -->
-        <div class="w-100"></div>
+            <!-- Force next columns to break to new line -->
+            <div class="w-100"></div>
 
-        <!--Name-->
-        <!--<div class="row pt-4">
-            <div class="col">
-                &lt;!&ndash;First Name&ndash;&gt;
-                <label class="form-label"> First Name</label>
-                <check if="{{ isset(@SESSION.first_name) }}">
-                    <true>
-                        <input type="text"  class="form-control"
-                               name="first_name" placeholder="First Name" value="{{ @SESSION.first_name }}">
-                    </true>
-                    <false>
-                        <input type="text"  class="form-control"
-                               name="first_name" placeholder="First Name" >
-                    </false>
-                </check>
+            <!--Name-->
+            <!--<div class="row pt-4">
+                <div class="col">
+                    &lt;!&ndash;First Name&ndash;&gt;
+                    <label class="form-label"> First Name</label>
+                    <check if="{{ isset(@SESSION.first_name) }}">
+                        <true>
+                            <input type="text"  class="form-control"
+                                   name="first_name" placeholder="First Name" value="{{ @SESSION.first_name }}">
+                        </true>
+                        <false>
+                            <input type="text"  class="form-control"
+                                   name="first_name" placeholder="First Name" >
+                        </false>
+                    </check>
+                </div>
+                <div class="col">
+                    &lt;!&ndash;Middle Name&ndash;&gt;
+                    <label class="form-label"> Middle Name</label>
+                    <check if="{{ isset(@SESSION.middle_name) }}">
+                        <true>
+                            <input type="text"  class="form-control"
+                                   name="middle_name" placeholder="Middle Name" value="{{ @SESSION.middle_name }}">
+                        </true>
+                        <false>
+                            <input type="text"  class="form-control"
+                                   name="middle_name" placeholder="Middle Name">
+                        </false>
+                    </check>
+                </div>
+                <div class="col">
+                    &lt;!&ndash;Last Name&ndash;&gt;
+                    <label class="form-label"> Last Name</label>
+                    <check if="{{ isset(@SESSION.last_name) }}">
+                        <true>
+                            <input type="text"  class="form-control"
+                                   name="last_name" placeholder="Last Name" value="{{ @SESSION.last_name }}">
+                        </true>
+                        <false>
+                            <input type="text"  class="form-control"
+                                   name="last_name" placeholder="Last Name">
+                        </false>
+                    </check>
+                </div>
+            </div>-->
+
+            <!--Subject and Due Date Row-->
+            <div class="row pt-4">
+                <div class="col-4">
+                    <!--Subject-->
+                    <label class="form-label"> Subject</label>
+
+                    <!-- Display an error if there is one -->
+                    <check if="{{ isset(@errors['subject']) }}">
+                        <span class="text-danger">{{ @errors['subject'] }}</span>
+                    </check>
+
+                    <check if="{{ isset(@SESSION.subject) }}">
+                        <true>
+                            <input type="text"  class="form-control"
+                                   name="subject" placeholder="Subject" value="{{ @SESSION.subject }}">
+                        </true>
+                        <false>
+                            <input type="text"  class="form-control"
+                                   name="subject" placeholder="Subject">
+                        </false>
+                    </check>
+                </div>
+                <div class="col-4">
+                    <!--Due Date-->
+                    <label class="form-label"> Due Date</label>
+
+                    <!-- Display an error if there is one -->
+                    <check if="{{ isset(@errors['due_date']) }}">
+                        <span class="text-danger">{{ @errors['due_date'] }}</span>
+                    </check>
+
+                    <check if="{{ isset(@SESSION.due_date) }}">
+                        <true>
+                            <input type="date"  class="form-control"
+                                   name="due_date" placeholder="Due Date" value="{{ @SESSION.due_date }}">
+                        </true>
+                        <false>
+                            <input type="date"  class="form-control"
+                                   name="due_date" placeholder="Due Date">
+                        </false>
+                    </check>
+                </div>
             </div>
-            <div class="col">
-                &lt;!&ndash;Middle Name&ndash;&gt;
-                <label class="form-label"> Middle Name</label>
-                <check if="{{ isset(@SESSION.middle_name) }}">
-                    <true>
-                        <input type="text"  class="form-control"
-                               name="middle_name" placeholder="Middle Name" value="{{ @SESSION.middle_name }}">
-                    </true>
-                    <false>
-                        <input type="text"  class="form-control"
-                               name="middle_name" placeholder="Middle Name">
-                    </false>
-                </check>
+
+            <!--Emotional Indicator-->
+            <div class="row pt-4">
+                <div class="color-picker">
+                    <label class="form-label"> Emotional Indicator </label>
+
+                    <!-- Display an error if there is one -->
+                    <check if="{{ isset(@errors['emotional_indicator']) }}">
+                        <span class="text-danger">{{ @errors['emotional_indicator'] }}</span>
+                    </check>
+
+                    <br>
+                    <check if="{{ isset(@SESSION.emotional_indicator) }}">
+                        <true>
+                            <input type="range"
+                                   min="0" max="360"
+                                   step="0.1"
+                                   value="{{ @SESSION.emotional_indicator }}"
+                                   name="emotional_indicator"
+                                   class="slider">
+                            <br>
+                            <br>
+                            <p>Color:&nbsp; <span></span></p>
+                        </true>
+                        <false>
+                            <input type="range"
+                                   min="0" max="360"
+                                   step="0.1"
+                                   value="0"
+                                   name="emotional_indicator"
+                                   class="slider">
+                            <br>
+                            <br>
+                            <p>Color:&nbsp; <span></span></p>
+                        </false>
+                    </check>
+                </div>
             </div>
-            <div class="col">
-                &lt;!&ndash;Last Name&ndash;&gt;
-                <label class="form-label"> Last Name</label>
-                <check if="{{ isset(@SESSION.last_name) }}">
-                    <true>
-                        <input type="text"  class="form-control"
-                               name="last_name" placeholder="Last Name" value="{{ @SESSION.last_name }}">
-                    </true>
-                    <false>
-                        <input type="text"  class="form-control"
-                               name="last_name" placeholder="Last Name">
-                    </false>
-                </check>
-            </div>
-        </div>-->
 
-        <!--Subject and Due Date Row-->
-        <div class="row pt-4">
-            <div class="col-4">
-                <!--Subject-->
-                <label class="form-label"> Subject</label>
-
-                <!-- Display an error if there is one -->
-                <check if="{{ isset(@errors['subject']) }}">
-                    <span class="text-danger">{{ @errors['subject'] }}</span>
-                </check>
-
-                <check if="{{ isset(@SESSION.subject) }}">
-                    <true>
-                        <input type="text"  class="form-control"
-                               name="subject" placeholder="Subject" value="{{ @SESSION.subject }}">
-                    </true>
-                    <false>
-                        <input type="text"  class="form-control"
-                               name="subject" placeholder="Subject">
-                    </false>
-                </check>
-            </div>
-            <div class="col-4">
-                <!--Due Date-->
-                <label class="form-label"> Due Date</label>
-
-                <!-- Display an error if there is one -->
-                <check if="{{ isset(@errors['due_date']) }}">
-                    <span class="text-danger">{{ @errors['due_date'] }}</span>
-                </check>
-
-                <check if="{{ isset(@SESSION.due_date) }}">
-                    <true>
-                        <input type="date"  class="form-control"
-                               name="due_date" placeholder="Due Date" value="{{ @SESSION.due_date }}">
-                    </true>
-                    <false>
-                        <input type="date"  class="form-control"
-                               name="due_date" placeholder="Due Date">
-                    </false>
-                </check>
-            </div>
-        </div>
-
-        <!--Emotional Indicator-->
-        <div class="row pt-4">
-            <div class="color-picker">
-                <label class="form-label"> Emotional Indicator </label>
-
-                <!-- Display an error if there is one -->
-                <check if="{{ isset(@errors['emotional_indicator']) }}">
-                    <span class="text-danger">{{ @errors['emotional_indicator'] }}</span>
-                </check>
-
-                <br>
-                <check if="{{ isset(@SESSION.emotional_indicator) }}">
-                    <true>
-                        <input type="range"
-                               min="0" max="360"
-                               step="0.1"
-                               value="{{ @SESSION.emotional_indicator }}"
-                               name="emotional_indicator"
-                               class="slider">
-                        <br>
-                        <br>
-                        <p>Color:&nbsp; <span></span></p>
-                    </true>
-                    <false>
-                        <input type="range"
-                               min="0" max="360"
-                               step="0.1"
-                               value="0"
-                               name="emotional_indicator"
-                               class="slider">
-                        <br>
-                        <br>
-                        <p>Color:&nbsp; <span></span></p>
-                    </false>
-                </check>
-            </div>
-        </div>
-
-        <!--Note Text Area-->
-        <div class="row pt-4">
-            <div>
-                <label class="form-label">Note</label>
-                <check if="{{ isset(@SESSION.caseNote) }}">
-                    <true>
+            <!--Note Text Area-->
+            <div class="row pt-4">
+                <div>
+                    <label class="form-label">Note</label>
+                    <check if="{{ isset(@SESSION.caseNote) }}">
+                        <true>
                         <textarea class="form-control" name="caseNote" rows="4"
                                   value="{{ @SESSION.caseNote }}"></textarea>
-                    </true>
-                    <false>
-                        <textarea class="form-control" name="caseNote" rows="4"></textarea>
-                    </false>
-                </check>
+                        </true>
+                        <false>
+                            <textarea class="form-control" name="caseNote" rows="4"></textarea>
+                        </false>
+                    </check>
+                </div>
             </div>
-        </div>
-        <div>
-            <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button my-3"
-                    id="next-button" type="submit">ADD NOTE
-            </button>
-        </div>
-    </form>
-</div>
+            <div>
+                <button class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button my-3"
+                        id="next-button" type="submit">ADD NOTE
+                </button>
+            </div>
+        </form>
+    </div>
 </main>
 <include href="views/includes/footer.html"></include>
