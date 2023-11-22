@@ -12,86 +12,77 @@ Date: 11/06/2023
 <include href="views/includes/alert.html"></include>
 
 <main class="container mb-5 logs-tab tabs-body">
+
     <div class="container w-75">
         <br>
         <br>
-        <!--Sort Feature-->
-        <form action="#" method="post">
-            <div class="row">
-                <div class="col-3 ">
-                    <label for="sort" class="form-label"> SORT BY </label>
-                    <select class="form-select" id="sort" name="sort" onchange="this.form.submit()">
-                        <option selected>-----</option>
-                        <option value="case_id"> Case Number </option>
-                        <option value="ctclink_id"> Student ID </option>
-                        <option value="is_closed"> Status </option>
-                        <option value="date_opened"> Date Opened </option>
-                        <option value="due_date"> Due Date </option>
-                        <option value="subject"> Subject </option>
-                    </select>
+        <!-- Line Break-->
+        <h3>Case Log</h3>
+        <hr>
+        <div class="row my-2 b-2">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <a class="btn btn-outline-secondary" href="add-note" role="button">Add Note</a>
+                    </div>
                 </div>
             </div>
-        </form>
-
+            <div class="col-3">
+                <!--Sort Feature-->
+                <form action="#" method="post"  class="form-horizontal">
+                    <div class="input-group mb-3">
+                        <select class="form-select" id="sort" name="sort" onchange="this.form.submit()">
+                            <option selected>SORT BY</option>
+                            <option value="case_id"> Case Number </option>
+                            <option value="ctclink_id"> Student ID </option>
+                            <option value="is_closed"> Status </option>
+                            <option value="date_opened"> Date Opened </option>
+                            <option value="due_date"> Due Date </option>
+                            <option value="subject"> Subject </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
         <!--Individual Case Note Cards-->
         <div>
-            <div class="d-flex flex-row flex-wrap justify-content-center mt-2">
-                <check if="{{ isset(@SESSION.notes) }}">
-                    <repeat group="{{ @SESSION.notes }}" value="{{ @note }}">
-                        <div class="card m-3">
-                            <img src="" class="card-img-top">
-                            <div class="card-body m-auto">
-                                <h5 class="card-title">{{ @note->getCaseId() }}</h5>
-                                <p class="card-text">Student ID: {{ @note->getStudentId() }}
-                                    <br>
-                                    Status: {{ @note->getStatus() }}
-                                </p>
-                                <a href="note?id={{ @note->getCaseId() }}" class="btn btn-primary dark-blue-bg">More Details</a>
-                            </div>
-                        </div>
-                    </repeat>
-                </check>
-            </div>
-    <!--<table class="table table-bordered">
-        <caption class="text-center"><strong>Case Log</strong></caption>
-        <thead class="table-group-divider">
-        <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Student ID</th>
-            <th scope="col">Status</th>
-            <th scope="col">Date Created</th>
-            <th scope="col">Due Date</th>
-            <th scope="col">Subject</th>
-            <th scope="col">Notes</th>
-            <th scope="col">Emotional Indicator</th>
-        </tr>
-        </thead>
-        <tbody>
+            <table id="case-log" class="table table-bordered">
+                <thead class="table-group-divider">
                 <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>000000</td>
-                    <td>Open</td>
-                    <td>11/06/2023</td>
-                    <td>11/09/2023</td>
-                    <td></td>
-                    <td>Financial Need</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin venenatis elit sem, sit amet
-                        elementum est aliquam ac. Curabitur nibh augue, condimentum et viverra posuere, facilisis a
-                        augue. Suspendisse potenti. Sed facilisis leo sed felis lacinia finibus. Mauris dignissim
-                        ligula id massa semper, a facilisis metus interdum. Sed vel ligula fermentum, molestie quam ac,
-                        blandit justo. Vestibulum luctus arcu magna, ac posuere urna ullamcorper in. Praesent ut feugiat
-                        ipsum, quis molestie felis. Sed id ex nisi. Vestibulum eu commodo justo, non volutpat tortor.
-                        Proin nec ex ac dui tincidunt dignissim. Donec justo leo, semper faucibus libero at, feugiat
-                        facilisis odio. Proin at velit at ante varius mattis sit amet non ante.
-                    </td>
-                    <td>Orange</td>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Date Opened</th>
+                    <th scope="col">Due Date</th>
                 </tr>
-        </tbody>
-    </table>-->
-</div>
+                </thead>
+                <tbody>
+                <repeat group="{{ @SESSION.notes }}" value="{{ @note }}">
+                    <tr>
+                        <td>{{ @note->getStudentId() }}</td>
+                        <check if="{{ @note->getStatus() == 0}}">
+                            <true>
+                                <td>Open</td>
+                            </true>
+                            <false>
+                                <td>Closed</td>
+                            </false>
+                        </check>
+                        <td>{{ @note->getFirstName() }}
+                            {{ @note->getMiddleName() }}
+                            {{ @note->getLastName() }}</td>
+                        <td>{{ @note->getSubject() }}</td>
+                        <td>{{ @note->getDateOpened()}}</td>
+                        <td>{{ @note->getDueDate()}}</td>
+                    </tr>
+                </repeat>
+                </tbody>
+            </table>
+        </div>
     </div>
+    <br>
+    <br>
 </main>
 
 <include href="views/includes/footer.html"></include>

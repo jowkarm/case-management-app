@@ -242,7 +242,7 @@ class DataLayer
 
     function getSortOptions()
     {
-        return array("case_id", "ctclink_id", "status", "date_opened", "due_date", "subject", "emotional_indicator");
+        return array("case_id", "ctclink_id", "is_closed", "date_opened", "due_date", "subject", "emotional_indicator");
     }
 
 
@@ -469,11 +469,12 @@ class DataLayer
             return false;
         }
     }
-    function getAllCaseNotes()
+    function getAllCaseNotes() // change to case log
     {
         $sql = "SELECT *
                 FROM Notes INNER JOIN Student 
-                ON Notes.student_id = Student.student_id";
+                ON Notes.student_id = Student.student_id
+                ORDER BY is_closed ASC, due_date";
 
         // 2. prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -493,6 +494,11 @@ class DataLayer
                 $row['note'],
                 $row['emotional_indicator']);
             $note->setCaseId($row['case_id']);
+            $note->setFirstName($row['first_name']);
+            $note->setMiddleName($row['middle_name']);
+            $note->setLastName($row['last_name']);
+            $note->setStatus($row['is_closed']);
+            $note->setDateOpened($row['date_opened']);
             $notes[] = $note;
         }
         return $notes;
@@ -501,12 +507,22 @@ class DataLayer
     function getSortedCaseNotes($sortType)
     {
 
-        // SELECT Statement - multiple rows
+        // SELECT Statements (different cases)
         // 1. define the query
-        $sql = "SELECT * 
-                FROM Notes INNER JOIN Student 
-                ON Notes.student_id = Student.student_id
-                ORDER BY " . $sortType;
+        if ($sortType == "is_closed")
+        {
+            $sql = "SELECT * 
+                    FROM Notes INNER JOIN Student 
+                    ON Notes.student_id = Student.student_id
+                    ORDER BY " . $sortType . " ASC, Notes.student_id";
+        }
+        else
+        {
+            $sql = "SELECT * 
+                    FROM Notes INNER JOIN Student 
+                    ON Notes.student_id = Student.student_id
+                    ORDER BY " . $sortType . ", Notes.student_id";
+        }
 
         // 2. prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -521,11 +537,16 @@ class DataLayer
 
         foreach ($result as $row){
             $note = new Case_Note($row['ctclink_id'],
-                                $row['due_date'],
-                                $row['subject'],
-                                $row['note'],
-                                $row['emotional_indicator']);
+                $row['due_date'],
+                $row['subject'],
+                $row['note'],
+                $row['emotional_indicator']);
             $note->setCaseId($row['case_id']);
+            $note->setFirstName($row['first_name']);
+            $note->setMiddleName($row['middle_name']);
+            $note->setLastName($row['last_name']);
+            $note->setStatus($row['is_closed']);
+            $note->setDateOpened($row['date_opened']);
             $notes[] = $note;
         }
         return $notes;
