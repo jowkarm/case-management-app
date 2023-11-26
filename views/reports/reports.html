@@ -7,47 +7,38 @@ Date: 10/10/2023
 
 <include href="views/includes/header.html"></include>
 
-<!--The alert included for home page-->
+<!--The alert included for the home page-->
 <include href="views/includes/alert.html"></include>
 
 <main class="container mb-5 reports-tab tabs-body">
     <div class="container w-75">
-        <div class="row my-2 b-2">
-            <div class="col-3">
-                <!--Sort Feature-->
-                <form action="#" method="post"  class="form-horizontal">
+        <br>
+        <br>
+        <h3 class="mb-4">Reports</h3>
+        <hr>
+        <div class="row my-2">
+            <div class="col-md-4 offset-md-8">
+                <!-- Sort Feature -->
+                <form action="#" method="post" class="form-horizontal">
                     <div class="input-group mb-3">
+                        <label for="sort" class="visually-hidden">Sort By:</label>
                         <select class="form-select" id="sort" name="sort" onchange="this.form.submit()">
                             <option selected>SORT BY</option>
-                            <option value="last_name"> Last Name </option>
-                            <option value="tribe_name"> Tribe </option>
-                            <option value="cte_program"> CTE Program </option>
-                            <option value="clothing_size"> Clothing Size </option>
-                            <option value="pronouns"> Pronouns </option>
-                            <option value="subject"> Subject </option>
-                            <option value="course_history"> Course History </option>
-                            <option value="profile_photo"> Profile Photo </option>
-                            <option value="subject"> Subject </option>
+                            <option value="last_name">Last Name</option>
+                            <option value="tribe_name">Tribe</option>
+                            <option value="cte_program">CTE Program</option>
+                            <option value="clothing_size">Clothing Size</option>
+                            <option value="pronouns">Pronouns</option>
+                            <option value="subject">Subject</option>
+                            <option value="course_history">Course History</option>
+                            <option value="profile_photo">Profile Photo</option>
+                            <option value="subject">Subject</option>
                         </select>
                     </div>
                 </form>
             </div>
         </div>
-        <!-- Line Break-->
-        <div class="row my-2">
-            <hr>
-        </div>
-        <br>
-        <br>
-    <h3 class="pb-2 ps-2 mb-4 border-bottom border-dark">STUDENT</h3>
-    <div class="row">
-        <br>
-        <br>
     </div>
-
-        <br>
-        <br>
-</div>
 </main>
 
 <include href="views/includes/footer.html"></include>
