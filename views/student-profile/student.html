@@ -28,7 +28,7 @@ Date: 10/10/2023
           </div>
           <div class="row mb-3">
             <p><b>Student Name:</b> {{ @SESSION.student->getFirstName() }} {{ @SESSION.student->getMiddleName() }}
-              {{ @SESSION.student->getLastName() }} <sup><b>({{ @SESSION.student->getPronouns() }})</b></sup></p>
+              {{ @SESSION.student->getLastName() }} ({{ @SESSION.student->getPronouns() }})</p>
           </div>
           <div class="row mb-3">
             <p><b>Tribe:</b> {{ @SESSION.student->getTribeName() }}</p>
