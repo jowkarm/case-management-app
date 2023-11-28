@@ -583,6 +583,9 @@ class Controller
         // View page for all cases
         $view = new Template();
         echo $view->render('views/reports/case-log.html');
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
     }
 
     function add_note()
@@ -736,6 +739,10 @@ class Controller
         // View page for all cases
         $view = new Template();
         echo $view->render('views/reports/add-note.html');
+
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
     }
 
 
