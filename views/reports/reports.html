@@ -32,10 +32,38 @@ Date: 10/10/2023
                             <option value="subject">Subject</option>
                             <option value="course_history">Course History</option>
                             <option value="profile_photo">Profile Photo</option>
-                            <option value="subject">Subject</option>
                         </select>
                     </div>
                 </form>
+            </div>
+            <div>
+                <table id="case-log" class="table table-bordered">
+                    <thead class="table-group-divider">
+                    <tr>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Tribe</th>
+                        <th scope="col">CTE Program</th>
+                        <th scope="col">Clothing Size</th>
+                        <th scope="col">Pronouns</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Course History</th>
+                        <th scope="col">Profile Photo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <repeat group="{{ @SESSION.reports }}" value="{{ @reports }}">
+                        <tr>
+                            <td>{{ @reports->getLastName() }}</td>
+                            <td>{{ @reports->getCteProgram() }}</td>
+                            <td>{{ @reports->getClothingSize() }}</td>
+                            <td>{{ @reports->getPronouns() }}</td>
+                            <td>{{ @reports->getSubject()}}</td>
+                            <td>{{ @reports->getCourseHistory()}}</td>
+                            <td>{{ @reports->getProfilePhoto()}}</td>
+                        </tr>
+                    </repeat>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
