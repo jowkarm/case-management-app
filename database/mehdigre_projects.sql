@@ -56,6 +56,35 @@ INSERT INTO `Notes` (`case_id`, `student_id`, `is_closed`, `date_opened`, `due_d
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Reports`
+--
+DROP TABLE IF EXISTS `Reports`;
+CREATE TABLE IF NOT EXISTS `Reports` (
+    `reports_id` int(11) NOT NULL AUTO_INCREMENT,
+    `last_name` varchar(50) NOT NULL,
+    `tribe_name` varchar(50) DEFAULT NULL,
+    `cte_program` varchar(50) DEFAULT NULL,
+    `clothing_size` varchar(10) DEFAULT NULL,
+    `pronouns` varchar(20) DEFAULT NULL,
+    `subject` varchar(30) NOT NULL,
+    `course_history` varchar(255) DEFAULT NULL,
+    `profile_photo` mediumblob DEFAULT NULL,
+    PRIMARY KEY (`reports_id`)
+    ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Report`
+--
+
+INSERT INTO `Reports` (`last_name`, `tribe_name`, `cte_program`, `clothing_size`, `pronouns`, `subject`, `course_history`, profile_photo) VALUES
+('Doe', 'Lorem', 'Lorem Ipsum Program', 'M', 'He/Him', 'Lorem Subject 1', 'Lorem Ipsum Course History 1', NULL),
+('Smith', 'Ipsum', 'Ipsum Program', 'L', 'She/Her', 'Lorem Subject 2', 'Lorem Ipsum Course History 2', NULL),
+('Johnson', 'Dolor', 'Dolor Program', 'S', 'They/Them', 'Lorem Subject 3', 'Lorem Ipsum Course History 3', NULL),
+('Williams', 'Sit', 'Sit Program', 'XL', 'Ze/Zir', 'Lorem Subject 4', 'Lorem Ipsum Course History 4', NULL),
+('Brown', 'Amet', 'Amet Program', 'XS', 'Per/Per', 'Lorem Subject 5', 'Lorem Ipsum Course History 5', NULL);
+
+
+--
 -- Table structure for table `Student`
 --
 
