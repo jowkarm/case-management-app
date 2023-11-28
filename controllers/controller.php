@@ -723,7 +723,7 @@ class Controller
                 $case_id = $GLOBALS['dataLayer']->insertNote($student, $case_note);
                 $alert = new Alert('Case Note: ' . $case_id .' has been created.', 'green');
                 $this->_f3->set('SESSION.alert', $alert);
-                $this->_f3->reroute('/');
+                $this->_f3->reroute('/case-log');
             }
 
         }
