@@ -745,7 +745,27 @@ class Controller
         $this->_f3->set('SESSION.alert', null);
     }
 
+    function viewCaseNote(){
+        $note = "";
 
+        if(isset($_GET['id']) && $_GET['id'] > 0){
+            $note = $GLOBALS['dataLayer']->getNote($_GET['id']);
+        } else {
+            // Redirect to the home page
+            $this->_f3->reroute('/case-log');
+        }
+
+        $this->_f3->set('SESSION.note', $note);
+
+        // Set the title of the page
+
+        $this->_f3->set('title', 'Case Note');
+
+
+        // View page for all cases
+        $view = new Template();
+        echo $view->render('views/reports/view-case-note.html');
+    }
 
 
     /**

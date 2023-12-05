@@ -23,7 +23,7 @@ Date: 11/06/2023
             <div class="col">
                 <div class="input-group mb-3">
                     <div class="input-group-append">
-                        <a class="btn btn-outline-secondary" href="add-note" role="button">Add Note</a>
+                        <a class="btn btn-outline-secondary" href="add-note" role="button">Add Case Note</a>
                     </div>
                 </div>
             </div>
@@ -46,8 +46,8 @@ Date: 11/06/2023
         </div>
         <!--Individual Case Note Cards-->
         <div>
-            <table id="case-log" class="table table-bordered">
-                <thead class="table-group-divider">
+            <table id="case-log" class="border border-2 table table-bordered table-hover">
+                <thead>
                 <tr>
                     <th scope="col">Student ID</th>
                     <th scope="col">Status</th>
@@ -55,11 +55,13 @@ Date: 11/06/2023
                     <th scope="col">Subject</th>
                     <th scope="col">Date Opened</th>
                     <th scope="col">Due Date</th>
+                    <th scope="col">Emotional Indicator</th>
                 </tr>
                 </thead>
                 <tbody>
                 <repeat group="{{ @SESSION.notes }}" value="{{ @note }}">
-                    <tr>
+                    <tr class="clickable"
+                        onclick="window.location='view-case-note?id={{ @note->getCaseId() }}'">
                         <td>{{ @note->getStudentId() }}</td>
                         <check if="{{ @note->getStatus() == 0}}">
                             <true>
@@ -75,6 +77,7 @@ Date: 11/06/2023
                         <td>{{ @note->getSubject() }}</td>
                         <td>{{ @note->getDateOpened()}}</td>
                         <td>{{ @note->getDueDate()}}</td>
+                        <td>{{ @note->getEmotionalIndicator() }}</td>
                     </tr>
                 </repeat>
                 </tbody>

@@ -437,18 +437,18 @@ class DataLayer
         return $id;
     }
 
-    function getNote($student_id)
+    function getNote($case_id)
     {
         $sql = "SELECT *
                 FROM Notes INNER JOIN Student 
                 ON Notes.student_id = Student.student_id
-                WHERE Notes.student_id = :student_id";
+                WHERE Notes.case_id = :case_id";
 
         // 2. prepare the statement
         $statement = $this->_dbh->prepare($sql);
 
         //3. Bind the parameters
-        $statement->bindParam(':student_id', $student_id);
+        $statement->bindParam(':case_id', $case_id);
 
         //4. Execute
         $statement->execute();
@@ -458,11 +458,16 @@ class DataLayer
 
         if($row !== false){
             $note = new Case_Note($row['ctclink_id'],
-                $row['date_opened'],
                 $row['due_date'],
                 $row['subject'],
-                $row['note']);
+                $row['note'],
+                $row['emotional_indicator']);;
             $note->setCaseId($row['case_id']);
+            $note->setFirstName($row['first_name']);
+            $note->setMiddleName($row['middle_name']);
+            $note->setLastName($row['last_name']);
+            $note->setStatus($row['is_closed']);
+            $note->setDateOpened($row['date_opened']);
 
             return $note;
         } else {

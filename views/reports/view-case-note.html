@@ -1,0 +1,71 @@
+<!--
+HTML markup for the Case Management Existing Case Note page
+Author: Anthony Gutierrez, Jo Cichon, Mehdi Jokar, Sayed Sadat
+File: view-case-note.html
+Date: 11/12/2023
+-->
+
+<include href="views/includes/header.html"></include>
+
+<!--The alert included for home page-->
+<include href="views/includes/alert.html"></include>
+
+<main class="container mb-5 logs-tab tabs-body">
+    <div class="container w-75">
+        <br>
+        <br>
+        <h3>{{ @SESSION.note->getFirstName() }} {{ @SESSION.note->getMiddleName() }}
+            {{ @SESSION.note->getLastName() }}</h3>
+        <hr>
+
+        <!--Student ID-->
+        <div class="row pt-4">
+            <div class="col-4">
+                <p><b>Student Id:</b> {{ @SESSION.note->getStudentId() }} </p>
+            </div>
+            <div class="col-4">
+                <check if="{{ @SESSION.note->getStatus() == 0}}">
+                    <true>
+                        <p><b>Status:</b> Open </p>
+                    </true>
+                    <false>
+                        <p><b>Status:</b> Closed </p>
+                    </false>
+                </check>
+            </div>
+            <div class="col-4">
+                <p><b>Date Opened:</b> {{ @SESSION.note->getDateOpened() }} </p>
+            </div>
+            <div class="col-4">
+                <p><b>Due Date:</b> {{ @SESSION.note->getDueDate() }} </p>
+            </div>
+        </div>
+
+        <!-- Force next columns to break to new line -->
+        <div class="w-100"></div>
+
+
+        <!--Subject and Due Date Row-->
+        <div class="row pt-4">
+            <div class="col-4">
+                <!--Subject-->
+                <p><b>Subject: </b> {{ @SESSION.note->getSubject() }} </p>
+            </div>
+        </div>
+
+        <!--Emotional Indicator-->
+        <div class="row pt-4">
+            <div class="color-picker">
+
+            </div>
+        </div>
+
+        <!--Note Text Area-->
+        <div class="row pt-4">
+            <div>
+                <p><b>Note: </b> {{ @SESSION.note->getNote() }} </p>
+            </div>
+        </div>
+    </div>
+</main>
+<include href="views/includes/footer.html"></include>

@@ -117,6 +117,10 @@ $f3->route('GET /custom-range', function() {
     $GLOBALS['con']->customRange();
 });
 
+$f3->route('GET /view-case-note', function () {
+   $GLOBALS['con']->viewCaseNote();
+});
+
 // Define a route to handle the update student
 $f3->route('GET|POST /update-student', function () {
     $GLOBALS['con']->updateStudent();
