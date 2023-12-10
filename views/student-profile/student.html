@@ -15,8 +15,8 @@ Date: 10/10/2023
     <br>
     <div class="row">
       <div class="col-9">
-    <h3>{{ @SESSION.student->getFirstName() }} {{ @SESSION.student->getMiddleName() }}
-      {{ @SESSION.student->getLastName() }}</h3>
+    <h3>{{ @SESSION.student->getLastName() }}, {{ @SESSION.student->getFirstName() }} {{ @SESSION.student->getMiddleName() }}
+      <small>({{ @SESSION.student->getPronouns() }})</small></h3>
       </div>
     <!--Buttons-->
       <div class="col-3">
@@ -50,10 +50,6 @@ Date: 10/10/2023
         <div class="container">
           <div class="row mb-3">
             <p><b>Student Id:</b> {{ @SESSION.student->getCtclinkId() }} </p>
-          </div>
-          <div class="row mb-3">
-            <p><b>Student Name:</b> {{ @SESSION.student->getLastName() }}, {{ @SESSION.student->getFirstName() }} {{ @SESSION.student->getMiddleName() }}
-              ({{ @SESSION.student->getPronouns() }})</p>
           </div>
           <div class="row mb-3">
             <p><b>Tribe:</b> {{ @SESSION.student->getTribeName() }}</p>
