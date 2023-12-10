@@ -62,7 +62,16 @@ Date: 10/19/2023
         <repeat group="{{ @SESSION.students }}" value="{{ @student }}">
             <tr>
                 <td>
-                    <a class="link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="student?id={{ @student->getStudentId() }}">{{ @student->getLastName() }}, {{ @student->getFirstName() }} {{ @student->getMiddleName() }}</a></td>
+                    <a class="link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="student?id={{ @student->getStudentId() }}">{{ @student->getLastName() }}, {{ @student->getFirstName() }} {{ @student->getMiddleName() }}</a>
+                    <check if="{{ @student->getOpenCases() > 0 }}">
+                        <true>
+                            <span class="badge rounded-pill bg-danger">
+                            {{ @student->getOpenCases() }}
+                            </span>
+                        </true>
+                    </check>
+
+                </td>
                 <td>{{ @student->getCtclinkId() }}</td>
                 <td>
                     <a class="btn btn-outline-success" href="update-student?id={{ @student->getStudentId() }}" role="button">

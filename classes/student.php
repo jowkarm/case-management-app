@@ -30,6 +30,23 @@ class Student
     private $_academic_progress;
     private $_financial_needs;
     private $_cases;    //array of cases
+    private $_open_cases;
+
+    /**
+     * @return mixed
+     */
+    public function getOpenCases()
+    {
+        return $this->_open_cases;
+    }
+
+    /**
+     * @param mixed $open_cases
+     */
+    public function setOpenCases($open_cases): void
+    {
+        $this->_open_cases = $open_cases;
+    }
 
     /**
      * @param $_first_name
