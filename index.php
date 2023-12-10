@@ -72,7 +72,7 @@ $f3->route('GET /logout', function() {
 });
 
 // Define a reports route
-$f3->route('GET /reports', function() {
+$f3->route('GET|POST /reports', function() {
     $GLOBALS['con']->reports();
 });
 
