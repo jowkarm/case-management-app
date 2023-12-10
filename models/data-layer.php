@@ -62,7 +62,7 @@ class DataLayer
         $students = array();
 
         foreach ($result as $row){
-            $middle_name = (empty($row['middle_name']) ? '' : $row['middle_name']);
+            $middle_name = (empty($row['middle_name']) ? '' : strtoupper(substr($row['middle_name'], 0, 1)) . '.');
             $student = new Student($row['first_name'], $middle_name, $row['last_name'], $row['ctclink_id']);
             $student->setStudentId($row['student_id']);
             $students[] = $student;
@@ -104,7 +104,7 @@ class DataLayer
         $students = array();
 
         foreach ($result as $row){
-            $middle_name = (empty($row['middle_name']) ? '' : $row['middle_name']);
+            $middle_name = (empty($row['middle_name']) ? '' : strtoupper(substr($row['middle_name'], 0, 1)) . '.');
             $student = new Student($row['first_name'], $middle_name, $row['last_name'], $row['ctclink_id']);
             $student->setStudentId($row['student_id']);
             $students[] = $student;
