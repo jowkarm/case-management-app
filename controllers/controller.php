@@ -152,6 +152,11 @@ class Controller
                 $this->_f3->set('errors["ctclink_id]', 'Invalid ctclink id entered');
             }
 
+            // Return error for duplicate  ctcLink_id
+            if ($GLOBALS['dataLayer']->checkDuplicateCtcLinkId($ctclink_id)) {
+                $this->_f3->set('errors["ctclink_id]', 'Duplicate ctclink id!');
+            }
+
             // Validate the pronoun selected
             if (!empty($pronouns) && !Validation::validatePronouns($pronouns)) {
                 $this->_f3->set('errors["pronouns"]', 'Invalid pronouns selected');

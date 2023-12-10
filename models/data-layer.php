@@ -47,7 +47,8 @@ class DataLayer
 
         // SELECT Statement - multiple rows
         // 1. define the query
-        $sql = "SELECT * FROM Student";
+        $sql = "SELECT * FROM Student
+                ORDER BY last_name";
 
         // 2. prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -83,7 +84,8 @@ class DataLayer
                         WHERE first_name LIKE :keyword
                         OR middle_name LIKE :keyword
                         OR last_name LIKE :keyword
-                        OR ctclink_id LIKE :keyword";
+                        OR ctclink_id LIKE :keyword
+                        ORDER BY last_name";
 
         // 2. prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -741,5 +743,22 @@ class DataLayer
         // Execute the statement
         return $statementRetrieveStudent->execute();
 
+    }
+
+    function checkDuplicateCtcLinkId($ctclink_id): bool
+    {
+        // 1. define the query
+        $sql = "SELECT ctclink_id FROM Student
+                WHERE ctclink_id = :ctclink_id";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':ctclink_id', $ctclink_id);
+
+        //4. Execute
+        $result = $statement->execute();
+
+        return !empty($result);
     }
 }

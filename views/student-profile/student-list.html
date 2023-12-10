@@ -62,7 +62,7 @@ Date: 10/19/2023
         <repeat group="{{ @SESSION.students }}" value="{{ @student }}">
             <tr>
                 <td>
-                    <a class="link-light" href="student?id={{ @student->getStudentId() }}">{{ @student->getFirstName() }} {{ @student->getMiddleName() }} {{ @student->getLastName() }}</a></td>
+                    <a class="link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="student?id={{ @student->getStudentId() }}">{{ @student->getLastName() }}, {{ @student->getFirstName() }} {{ @student->getMiddleName() }}</a></td>
                 <td>{{ @student->getCtclinkId() }}</td>
                 <td>
                     <a class="btn btn-outline-success" href="update-student?id={{ @student->getStudentId() }}" role="button">
