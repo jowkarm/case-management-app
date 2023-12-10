@@ -29,9 +29,6 @@ Date: 10/10/2023
                             <option value="cte_program">CTE Program</option>
                             <option value="clothing_size">Clothing Size</option>
                             <option value="pronouns">Pronouns</option>
-                            <option value="subject">Subject</option>
-                            <option value="course_history">Course History</option>
-                            <option value="profile_photo">Profile Photo</option>
                         </select>
                     </div>
                 </form>
@@ -40,26 +37,24 @@ Date: 10/10/2023
                 <table id="case-log" class="table table-bordered">
                     <thead class="table-group-divider">
                     <tr>
-                        <th scope="col">Last Name</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Tribe</th>
                         <th scope="col">CTE Program</th>
                         <th scope="col">Clothing Size</th>
                         <th scope="col">Pronouns</th>
-                        <th scope="col">Subject</th>
-                        <th scope="col">Course History</th>
-                        <th scope="col">Profile Photo</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <repeat group="{{ @SESSION.reports }}" value="{{ @reports }}">
+                    <repeat group="{{ @SESSION.students }}" value="{{ @student }}">
                         <tr>
-                            <td>{{ @reports->getLastName() }}</td>
-                            <td>{{ @reports->getCteProgram() }}</td>
-                            <td>{{ @reports->getClothingSize() }}</td>
-                            <td>{{ @reports->getPronouns() }}</td>
-                            <td>{{ @reports->getSubject()}}</td>
-                            <td>{{ @reports->getCourseHistory()}}</td>
-                            <td>{{ @reports->getProfilePhoto()}}</td>
+                            <td>{{ @student->getLastName() }},
+                                {{ @student->getFirstName() }}
+                                {{ @student->getMiddleName() }}
+                                </td>
+                            <td>{{ @student->getTribeName() }}</td>
+                            <td>{{ @student->getCteProgram() }}</td>
+                            <td>{{ @student->getClothingSize() }}</td>
+                            <td>{{ @student->getPronouns() }}</td>
                         </tr>
                     </repeat>
                     </tbody>

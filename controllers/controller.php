@@ -557,9 +557,29 @@ class Controller
             $this->_f3->reroute('/login');
         }
 
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            // Get the data
+            $sortBy = (isset($_POST['sort'])) ? $_POST['sort'] : '';
+
+            if (Validation::validStudentSorting($sortBy)) {
+                $this->_f3->set('SESSION.sort', $sortBy);
+
+                $students = $GLOBALS['dataLayer']->getSortedReports($this->_f3->get('SESSION.sort'));
+                // Get the data from the model and add to a new card
+                $this->_f3->set('SESSION.students', $students);
+            } else {
+                $this->_f3->set('errors["sortBy"]', 'Invalid Selection');
+            }
+        } else {
+            $students = $GLOBALS['dataLayer']->getSortedReports('last_name');
+
+            $this->_f3->set('SESSION.students', $students);
+        }
+
 
         // Set the title of the page
         $this->_f3->set('title', 'Reports');
+
 
         // Define a view page
         $view = new Template();

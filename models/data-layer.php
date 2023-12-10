@@ -279,6 +279,8 @@ class DataLayer
     }
 
 
+
+
     static function getPronouns()
     {
         return array('they/them', 'she/her', 'he/him', 'other');
@@ -791,5 +793,45 @@ class DataLayer
         $result = $statement->execute();
 
         return !empty($result);
+    }
+
+    function getSortedReports($sortType)
+    {
+
+        $sql = "SELECT * 
+                    FROM Student 
+                    ORDER BY " . $sortType . " ASC";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        // 3. Execute
+        $statement->execute();
+
+        // 4. Process the result
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $students = array();
+
+        foreach ($result as $row){
+            $middle_name = (empty($row['middle_name']) ? '' : strtoupper(substr($row['middle_name'], 0, 1)) . '.');
+            $student = new Student($row['first_name'], $middle_name, $row['last_name'], $row['ctclink_id']);
+            $student->setStudentId($row['student_id']);
+            $student->setCteProgram($row['cte_program']);
+            $student->setClothingSize($row['clothing_size']);
+            $student->setTribeName($row['tribe_name']);
+            $student->setPronouns($row['pronouns']);
+
+
+
+            $students[] = $student;
+        }
+
+        return $students;
+    }
+
+    function getStudentSortOptions()
+    {
+        return array("last_name", "tribe_name", "cte_program", "clothing_size", "pronouns");
     }
 }
