@@ -56,10 +56,10 @@ class Controller
      */
     function addStudent()
     {
-        /*// Only if a user is logged in can they add a student
+        // Only if a user is logged in can they add a student
         if (!Validation::loggedIn($this->_f3)) {
         $this->_f3->reroute('/login');
-        }*/
+        }
 
 
         //Initialize the variables
@@ -277,6 +277,11 @@ class Controller
      */
     function confirm()
     {
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
+
         // Set the title of the page
         $this->_f3->set('title', 'Confirm');
 
@@ -316,6 +321,10 @@ class Controller
      */
     function getStudentList()
     {
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
 
         //If the form has been posted
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -542,6 +551,13 @@ class Controller
      */
     function reports()
     {
+
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
+
+
         // Set the title of the page
         $this->_f3->set('title', 'Reports');
 
@@ -556,10 +572,9 @@ class Controller
     {
 
         // Only if a user is logged in can they add a student
-//        if (!Validation::loggedIn($this->_f3)) {
-//            $this->_f3->reroute('/login');
-//        }
-
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Get the data
@@ -596,9 +611,9 @@ class Controller
     function add_note()
     {
         // Only if a user is logged in can they add a student
-//        if (!Validation::loggedIn($this->_f3)) {
-//            $this->_f3->reroute('/login');
-//        }
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
 
         // Next Case ID in the Notes table
         $this->_f3->set('case_number', $GLOBALS['dataLayer']->getNextCaseId());
@@ -751,6 +766,13 @@ class Controller
     }
 
     function viewCaseNote(){
+
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
+
+
         $note = "";
 
         if(isset($_GET['id']) && $_GET['id'] > 0){
@@ -886,10 +908,10 @@ class Controller
     function student()
     {
 
-        /*// Only if a user is logged in can they add a student
+        // Only if a user is logged in can they add a student
         if (!Validation::loggedIn($this->_f3)) {
-        $this->_f3->reroute('/login');
-        }*/
+            $this->_f3->reroute('/login');
+        }
 
         $student = "";
 
@@ -937,10 +959,10 @@ class Controller
      */
     function updateStudent()
     {
-        /*// Only if a user is logged in can they add a student
+        // Only if a user is logged in can they add a student
         if (!Validation::loggedIn($this->_f3)) {
-        $this->_f3->reroute('/login');
-        }*/
+            $this->_f3->reroute('/login');
+        }
 
         $student = "";
 
@@ -1158,13 +1180,10 @@ class Controller
      */
     function deleteStudent()
     {
-        /*// Only if a user is logged in can they add a student
+        // Only if a user is logged in can they add a student
         if (!Validation::loggedIn($this->_f3)) {
-        $this->_f3->reroute('/login');
-        }*/
-
-
-
+            $this->_f3->reroute('/login');
+        }
 
         //If the form has posted
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
