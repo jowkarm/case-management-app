@@ -506,6 +506,7 @@ class DataLayer
             $note->setDateOpened($row['date_opened']);
             $notes[] = $note;
         }
+
         return $notes;
     }
 

@@ -121,6 +121,10 @@ $f3->route('GET /view-case-note', function () {
    $GLOBALS['con']->viewCaseNote();
 });
 
+$f3->route('GET /student_id', function () {
+    $GLOBALS['con']->getStudentId();
+});
+
 // Define a route to handle the update student
 $f3->route('GET|POST /update-student', function () {
     $GLOBALS['con']->updateStudent();

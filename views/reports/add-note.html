@@ -17,78 +17,55 @@ Date: 11/12/2023
         <h3>Add Case</h3>
         <hr>
 
-        <form action="#" method="post">
-            <!--Student ID-->
-            <div class="row pt-4">
-                <div class="col-4">
-                    <label class="form-label"> CtcLink ID</label>
-                    <!-- Display an error if there is one -->
-                    <check if="{{ isset(@errors['student_id']) }}">
-                        <span class="text-danger">{{ @errors['student_id'] }}</span>
-                    </check>
-                    <check if="{{ isset(@SESSION.ctclink_id) }}">
-                        <true>
-                            <input type="text"
-                                   class="form-control"
-                                   name="ctclink_id" placeholder="Student ctcLink Id" value="{{ @SESSION.ctclink_id }}">
-                        </true>
-                        <false>
-                            <input type="text"
-                                   class="form-control"
-                                   name="ctclink_id" placeholder="Student ctcLink Id">
-                        </false>
-                    </check>
+        <form action="#" method="post" autocomplete="off">
+
+            <!-- Student ID and Student Name -->
+            <div id="auto-complete">
+                <!--Student ID-->
+                <div class="row pt-4">
+                    <div class="col-4">
+                        <label class="form-label"> CtcLink ID</label>
+                        <!-- Display an error if there is one -->
+                        <check if="{{ isset(@errors['student_id']) }}">
+                            <span class="text-danger">{{ @errors['student_id'] }}</span>
+                        </check>
+                        <check if="{{ isset(@SESSION.ctclink_id) }}">
+                            <true>
+                                <input type="text"
+                                       class="form-control"
+                                       name="ctclink_id" placeholder="Student ctcLink Id" value="{{ @SESSION.ctclink_id }}">
+                            </true>
+                            <false>
+                                <input type="text"
+                                       class="form-control"
+                                       name="ctclink_id" placeholder="Student ctcLink Id">
+                            </false>
+                        </check>
+                    </div>
+                </div>
+
+                <!-- Force next columns to break to new line -->
+                <div class="w-100"></div>
+
+                <!--Name-->
+                <div class="row pt-4">
+                    <div class="col">
+                        <label class="form-label"> Student Name</label>
+
+                        <check if="{{ isset((@SESSION.first_name), (@SESSION.middle_name), (@SESSION.last_name))  }}">
+                            <true>
+                                <input type="text"  class="form-control"
+                                       name="first_name" placeholder="Student Name"
+                                       value="{{ (@SESSION.first_name) . ' ' . (@SESSION.middle_name) . ' ' . (@SESSION.last_name) }}">
+                            </true>
+                            <false>
+                                <input type="text"  class="form-control"
+                                       name="first_name" placeholder="Student Name" >
+                            </false>
+                        </check>
+                    </div>
                 </div>
             </div>
-
-            <!-- Force next columns to break to new line -->
-            <div class="w-100"></div>
-
-            <!--Name-->
-            <!--<div class="row pt-4">
-                <div class="col">
-                    &lt;!&ndash;First Name&ndash;&gt;
-                    <label class="form-label"> First Name</label>
-                    <check if="{{ isset(@SESSION.first_name) }}">
-                        <true>
-                            <input type="text"  class="form-control"
-                                   name="first_name" placeholder="First Name" value="{{ @SESSION.first_name }}">
-                        </true>
-                        <false>
-                            <input type="text"  class="form-control"
-                                   name="first_name" placeholder="First Name" >
-                        </false>
-                    </check>
-                </div>
-                <div class="col">
-                    &lt;!&ndash;Middle Name&ndash;&gt;
-                    <label class="form-label"> Middle Name</label>
-                    <check if="{{ isset(@SESSION.middle_name) }}">
-                        <true>
-                            <input type="text"  class="form-control"
-                                   name="middle_name" placeholder="Middle Name" value="{{ @SESSION.middle_name }}">
-                        </true>
-                        <false>
-                            <input type="text"  class="form-control"
-                                   name="middle_name" placeholder="Middle Name">
-                        </false>
-                    </check>
-                </div>
-                <div class="col">
-                    &lt;!&ndash;Last Name&ndash;&gt;
-                    <label class="form-label"> Last Name</label>
-                    <check if="{{ isset(@SESSION.last_name) }}">
-                        <true>
-                            <input type="text"  class="form-control"
-                                   name="last_name" placeholder="Last Name" value="{{ @SESSION.last_name }}">
-                        </true>
-                        <false>
-                            <input type="text"  class="form-control"
-                                   name="last_name" placeholder="Last Name">
-                        </false>
-                    </check>
-                </div>
-            </div>-->
 
             <!--Subject and Due Date Row-->
             <div class="row pt-4">
@@ -166,7 +143,7 @@ Date: 11/12/2023
                                    class="slider">
                             <br>
                             <br>
-                            <p>Color:&nbsp; <span></span></p>
+                            <p>Color:&nbsp; <span></span>No Comment</p>
                         </false>
                     </check>
                 </div>
