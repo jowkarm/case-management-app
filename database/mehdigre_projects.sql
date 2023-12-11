@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 10, 2023 at 01:35 AM
+-- Generation Time: Dec 10, 2023 at 10:38 PM
 -- Server version: 10.2.44-MariaDB
 -- PHP Version: 8.1.25
 
@@ -23,8 +23,7 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `mehdigre_projects` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `mehdigre_projects`;
 
-
----------------------------------------------
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `Notes`
@@ -163,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 --
 
 INSERT INTO `User` (`user_id`, `first_name`, `last_name`, `email`, `role`, `password`, `uuid`, `password_timestamp`, `is_active`) VALUES
-(10, 'Jo', 'Cichon', 'jo.cichon@gmail.com', 'restricted', '$2y$10$14nSpTf9064A0LP09fmnF.0f0tecgw4F92018mrO7x1JWPjfXFrxq', '5cd17ebd-8cc8-11ee-968a-f23c91a78bbf', '2023-11-27 02:12:17', 1),
+(10, 'Jo', 'Cichon', 'jo.cichon@gmail.com', 'restricted', '$2y$10$yLJyKeH53bewTwVfwws/UOa5ZXSYxbSRlh4gTksFpHj4uSi6u5OCe', '78efd236-9797-11ee-8c8f-f23c91a78bbf', '2023-12-10 20:20:28', 1),
 (6, 'Anthony', 'Gutierrez', 'gutierrez.anthony@student.greenriver.edu', 'restricted', '$2y$10$0md/7z3po4w.x.HAqpD8R.k1mPq13R5fyPXDBEU3up2e/dJTI14WO', '2f53f92b-729b-11ee-968a-f23c91a78bbf', NULL, 1),
 (7, 'Jo', 'Cichon', 'cichon.jo@student.greenriver.edu', 'restricted', '$2y$10$4XM2hYqkwaTC1AxMPjxBgeo7kM9NcBWOunavBjbBwrhpNljnM0cvC', '32c8a690-72a1-11ee-968a-f23c91a78bbf', NULL, 1),
 (9, 'Mehdi', 'Jokar', 'jokar.mehdi2@gmail.com', 'restricted', '$2y$10$nhkTul6wSCJPXXYLIAAZZ.klzPCfBrW7h/GuwFyrgp7ROPKR2DzuK', '0419e037-8cb0-11ee-968a-f23c91a78bbf', '2023-11-26 23:18:00', 1),
