@@ -157,8 +157,8 @@ Date: 10/10/2023
                 </form>
             </div>
             <div>
-                <table id="case-log" class="table table-bordered">
-                    <thead class="table-group-divider">
+                <table id="case-log" class="table table-striped table-bordered table-hover">
+                    <thead>
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Tribe</th>
@@ -166,8 +166,8 @@ Date: 10/10/2023
                         <th scope="col">Clothing Size</th>
                         <th scope="col">Pronouns</th>
                     </tr>
-                    </thead>
-                    <tbody>
+                    </thead >
+                    <tbody class="table-group-divider">
                     <repeat group="{{ @SESSION.students }}" value="{{ @student }}">
                         <tr>
                             <td>{{ @student->getLastName() }},
