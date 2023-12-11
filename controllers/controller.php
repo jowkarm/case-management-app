@@ -559,26 +559,60 @@ class Controller
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Get the data
-            $sortBy = (isset($_POST['sort'])) ? $_POST['sort'] : '';
+            $sortBy = (isset($_POST['sort'])) ? $_POST['sort'] : 'last_name';
+            $tribe = (isset($_POST['tribe_name'])) ? $_POST['tribe_name'] : '';
+            $program = (isset($_POST['cte_program'])) ? $_POST['cte_program'] : '';
 
-            if (Validation::validStudentSorting($sortBy)) {
-                $this->_f3->set('SESSION.sort', $sortBy);
+            if($program == 'all'){
+                $this->_f3->set('SESSION.program', null);
 
-                $students = $GLOBALS['dataLayer']->getSortedReports($this->_f3->get('SESSION.sort'));
-                // Get the data from the model and add to a new card
-                $this->_f3->set('SESSION.students', $students);
-            } else {
-                $this->_f3->set('errors["sortBy"]', 'Invalid Selection');
+            } elseif (!empty($program) && !Validation::validateCTEProgram($program)) {
+                $this->_f3->set('errors["program"]', 'Invalid Selection');
+
+            } elseif(!empty($program)) {
+                $this->_f3->set('SESSION.program', $program);
             }
-        } else {
-            $students = $GLOBALS['dataLayer']->getSortedReports('last_name');
 
-            $this->_f3->set('SESSION.students', $students);
+            if($tribe == 'all'){
+                $this->_f3->set('SESSION.tribe', null);
+
+            } elseif (!empty($tribe) && !Validation::validateTribe($tribe)) {
+                $this->_f3->set('errors["tribe"]', 'Invalid Selection');
+
+            } elseif(!empty($tribe)) {
+                $this->_f3->set('SESSION.tribe', $tribe);
+            }
+
+            if (!empty($sortBy) && !Validation::validStudentSorting($sortBy)) {
+                $this->_f3->set('errors["sort"]', 'Invalid Selection');
+
+            } elseif (!empty($sortBy)) {
+                $this->_f3->set('SESSION.sort', $sortBy);
+            }
+
+            if (empty($this->_f3->get('errors'))) {
+
+                $students = $GLOBALS['dataLayer']->getSortedReports($this->_f3->get('SESSION.sort'),
+                    $this->_f3->get('SESSION.tribe'),
+                    $this->_f3->get('SESSION.program'));
+
+
+            } else{
+                $students = $GLOBALS['dataLayer']->getSortedReports('last_name', '', '');
+            }
+        }else{
+            $students = $GLOBALS['dataLayer']->getSortedReports('last_name', '', '');
         }
 
 
         // Set the title of the page
         $this->_f3->set('title', 'Reports');
+
+        // Set arrays
+        $this->_f3->set('programs', $GLOBALS['dataLayer']->getCTEPrograms());
+        $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
+
+        $this->_f3->set('SESSION.students', $students);
 
 
         // Define a view page

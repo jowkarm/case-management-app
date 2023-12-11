@@ -795,20 +795,57 @@ class DataLayer
         return !empty($result);
     }
 
-    function getSortedReports($sortType)
+    function getSortedReports($sortType, $tribe, $program): array
     {
+        if(empty($sortType)){
+            $sortType = 'last_name';
+        }
 
-        $sql = "SELECT * 
-                    FROM Student 
-                    ORDER BY " . $sortType . " ASC";
+        if(empty($tribe) && empty($program)){
+            $sql = "SELECT * 
+                    FROM Student
+                    ORDER BY " . $sortType . " ASC;";
+
+        } elseif(empty($tribe)){
+            $sql = "SELECT * 
+                    FROM Student
+                    WHERE cte_program = :cte_program
+                    ORDER BY " . $sortType . " ASC;";
+
+        } elseif(empty($program)){
+            $sql = "SELECT * 
+                    FROM Student
+                    WHERE tribe_name = :tribe_name
+                    ORDER BY " . $sortType . " ASC;";
+
+        } else{
+            $sql = "SELECT * 
+                    FROM Student
+                    WHERE tribe_name = :tribe_name
+                    AND cte_program = :cte_program
+                    ORDER BY " . $sortType . " ASC;";
+        }
+
 
         // 2. prepare the statement
         $statement = $this->_dbh->prepare($sql);
 
-        // 3. Execute
+
+        //3. bind the parameters
+        if(!empty($program)){
+            $statement->bindParam(':cte_program', $program);
+
+        }
+
+        if(!empty($tribe) ){
+            $statement->bindParam(':tribe_name', $tribe);
+        }
+
+
+        // 4. Execute
         $statement->execute();
 
-        // 4. Process the result
+        // 5. Process the result
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $students = array();
@@ -821,8 +858,6 @@ class DataLayer
             $student->setClothingSize($row['clothing_size']);
             $student->setTribeName($row['tribe_name']);
             $student->setPronouns($row['pronouns']);
-
-
 
             $students[] = $student;
         }

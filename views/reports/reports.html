@@ -17,19 +17,142 @@ Date: 10/10/2023
         <h3 class="mb-4">Reports</h3>
         <hr>
         <div class="row my-2">
-            <div class="col-md-4 offset-md-8">
-                <!-- Sort Feature -->
+            <div class="col">
+                <!-- Sort and Filter Features -->
                 <form action="#" method="post" class="form-horizontal">
-                    <div class="input-group mb-3">
-                        <label for="sort" class="visually-hidden">Sort By:</label>
-                        <select class="form-select" id="sort" name="sort" onchange="this.form.submit()">
-                            <option selected>SORT BY</option>
-                            <option value="last_name">Last Name</option>
-                            <option value="tribe_name">Tribe</option>
-                            <option value="cte_program">CTE Program</option>
-                            <option value="clothing_size">Clothing Size</option>
-                            <option value="pronouns">Pronouns</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="tribe_name">Filter by</label>
+                                <select class="form-select" id="tribe_name" name="tribe_name" onchange="this.form.submit()">
+                                    <option value="all">All Tribes</option>
+
+                                    <check if="{{ isset(@SESSION.tribe) }}">
+                                        <true>
+                                            <repeat group="{{ @tribes }}" value="{{ @tribe }}">
+                                                <check if="{{ @tribe == @SESSION.tribe }}">
+                                                    <true>
+                                                        <option value="{{ @tribe }}" selected>{{ @tribe }}</option>
+                                                    </true>
+                                                    <false>
+                                                        <option value="{{ @tribe }}">{{ @tribe }}</option>
+                                                    </false>
+                                                </check>
+                                            </repeat>
+                                        </true>
+                                        <false>
+                                            <repeat group="{{ @tribes }}" value="{{ @tribe }}">
+                                                <option value="{{ @tribe }}">{{ @tribe }}</option>
+                                            </repeat>
+                                        </false>
+                                    </check>
+
+                                </select>
+                            </div>
+                            <!-- Display an error if there is one -->
+                            <check if="{{ isset(@errors['tribe']) }}">
+                                <span class="font-weight-lighter text-danger">{{ @errors['tribe'] }}</span>
+                            </check>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="cte_program">Filter by</label>
+                                <select class="form-select" id="cte_program" name="cte_program" onchange="this.form.submit()">
+                                    <option value="all">All CTE Programs</option>
+
+                                    <check if="{{ isset(@SESSION.program) }}">
+                                        <true>
+                                            <repeat group="{{ @programs }}" value="{{ @program }}">
+                                                <check if="{{ @program == @SESSION.program }}">
+                                                    <true>
+                                                        <option value="{{ @program }}" selected>{{ @program }}</option>
+                                                    </true>
+                                                    <false>
+                                                        <option value="{{ @program }}">{{ @program }}</option>
+                                                    </false>
+                                                </check>
+                                            </repeat>
+                                        </true>
+                                        <false>
+                                            <repeat group="{{ @programs }}" value="{{ @program }}">
+                                                <option value="{{ @program }}">{{ @program }}</option>
+                                            </repeat>
+                                        </false>
+
+                                    </check>
+                                </select>
+                            </div>
+
+                            <!-- Display an error if there is one -->
+                            <check if="{{ isset(@errors['program']) }}">
+                                <span class="font-weight-lighter text-danger">{{ @errors['program'] }}</span>
+                            </check>
+                        </div>
+                        <div class="col-4">
+                            <div class="input-group mb-3">
+                                <label for="sort" class="input-group-text">Sort By</label>
+                                <select class="form-select" id="sort" name="sort" onchange="this.form.submit()">
+
+                                    <check if="{{ isset(@SESSION.sort) }}">
+                                        <true>
+                                            <check if="{{ @SESSION.sort == 'last_name' }}">
+                                                <true>
+                                                    <option value="last_name" selected>Last Name</option>
+                                                </true>
+                                                <false>
+                                                    <option value="last_name">Last Name</option>
+                                                </false>
+                                            </check>
+                                            <check if="{{ @SESSION.sort == 'tribe_name' }}">
+                                                <true>
+                                                    <option value="tribe_name" selected>Tribe</option>
+                                                </true>
+                                                <false>
+                                                    <option value="tribe_name">Tribe</option>
+                                                </false>
+                                            </check>
+                                            <check if="{{ @SESSION.sort == 'cte_program' }}">
+                                                <true>
+                                                    <option value="cte_program" selected>CTE Program</option>
+                                                </true>
+                                                <false>
+                                                    <option value="cte_program">CTE Program</option>
+                                                </false>
+                                            </check>
+                                            <check if="{{ @SESSION.sort == 'clothing_size' }}">
+                                                <true>
+                                                    <option value="clothing_size" selected>Clothing Size</option>
+                                                </true>
+                                                <false>
+                                                    <option value="clothing_size">Clothing Size</option>
+                                                </false>
+                                            </check>
+                                            <check if="{{ @SESSION.sort == 'pronouns' }}">
+                                                <true>
+                                                    <option value="pronouns">Pronouns</option>
+                                                </true>
+                                                <false>
+                                                    <option value="pronouns">Pronouns</option>
+                                                </false>
+                                            </check>
+                                        </true>
+                                        <false>
+                                            <option value="last_name">Last Name</option>
+                                            <option value="tribe_name">Tribe</option>
+                                            <option value="cte_program">CTE Program</option>
+                                            <option value="clothing_size">Clothing Size</option>
+                                            <option value="pronouns">Pronouns</option>
+                                        </false>
+                                    </check>
+                                </select>
+                            </div>
+
+                            <!-- Display an error if there is one -->
+                            <check if="{{ isset(@errors['sort']) }}">
+                                <span class="font-weight-lighter text-danger">{{ @errors['sort'] }}</span>
+                            </check>
+                        </div>
                     </div>
                 </form>
             </div>
