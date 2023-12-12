@@ -662,6 +662,18 @@ class Controller
         $this->_f3->set('SESSION.alert', null);
     }
 
+    function getStudentId()
+    {
+        $id = array();
+        $students = $GLOBALS['dataLayer']->getAllStudents();
+        foreach ($students as $student) {
+            $id[] = array('last_name' => $student->getLastName(), 'id' => $student->getCtclinkId());
+        }
+        header("Content-Type: application/json");
+        echo (json_encode($id, JSON_UNESCAPED_UNICODE));
+        exit();
+    }
+
     function add_note()
     {
         // Only if a user is logged in can they add a student
@@ -690,6 +702,9 @@ class Controller
             }
 
             switch ($emotional_indicator) {
+                case $emotional_indicator <= 1:
+                    $emotional_indicator = "no comment";
+                    break;
                 case $emotional_indicator <= 25.7:
                     $emotional_indicator = "peace";
                     break;
@@ -740,8 +755,8 @@ class Controller
             // Validate Student ID
             foreach ($students as $row) {
                 if($row->getCtclinkId() == $student_id) {
-                    $this->_f3->set('errors["student_id"]', 'Student ID found');
-                    $this->_f3->clear('errors["student_id"]');
+                    //$this->_f3->set('errors["student_id"]', 'Student ID found');
+                    //$this->_f3->clear('errors["student_id"]');
                     $student = $row;
                     break;
                 } else {
