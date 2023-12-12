@@ -142,4 +142,9 @@ class Validation
     {
         return (in_array($clothing_size, DataLayer::getSizes()));
     }
+
+    static function validStudentSorting($sortType)
+    {
+        return (in_array($sortType, (new DataLayer)->getStudentSortOptions()));
+    }
 }

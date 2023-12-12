@@ -7,6 +7,9 @@ Date: 10/19/2023
 -->
 
 <include href="views/includes/header.html"></include>
+
+<include href="views/includes/alert.html"></include>
+
 <main class="container mb-5 student-tab tabs-body">
     <div class="container w-75">
     <br>
@@ -14,7 +17,6 @@ Date: 10/19/2023
     <h3>View Students</h3>
     <hr>
     <br>
-    <include href="views/includes/alert.html"></include>
     <div class="row my-2 b-2">
         <div class="col">
             <div class="input-group mb-3">
@@ -47,7 +49,7 @@ Date: 10/19/2023
     <div class="row">
         <br>
         <br>
-        <table class="table table-dark table-striped table-hover">
+        <table class="table table-striped table-bordered table-hover">
         <thead>
         <tr>
             <th scope="col">Name</th>
@@ -56,11 +58,20 @@ Date: 10/19/2023
             <th scope="col"></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
         <repeat group="{{ @SESSION.students }}" value="{{ @student }}">
             <tr>
                 <td>
-                    <a class="link-light" href="student?id={{ @student->getStudentId() }}">{{ @student->getFirstName() }} {{ @student->getMiddleName() }} {{ @student->getLastName() }}</a></td>
+                    <a class="link-dark link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="student?id={{ @student->getStudentId() }}">{{ @student->getLastName() }}, {{ @student->getFirstName() }} {{ @student->getMiddleName() }}</a>
+                    <check if="{{ @student->getOpenCases() > 0 }}">
+                        <true>
+                            <span class="badge rounded-pill bg-danger">
+                            {{ @student->getOpenCases() }}
+                            </span>
+                        </true>
+                    </check>
+
+                </td>
                 <td>{{ @student->getCtclinkId() }}</td>
                 <td>
                     <a class="btn btn-outline-success" href="update-student?id={{ @student->getStudentId() }}" role="button">

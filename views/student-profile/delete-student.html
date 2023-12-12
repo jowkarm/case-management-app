@@ -26,8 +26,8 @@ Date: 10/10/2023
             <p><b>Student Id:</b> {{ @SESSION.student->getCtclinkId() }} </p>
           </div>
           <div class="row mb-3">
-            <p><b>Student Name:</b> {{ @SESSION.student->getFirstName() }} {{ @SESSION.student->getMiddleName() }}
-              {{ @SESSION.student->getLastName() }} ({{ @SESSION.student->getPronouns() }})</p>
+            <p><b>Student Name:</b> {{ @SESSION.student->getLastName() }}, {{ @SESSION.student->getFirstName() }} {{ @SESSION.student->getMiddleName() }}
+               ({{ @SESSION.student->getPronouns() }})</p>
           </div>
           <div class="row mb-3">
             <p><b>Tribe:</b> {{ @SESSION.student->getTribeName() }}</p>
@@ -82,6 +82,9 @@ Date: 10/10/2023
 
     <!--confirm button-->
     <div class="row pt-4 pb-6 mb-3">
+      <div class="alert alert-danger text-center" role="alert">
+        Are you sure?
+      </div>
       <div class="col-4 mt-auto">
         <a href="student-list" class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button mb-3">Go Back</a>
 

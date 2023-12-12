@@ -47,7 +47,23 @@ class DataLayer
 
         // SELECT Statement - multiple rows
         // 1. define the query
-        $sql = "SELECT * FROM Student";
+        $sql = "SELECT
+                    Student.student_id,
+                    Student.first_name,
+                    Student.middle_name,
+                    Student.last_name,
+                    Student.ctclink_id,
+                    COUNT(Notes.case_id) AS open_cases
+                FROM
+                    Student
+                LEFT JOIN
+                    Notes ON Student.student_id = Notes.student_id
+                WHERE
+                    Notes.is_closed = 0 OR Notes.is_closed IS NULL
+                GROUP BY
+                    Student.student_id
+                ORDER BY
+                    Student.last_name;";
 
         // 2. prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -61,9 +77,10 @@ class DataLayer
         $students = array();
 
         foreach ($result as $row){
-            $middle_name = (empty($row['middle_name']) ? '' : $row['middle_name']);
+            $middle_name = (empty($row['middle_name']) ? '' : strtoupper(substr($row['middle_name'], 0, 1)) . '.');
             $student = new Student($row['first_name'], $middle_name, $row['last_name'], $row['ctclink_id']);
             $student->setStudentId($row['student_id']);
+            $student->setOpenCases($row['open_cases']);
             $students[] = $student;
         }
 
@@ -79,11 +96,26 @@ class DataLayer
     function search($search_phrase)
     {
         // 1. define the query
-        $sql = "SELECT * FROM Student
-                        WHERE first_name LIKE :keyword
-                        OR middle_name LIKE :keyword
-                        OR last_name LIKE :keyword
-                        OR ctclink_id LIKE :keyword";
+        $sql = "SELECT
+                    Student.student_id,
+                    Student.first_name,
+                    Student.middle_name,
+                    Student.last_name,
+                    Student.ctclink_id,
+                    COUNT(CASE WHEN (Notes.is_closed = 0 OR Notes.is_closed IS NULL) THEN Notes.case_id END) AS open_cases
+                FROM
+                    Student
+                LEFT JOIN
+                    Notes ON Student.student_id = Notes.student_id
+                WHERE
+                    Student.first_name LIKE :keyword
+                    OR Student.middle_name LIKE :keyword
+                    OR Student.last_name LIKE :keyword
+                    OR Student.ctclink_id LIKE :keyword
+                GROUP BY
+                    Student.student_id
+                ORDER BY
+                    Student.last_name";
 
         // 2. prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -102,9 +134,10 @@ class DataLayer
         $students = array();
 
         foreach ($result as $row){
-            $middle_name = (empty($row['middle_name']) ? '' : $row['middle_name']);
+            $middle_name = (empty($row['middle_name']) ? '' : strtoupper(substr($row['middle_name'], 0, 1)) . '.');
             $student = new Student($row['first_name'], $middle_name, $row['last_name'], $row['ctclink_id']);
             $student->setStudentId($row['student_id']);
+            $student->setOpenCases($row['open_cases']);
             $students[] = $student;
         }
 
@@ -244,6 +277,8 @@ class DataLayer
     {
         return array("case_id", "ctclink_id", "is_closed", "date_opened", "due_date", "subject", "emotional_indicator");
     }
+
+
 
 
     static function getPronouns()
@@ -742,5 +777,97 @@ class DataLayer
         // Execute the statement
         return $statementRetrieveStudent->execute();
 
+    }
+
+    function checkDuplicateCtcLinkId($ctclink_id): bool
+    {
+        // 1. define the query
+        $sql = "SELECT ctclink_id FROM Student
+                WHERE ctclink_id = :ctclink_id";
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':ctclink_id', $ctclink_id);
+
+        //4. Execute
+        $result = $statement->execute();
+
+        return !empty($result);
+    }
+
+    function getSortedReports($sortType, $tribe, $program): array
+    {
+        if(empty($sortType)){
+            $sortType = 'last_name';
+        }
+
+        if(empty($tribe) && empty($program)){
+            $sql = "SELECT * 
+                    FROM Student
+                    ORDER BY " . $sortType . " ASC;";
+
+        } elseif(empty($tribe)){
+            $sql = "SELECT * 
+                    FROM Student
+                    WHERE cte_program = :cte_program
+                    ORDER BY " . $sortType . " ASC;";
+
+        } elseif(empty($program)){
+            $sql = "SELECT * 
+                    FROM Student
+                    WHERE tribe_name = :tribe_name
+                    ORDER BY " . $sortType . " ASC;";
+
+        } else{
+            $sql = "SELECT * 
+                    FROM Student
+                    WHERE tribe_name = :tribe_name
+                    AND cte_program = :cte_program
+                    ORDER BY " . $sortType . " ASC;";
+        }
+
+
+        // 2. prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+
+        //3. bind the parameters
+        if(!empty($program)){
+            $statement->bindParam(':cte_program', $program);
+
+        }
+
+        if(!empty($tribe) ){
+            $statement->bindParam(':tribe_name', $tribe);
+        }
+
+
+        // 4. Execute
+        $statement->execute();
+
+        // 5. Process the result
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $students = array();
+
+        foreach ($result as $row){
+            $middle_name = (empty($row['middle_name']) ? '' : strtoupper(substr($row['middle_name'], 0, 1)) . '.');
+            $student = new Student($row['first_name'], $middle_name, $row['last_name'], $row['ctclink_id']);
+            $student->setStudentId($row['student_id']);
+            $student->setCteProgram($row['cte_program']);
+            $student->setClothingSize($row['clothing_size']);
+            $student->setTribeName($row['tribe_name']);
+            $student->setPronouns($row['pronouns']);
+
+            $students[] = $student;
+        }
+
+        return $students;
+    }
+
+    function getStudentSortOptions()
+    {
+        return array("last_name", "tribe_name", "cte_program", "clothing_size", "pronouns");
     }
 }

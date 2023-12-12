@@ -56,13 +56,11 @@ class Controller
      */
     function addStudent()
     {
-        /*// Only if a user is logged in can they add a student
+        // Only if a user is logged in can they add a student
         if (!Validation::loggedIn($this->_f3)) {
         $this->_f3->reroute('/login');
-        }*/
+        }
 
-        // clear the student object in the F3 framework session
-        $this->_f3->set('SESSION.student', null);
 
         //Initialize the variables
         $ctclink_id = "";
@@ -154,6 +152,11 @@ class Controller
                 $this->_f3->set('errors["ctclink_id]', 'Invalid ctclink id entered');
             }
 
+            // Return error for duplicate  ctcLink_id
+            if ($GLOBALS['dataLayer']->checkDuplicateCtcLinkId($ctclink_id)) {
+                $this->_f3->set('errors["ctclink_id]', 'Duplicate ctclink id!');
+            }
+
             // Validate the pronoun selected
             if (!empty($pronouns) && !Validation::validatePronouns($pronouns)) {
                 $this->_f3->set('errors["pronouns"]', 'Invalid pronouns selected');
@@ -185,6 +188,26 @@ class Controller
                 $this->_f3->set('errors["phone"]', 'Invalid phone number entered. It must be 10 digits.');
             }
 
+            // create a student object if it does not exist
+            if($this->_f3->get('SESSION.student') !== null){
+                $student = $this->_f3->get('SESSION.student');
+            } else {
+                $student = new Student($first_name, $middle_name, $last_name, $ctclink_id);
+                $student->setPronouns($pronouns);
+                $student->setTribeName($tribe_name);
+                $student->setCteProgram($cte_program);
+                $student->setEmail($email);
+                $student->setPhone($phone);
+                $student->setClothingSize($clothing_size);
+                $student->setCourseHistory($course_history);
+                $student->setAcademicProgress($academic_progress);
+                $student->setFinancialNeeds($finances);
+                $student->setCases($notes);
+            }
+
+
+
+
 
             //=========Upload Image==================//
             if(isset($_FILES['image']) && $_FILES['image']['name'] != ''){
@@ -211,31 +234,14 @@ class Controller
                 }else{
                     $this->_f3->set('errors["image"]', $errors);
                 }
-            } else {
-                $file_name = 'woman_profile_anonymous.png';
-                $photo = file_get_contents('images/woman_profile_anonymous.png');
+
+                $student->setProfilePhoto($photo);
+                $student->setFileName($file_name);
             }
             //================End of image upload================
 
-
-            // create a student object
-            $student = new Student($first_name, $middle_name, $last_name, $ctclink_id);
-            $student->setPronouns($pronouns);
-            $student->setTribeName($tribe_name);
-            $student->setCteProgram($cte_program);
-            $student->setEmail($email);
-            $student->setPhone($phone);
-            $student->setClothingSize($clothing_size);
-            $student->setCourseHistory($course_history);
-            $student->setAcademicProgress($academic_progress);
-            $student->setFinancialNeeds($finances);
-            $student->setCases($notes);
-            $student->setProfilePhoto($photo);
-            $student->setFileName($file_name);
-
             // Store the student object in the F3 framework session
             $this->_f3->set('SESSION.student', $student);
-
 
             // Redirect to confirm route if there
             // are no errors (errors array is empty)
@@ -271,6 +277,11 @@ class Controller
      */
     function confirm()
     {
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
+
         // Set the title of the page
         $this->_f3->set('title', 'Confirm');
 
@@ -295,9 +306,10 @@ class Controller
             }
 
             $this->_f3->set('SESSION.alert', $alert);
-            $this->_f3->reroute('/');
+            $this->_f3->reroute('/student-list');
 
         }
+
 
         // Display add-student-confirmation view
         $view = new Template();
@@ -309,6 +321,10 @@ class Controller
      */
     function getStudentList()
     {
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
 
         //If the form has been posted
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -341,8 +357,6 @@ class Controller
 
         // Unset (clear) the session variable
         $this->_f3->set('SESSION.search', null);
-
-        // Unset (clear) the session variable
         $this->_f3->set('SESSION.alert', null);
         $this->_f3->set('SESSION.student', null);
     }
@@ -412,7 +426,7 @@ class Controller
                     }
 
                 }
-                $this->_f3->reroute('/');
+                $this->_f3->reroute('/login');
             }
         }
 
@@ -445,7 +459,7 @@ class Controller
             $alert = new Alert('Your email address is confirmed.', 'green');
             $this->_f3->set('SESSION.alert', $alert);
         }
-        $this->_f3->reroute('/');
+        $this->_f3->reroute('/login');
     }
 
     /**
@@ -489,7 +503,7 @@ class Controller
                         $this->_f3->set('errors["password"]', 'Wrong password entered');
                     } else {
                         $this->_f3->set('SESSION.user', $user);
-                        $this->_f3->reroute('/');
+                        $this->_f3->reroute('/student-list');
                     }
                 }
             }
@@ -498,12 +512,6 @@ class Controller
         // Set the title of the page
         $this->_f3->set('title', 'Login');
 
-
-        /**
-         * TEST Alert
-         */
-        $alert = new Alert('This is a test alert', 'green');
-        $this->_f3->set('SESSION.alert', $alert);
 
 
         // Define a view page
@@ -530,10 +538,12 @@ class Controller
         // Destroys session array
         session_destroy();
 
-        /*$alert = new Alert('You logged out successfully!', 'green');
-        $this->_f3->set('SESSION.alert', $alert);*/
+        $alert = new Alert('You logged out successfully!', 'green');
+        $this->_f3->set('SESSION.alert', $alert);
 
-        $this->_f3->reroute('/');
+        $this->_f3->reroute('/login');
+
+
     }
 
     /**
@@ -541,8 +551,69 @@ class Controller
      */
     function reports()
     {
+
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            // Get the data
+            $sortBy = (isset($_POST['sort'])) ? $_POST['sort'] : 'last_name';
+            $tribe = (isset($_POST['tribe_name'])) ? $_POST['tribe_name'] : '';
+            $program = (isset($_POST['cte_program'])) ? $_POST['cte_program'] : '';
+
+            if($program == 'all'){
+                $this->_f3->set('SESSION.program', null);
+
+            } elseif (!empty($program) && !Validation::validateCTEProgram($program)) {
+                $this->_f3->set('errors["program"]', 'Invalid Selection');
+
+            } elseif(!empty($program)) {
+                $this->_f3->set('SESSION.program', $program);
+            }
+
+            if($tribe == 'all'){
+                $this->_f3->set('SESSION.tribe', null);
+
+            } elseif (!empty($tribe) && !Validation::validateTribe($tribe)) {
+                $this->_f3->set('errors["tribe"]', 'Invalid Selection');
+
+            } elseif(!empty($tribe)) {
+                $this->_f3->set('SESSION.tribe', $tribe);
+            }
+
+            if (!empty($sortBy) && !Validation::validStudentSorting($sortBy)) {
+                $this->_f3->set('errors["sort"]', 'Invalid Selection');
+
+            } elseif (!empty($sortBy)) {
+                $this->_f3->set('SESSION.sort', $sortBy);
+            }
+
+            if (empty($this->_f3->get('errors'))) {
+
+                $students = $GLOBALS['dataLayer']->getSortedReports($this->_f3->get('SESSION.sort'),
+                    $this->_f3->get('SESSION.tribe'),
+                    $this->_f3->get('SESSION.program'));
+
+
+            } else{
+                $students = $GLOBALS['dataLayer']->getSortedReports('last_name', '', '');
+            }
+        }else{
+            $students = $GLOBALS['dataLayer']->getSortedReports('last_name', '', '');
+        }
+
+
         // Set the title of the page
         $this->_f3->set('title', 'Reports');
+
+        // Set arrays
+        $this->_f3->set('programs', $GLOBALS['dataLayer']->getCTEPrograms());
+        $this->_f3->set('tribes', $GLOBALS['dataLayer']->getTribes());
+
+        $this->_f3->set('SESSION.students', $students);
+
 
         // Define a view page
         $view = new Template();
@@ -555,10 +626,9 @@ class Controller
     {
 
         // Only if a user is logged in can they add a student
-//        if (!Validation::loggedIn($this->_f3)) {
-//            $this->_f3->reroute('/login');
-//        }
-
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Get the data
@@ -587,6 +657,9 @@ class Controller
         // View page for all cases
         $view = new Template();
         echo $view->render('views/reports/case-log.html');
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
     }
 
     function getStudentId()
@@ -604,9 +677,9 @@ class Controller
     function add_note()
     {
         // Only if a user is logged in can they add a student
-//        if (!Validation::loggedIn($this->_f3)) {
-//            $this->_f3->reroute('/login');
-//        }
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
 
         // Next Case ID in the Notes table
         $this->_f3->set('case_number', $GLOBALS['dataLayer']->getNextCaseId());
@@ -755,9 +828,20 @@ class Controller
         // View page for all cases
         $view = new Template();
         echo $view->render('views/reports/add-note.html');
+
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
     }
 
     function viewCaseNote(){
+
+        // Only if a user is logged in can they add a student
+        if (!Validation::loggedIn($this->_f3)) {
+            $this->_f3->reroute('/login');
+        }
+
+
         $note = "";
 
         if(isset($_GET['id']) && $_GET['id'] > 0){
@@ -808,7 +892,7 @@ class Controller
                     $this->_f3->set('SESSION.alert', $alert);
                 }
 
-                $this->_f3->reroute('/');
+                $this->_f3->reroute('/login');
             }
 
         }
@@ -854,7 +938,7 @@ class Controller
                 $alert = new Alert('Your password is updated successfully.', 'green');
                 $this->_f3->set('SESSION.alert', $alert);
 
-                $this->_f3->reroute('/');
+                $this->_f3->reroute('/login');
             }
 
         }
@@ -893,10 +977,10 @@ class Controller
     function student()
     {
 
-        /*// Only if a user is logged in can they add a student
+        // Only if a user is logged in can they add a student
         if (!Validation::loggedIn($this->_f3)) {
-        $this->_f3->reroute('/login');
-        }*/
+            $this->_f3->reroute('/login');
+        }
 
         $student = "";
 
@@ -916,6 +1000,10 @@ class Controller
         // Define a view page
         $view = new Template();
         echo $view->render('views/student-profile/student.html');
+
+        // Unset (clear) the session variable
+        $this->_f3->set('SESSION.alert', null);
+        $this->_f3->set('SESSION.student', null);
 
     }
 
@@ -940,10 +1028,10 @@ class Controller
      */
     function updateStudent()
     {
-        /*// Only if a user is logged in can they add a student
+        // Only if a user is logged in can they add a student
         if (!Validation::loggedIn($this->_f3)) {
-        $this->_f3->reroute('/login');
-        }*/
+            $this->_f3->reroute('/login');
+        }
 
         $student = "";
 
@@ -1104,9 +1192,10 @@ class Controller
                 }else{
                     $this->_f3->set('errors["image"]', $errors);
                 }
-            } else {
-                $file_name = 'woman_profile_anonymous.png';
-                $photo = file_get_contents('images/woman_profile_anonymous.png');
+
+                $this->_f3->get('SESSION.student')->setProfilePhoto($photo);
+                $this->_f3->get('SESSION.student')->setFileName($file_name);
+
             }
             //================End of image upload================
 
@@ -1122,8 +1211,6 @@ class Controller
             $this->_f3->get('SESSION.student')->setAcademicProgress($academic_progress);
             $this->_f3->get('SESSION.student')->setFinancialNeeds($finances);
             $this->_f3->get('SESSION.student')->setCases($notes);
-            $this->_f3->get('SESSION.student')->setProfilePhoto($photo);
-            $this->_f3->get('SESSION.student')->setFileName($file_name);
             $this->_f3->get('SESSION.student')->setFirstName($first_name);
             $this->_f3->get('SESSION.student')->setMiddleName($middle_name);
             $this->_f3->get('SESSION.student')->setLastName($last_name);
@@ -1162,13 +1249,10 @@ class Controller
      */
     function deleteStudent()
     {
-        /*// Only if a user is logged in can they add a student
+        // Only if a user is logged in can they add a student
         if (!Validation::loggedIn($this->_f3)) {
-        $this->_f3->reroute('/login');
-        }*/
-
-
-
+            $this->_f3->reroute('/login');
+        }
 
         //If the form has posted
         if ($_SERVER['REQUEST_METHOD'] == "POST") {

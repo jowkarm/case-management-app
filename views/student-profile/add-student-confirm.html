@@ -83,7 +83,15 @@ Date: 10/10/2023
         <!--confirm button-->
         <div class="row pt-4 pb-6 mb-3">
             <div class="col-4 mt-auto">
-                <a href="add-student" class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button mb-3">Go Back</a>
+                <check if="{{ empty(@SESSION.student->getStudentId()) }}">
+                    <true>
+                        <a href="add-student" class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button mb-3">Go Back</a>
+                    </true>
+                    <false>
+                        <a href="update-student?id={{ @SESSION.student->getStudentId() }}" class="p-2 rounded btn btn-outline-secondary w-100 product-data-form-button mb-3">Go Back</a>
+                    </false>
+                </check>
+
 
             </div>
             <div class="col-4"><!--empty--></div>
